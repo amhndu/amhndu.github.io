@@ -1,7 +1,7 @@
 <!doctype html>
 <html>
   <head>
-    <title>HOWTO: Connect and control your media player with python and dbus using MPRIS</title>
+    <title>Connect and control your media player with python and dbus using MPRIS</title>
     <meta name=viewport content="width=device-width, initial-scale=1">
     <meta charset="utf-8">
     <meta name="description" content="Tutorial on how to use python to control a media player like VLC, or Audacious, or Clementine using dbus and the MPRIS specification.">
@@ -10,15 +10,6 @@
     <link rel="stylesheet" href="../style.css">
     <link rel="icon" type="image/png" href="../favicon.png">
     <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Roboto:400,300">
-    <script>
-      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-
-      ga('create', 'UA-64115447-1', 'auto');
-      ga('send', 'pageview');
-    </script>
   </head>
   <body>
     <div id="header">
@@ -37,16 +28,17 @@
       </div>
     </div>
     <div id="content">
-      <h2>HOWTO: Connect and control your media player with python and dbus using MPRIS</h2>
+      <h2>Connect and control your media player with python and dbus using MPRIS</h2>
       In this guide we'll be using Python 3 although you may be able to apply this to Python 2.4 and above with minor adjustments. Since D-Bus is only used by Linux and BSD distributions, needless to say, this will only work with *nix systems<br>
       We'll connect to a media player which implements the <b>Media Player Remote Interfacing Specification</b> or MPRIS for short. Most popular players like Audacious, Amarok, Clementine, VLC etc will work.<br>
-      This can be useful for purposes like priting metadata of the current track on <a href="../Projects/conky-cards.html">conky</a> and controling the player with widgets. For a particular example, Clementine, for some reason would not bind the media keys on my keyboard for global shortcuts, so with the help of a python script I made the keybindings directly in Openbox.<br>
+      This can be useful for purposes like priting metadata of the current track on <a href="../Projects/conky-cards.html">conky</a> and controling the player with widgets. For a particular example, Clementine, for some reason would not bind the media keys on my keyboard for global shortcuts, so with the help of a python script I made the keybindings directly with the window manager and my script.<br>
       This guide follows the python documentation convention for code.<br>
-      <span class="inline-pre">>>></span> imples the python interpreter prompt, <span class="inline-pre">...</span> imples a multiline prompt continuing from the previous command and a line with neither of the prompts implies output, therefore, if you are copy-pasting code, you will have to copy a line at a time.
+      <span class="inline-pre">&gt;&gt;&gt;</span> imples the python interpreter prompt, <span class="inline-pre">...</span> imples a multiline prompt continuing from the previous command and a line with neither of the prompts implies output, therefore, if you are copy-pasting code, you will have to copy a line at a time.
       Also, you should be versed in python terminology and should have some basic knowledge of Python.<br>
       Let's get started, launch a terminal with the python interpreter and put on some music!
+      <h3>Contents</h3>
       <h3>D-Bus Basics</h3>
-      DBus is a message bus system which allows <i>Inter-process communication</i> i.e it allows different processes to talk to each other and even different instances of the same applicatione.<br>
+      DBus is a message bus system which allows <i>Inter-process communication</i> i.e it allows different processes to talk to each other and even different instances of the same application.<br>
       The <i>dbus daemon</i> runs in the background allowing applications to connect to this <i>daemon</i> using the <i>libdbus</i> library and it's wrappers for different languages and frameworks.<br>
       Communication is done using a <b>bus</b>, each application is granted a unique name like <i>:1-45</i> or <i>:2-16</i>) when it connects to the bus.
       The application may request a familiar bus name (based on the <a href="https://en.wikipedia.org/wiki/Reverse_domain_name_notation">Reversed domain name</a> convention) e.g. <i>org.freedesktop.PowerManagement, com.Skype.API and org.mpris.MediaPlayer2.clementine</i><br>
@@ -61,28 +53,28 @@
       Some applications may also have <b>Properties</b>, these properties could be set or retrieved through the <i>org.freedesktop.DBus.Properties</i> interface. More on this later.<br>
       There are mainly two two buses, the <b>Session Bus</b> and the <b>System Bus</b>
       The system bus is a session independent bus which is used by system services such as <i>udev</i> or <i>NetworkManager</i> whereas a session bus is unique for the current user session.
-      It used by desktop applications and it is this bus we will be interested in for this guide.<br>
+      It is used by desktop applications and it is this bus we will be interested in for this guide.<br>
       <h3>Connecting to the D-Bus daemon with Python</h3>
 <pre>
->>> import dbus
->>> bus = dbus.SessionBus()
+&gt;&gt;&gt; import dbus
+&gt;&gt;&gt; bus = dbus.SessionBus()
 </pre>
       In the first line, we import the dbus module and in the second line we make an object of the class <b>SessionBus</b>.<br>
-      This class will makes us a connection with the session bus granting us a unique name which can retrieved with the <span class="inline-pre">get_unique_name()</span> method.
+      This class will make us a connection with the session bus granting us a unique name which can be retrieved with the <span class="inline-pre">get_unique_name()</span> method.
       Try this
 <pre>
->>> bus.get_unique_name()
+&gt;&gt;&gt; bus.get_unique_name()
 ':1.113'
 </pre>
-      Your unique name will vary<br>
+      Your unique name will vary.<br>
       We can also request a name with the method <span class="inline-pre">request_name()</span> following the reverse domain convention.
 <pre>
->>> bus.request_name('io.github.amhndu.test')
+&gt;&gt;&gt; bus.request_name('io.github.amhndu.test')
 </pre>
-      A return value of 1 implies that you have succesfully acqured the name.<br>
+      A return value of 1 implies that you have succesfully acquired the name.<br>
       This class also allows us to list all the services/applications registered with the session bus:
 <pre>
->>> for service in bus.list_names():
+&gt;&gt;&gt; for service in bus.list_names():
 ...     print(service)
 </pre>
       In the list you'll also see the name we requested above.<br>
@@ -93,8 +85,8 @@
       Therefore a player can have a name of form <i>org.mpris.MediaPlayer2.clementine</i> where the name ends the the name of the player.<br>
       To find out all the services of this form we can use regex to filter it out:
 <pre>
->>> import re
->>> for service in bus.list_names():
+&gt;&gt;&gt; import re
+&gt;&gt;&gt; for service in bus.list_names():
 ...     if re.match('org.mpris.MediaPlayer2.', service):
 ...             print(service)
 ...
@@ -104,7 +96,7 @@ org.mpris.MediaPlayer2.vlc
       As you can see in output, I had two players --vlc and clementine-- opened.<br>
       Once you've found the service name of your player, we can get an object:
 <pre>
->>> player = dbus.SessionBus().get_object('org.mpris.MediaPlayer2.clementine', '/org/mpris/MediaPlayer2')
+&gt;&gt;&gt; player = dbus.SessionBus().get_object('org.mpris.MediaPlayer2.clementine', '/org/mpris/MediaPlayer2')
 </pre>
       The first argument to <span class="inline-pre">get_object()</span> is the service name, while the second is the object path. The object path we've used is defined by <a href="#mpris-spec">MPRIS</a>.<br>
       Try printing these attributes of <span class="inline-pre">player</span> -- <span class="inline-pre">bus_name</span> and <span class="inline-pre">requested_bus_name</span>
@@ -112,55 +104,55 @@ org.mpris.MediaPlayer2.vlc
       To make method calls, we call the method name directly on the object, giving it the associated interface name.<br>
       With <a href="#mpris-spec">MPRIS</a>, the interface <i>org.mpris.MediaPlayer2.Player</i> defines methods like <span class="inline-pre">Next()</span>, therefore to switch the track to the next in playlist, we call <span class="inline-pre">player.Next()</span> and set the <span class="inline-pre">dbus_interface</span> keyword argument as the interface
 <pre>
->>> player.Next(dbus_interface='org.mpris.MediaPlayer2.Player')
+&gt;&gt;&gt; player.Next(dbus_interface='org.mpris.MediaPlayer2.Player')
 </pre>
       You should notice the track change.<br>
       Similarly we can call <span class="inline-pre">Previous(), Play(), Pause() or PlayPause()</span><br>
-      But specifying the interface on each call is verbose, we can instead get an interface object once and rid ourselves of specifying it each time.
+      But specifying the interface on each call is inconvenient, we can instead get an interface object once and rid ourselves of specifying it each time.
 <pre>
->>> interface = dbus.Interface(player, dbus_interface='org.mpris.MediaPlayer2.Player')
->>> interface.Next()
->>> interface.Previous()
->>> interface.Pause()
->>> interface.PlayPause() #Play if paused, pause if playing
+&gt;&gt;&gt; interface = dbus.Interface(player, dbus_interface='org.mpris.MediaPlayer2.Player')
+&gt;&gt;&gt; interface.Next()
+&gt;&gt;&gt; interface.Previous()
+&gt;&gt;&gt; interface.Pause()
+&gt;&gt;&gt; interface.PlayPause() #Play if paused, pause if playing
 </pre>
       Very straightforward, isn't it ?
       <h3>Properties</h3>
-      Getting properties is a little indirect. We'll have to use the <i>org.freedesktop.DBus.Properties</i> interface to get the property.<br>
+      We'll have to use the <i>org.freedesktop.DBus.Properties</i> interface to get the property.<br>
       This interface has three methods -- <span class="inline-pre">Get(), Set(), GetAll()</span> with which you can get or set the property in an interface.<br>
       Therefore to get a property in <i>org.mpris.MediaPlayer2.Player</i> interface, we call <span class="inline-pre">Get()</span> in <i>org.freedesktop.DBus.Properties</i> with the name of the interface and our property to retrieve it and <span class="inline-pre">Set()</span> to set it.<br>
       In python:
 <pre>
->>> volume = player.Get('org.mpris.MediaPlayer2.Player', 'Volume',
+&gt;&gt;&gt; volume = player.Get('org.mpris.MediaPlayer2.Player', 'Volume',
 ...             dbus_interface='org.freedesktop.DBus.Properties')
->>> print(volume)
+&gt;&gt;&gt; print(volume)
 </pre>
       We can of course make an interface object to faciliate making frequent calls.
 <pre>
->>> property_interface = dbus.Interface(player, dbus_interface='org.freedesktop.DBus.Properties')
->>> volume = property_interface.Get('org.mpris.MediaPlayer2.Player', 'Volume')
->>> print(volume)
+&gt;&gt;&gt; property_interface = dbus.Interface(player, dbus_interface='org.freedesktop.DBus.Properties')
+&gt;&gt;&gt; volume = property_interface.Get('org.mpris.MediaPlayer2.Player', 'Volume')
+&gt;&gt;&gt; print(volume)
 0.9
->>> property_interface.Set('org.mpris.MediaPlayer2.Player', 'Volume', volume-0.2)
+&gt;&gt;&gt; property_interface.Set('org.mpris.MediaPlayer2.Player', 'Volume', volume-0.2)
 </pre>
       Here, we make an interface object, retrieve the volume (which is a value between 0.0 to 1.0) and in the last line,
       change the volume.<br>
       The <span class="inline-pre">GetAll()</span> method can be used print all the properties defined in an interface. e.g.
 <pre>
->>> for property, value in property_interface.GetAll('org.mpris.MediaPlayer2.Player').items():
+&gt;&gt;&gt; for property, value in property_interface.GetAll('org.mpris.MediaPlayer2.Player').items():
 ...     print(property, ':', value)
 </pre>
       You can see all the properties defined along with the  <i>Metadata</i> dictionary.
       <h3>Metadata</h3>
-      A dictionary with <i>Metadata</i> of the current track playing can be obtained as above.
+      A dictionary with <i>Metadata</i> of the current track playing can be obtained as below.
 <pre>
->>> metadata = player.Get('org.mpris.MediaPlayer2.Player', 'Metadata',
+&gt;&gt;&gt; metadata = player.Get('org.mpris.MediaPlayer2.Player', 'Metadata',
 ...             dbus_interface='org.freedesktop.DBus.Properties')
 </pre>
       The peculiar thing about this dictionary is the naming system of the attributes.
       This is an example of it's contents:
 <pre>
->>> for attr, value in metadata.items():
+&gt;&gt;&gt; for attr, value in metadata.items():
 ...     print(attr, '\t', value)
 ...
 xesam:contentCreated 	 2015-01-16T16:23:06
@@ -179,15 +171,15 @@ bitrate 	 256
 xesam:lastUsed 	 2015-06-09T13:27:53
 </pre>
       The attribute name follows the <a href="http://www.freedesktop.org/wiki/Specifications/mpris-spec/metadata/">"Xesam ontology"</a>.
-      Note that the <i>xesam:artist</i> and <i>xesam:genre</i> attributes above are <i>dbus arrays</i> which can used like python lists, this array will mostly have a singular item which can accesed this way:
+      Note that the <i>xesam:artist</i> and <i>xesam:genre</i> attributes above are <i>dbus arrays</i> which can used like python lists, these arrays will mostly have a singular item which can be accesed this way:
 <pre>
->>> print('Artist :\t', metadata['artist'][0])
+&gt;&gt;&gt; print('Artist :\t', metadata['artist'][0])
 Switchfoot
 </pre>
       Note: Only the <span class="inline-pre">xesam:trackid</span> is guaranteed to exist in the metadata dictionary,
       so, accessing attributes should be done with a check whether it exists.
 <pre>
->>> print('Title :\t', metadata['xesam:title'] if 'xesam:title' in metadata else 'Unknown')
+&gt;&gt;&gt; print('Title :\t', metadata['xesam:title'] if 'xesam:title' in metadata else 'Unknown')
 </pre>
       We used the ternary conditional operator to make it succint.<br>
       For more information on metadata, see the <a href="http://www.freedesktop.org/wiki/Specifications/mpris-spec/metadata/">MPRIS v2 metadata guidelines</a>
