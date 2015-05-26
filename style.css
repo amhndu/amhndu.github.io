@@ -1,0 +1,20 @@
+body {
+font-family: sans-serif;
+margin: 0px;
+padding: 0px;
+}
+
+div#head {
+padding: 20px 10px;
+background: #000;
+color: #fff;
+}
+
+div#sitename {
+font-size: 200%;
+}
+
+span#subtext {
+font-size: 80%;
+padding: 0px 40px;
+}
