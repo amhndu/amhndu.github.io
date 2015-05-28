@@ -1,20 +1,48 @@
 body {
-font-family: sans-serif;
-margin: 0px;
-padding: 0px;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 300;
+    margin: 0px;
+    padding: 0px;
 }
 
-div#head {
-padding: 20px 10px;
-background: #000;
-color: #fff;
+div#heading {
+    padding-top: 3.0em;
+    padding-bottom: 2.7em;
+    background: #222;
+    color: #fff;
+    text-align: center;
 }
 
 div#sitename {
-font-size: 200%;
+    font-size: 2.2em;
+    font-weight: 400;
 }
 
-span#subtext {
-font-size: 80%;
-padding: 0px 40px;
+div#subtext {
+    padding-top: 0.5em;
+    color: #eee;
 }
+div#navbar {
+    margin: 0;
+    padding: 0.3em 0 0.3em 0;
+    background: #222;
+    color: #fff;
+    width: 100%;
+}
+
+div#navbar ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+div#navbar li {
+    display: inline;
+    float: center;
+}
+
+div#navbar a {
+    width: 50%;
+}
+div#navbar a:link {
+    color: #fff;
