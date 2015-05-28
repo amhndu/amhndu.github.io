@@ -7,7 +7,6 @@ body {
 
 div#header {
     padding-top: 3.0em;
-    padding-bottom: 1em;
     background: #222;
     color: #fff;
     text-align: center;
@@ -25,15 +24,11 @@ div#subtext {
 
 div#navbar {
     margin: 0;
-    padding: 0;
-    padding-top: 1em;
-    //width: 100%;
+    padding: 2.2em 0 0 0;
 }
 
 div#navbar ul {
     list-style: none;
-    //background-color: #444;
-    //width: 100%;
     padding: 0;
     margin: 0;
     text-align: center;
@@ -42,7 +37,6 @@ div#navbar ul {
 div#navbar li {
     text-align: center;
     display: inline-block;
-    //width: 100%;
 }
 
 div#navbar a {
@@ -50,21 +44,23 @@ div#navbar a {
     display: inline-block;
     margin: 0;
     width: 10em;
-    font-weight: 400;
-    transition: .3s background-color;
+    font-weight: 300;
+    color: #fff;
+    padding-top: 0.2em;
+    font-size: 1.2em;
+    transition: 0.8s background-color;
 }
 
 div#navbar a:hover {
     background-color: #555;
 }
 
-div#navbar a#selected {
+div#navbar a.selected {
     background-color: #fff;
+    color: #000;
 }
 
-div#navbar a:link {
-    color: #fff;
-}
-div#navbar a:visited {
-    color: #fff;
-}
+
+div#quote {
+    font-style: italic;
+    margin: 0 5em;
