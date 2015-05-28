@@ -35,7 +35,6 @@ div#navbar ul {
 }
 
 div#navbar li {
-    text-align: center;
     display: inline-block;
 }
 
@@ -51,6 +50,25 @@ div#navbar a {
     transition: 0.8s background-color;
 }
 
+@media screen and (max-width: 40em) and (min-width: 250px) {
+    div#navbar li {
+        width: 30%;
+    }
+    div#navbar a {
+        width: 100%;
+    }
+}
+
+@media screen and (max-width: 250px) {
+    div#navbar li {
+        display: block;
+        width:  100%;
+    }
+    div#navbar a {
+        width: 100%;
+    }
+}
+
 div#navbar a:hover {
     background-color: #555;
 }
@@ -64,3 +82,4 @@ div#navbar a.selected {
 div#quote {
     font-style: italic;
     margin: 0 5em;
+}
