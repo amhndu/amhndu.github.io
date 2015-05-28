@@ -1,13 +1,13 @@
 body {
     font-family: 'Roboto', sans-serif;
-    font-weight: 300;
+    font-weight: 200;
     margin: 0px;
     padding: 0px;
 }
 
-div#heading {
+div#header {
     padding-top: 3.0em;
-    padding-bottom: 2.7em;
+    padding-bottom: 1em;
     background: #222;
     color: #fff;
     text-align: center;
@@ -19,30 +19,52 @@ div#sitename {
 }
 
 div#subtext {
-    padding-top: 0.5em;
-    color: #eee;
+    padding-top: 0.8em;
+    color: #e0e0e0;
 }
+
 div#navbar {
     margin: 0;
-    padding: 0.3em 0 0.3em 0;
-    background: #222;
-    color: #fff;
-    width: 100%;
+    padding: 0;
+    padding-top: 1em;
+    //width: 100%;
 }
 
 div#navbar ul {
     list-style: none;
-    margin: 0;
+    //background-color: #444;
+    //width: 100%;
     padding: 0;
+    margin: 0;
+    text-align: center;
 }
 
 div#navbar li {
-    display: inline;
-    float: center;
+    text-align: center;
+    display: inline-block;
+    //width: 100%;
 }
 
 div#navbar a {
-    width: 50%;
+    text-decoration: none;
+    display: inline-block;
+    margin: 0;
+    width: 10em;
+    font-weight: 400;
+    transition: .3s background-color;
 }
+
+div#navbar a:hover {
+    background-color: #555;
+}
+
+div#navbar a#selected {
+    background-color: #fff;
+}
+
 div#navbar a:link {
     color: #fff;
+}
+div#navbar a:visited {
+    color: #fff;
+}
