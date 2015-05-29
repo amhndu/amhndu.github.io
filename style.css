@@ -53,6 +53,10 @@ div#footer a:hover {
     color: #20ccff;
     border-bottom: 1px #fff solid;
 }
+div#footer a.imglink:hover {
+    border-width: 0;
+}
+
 
 div#content {
     margin: 5em 3em;
@@ -70,7 +74,7 @@ div#subtext {
 
 div#navbar {
     margin: 0;
-    padding: 2.2em 0 0 0;
+    padding: 3em 0 0 0;
 }
 
 div#navbar ul {
@@ -90,7 +94,8 @@ div#navbar a {
     border: 0;
     width: 10em;
     color: #fff;
-    padding-top: 0.2em;
+    padding: 0.2em 0 0 0;
+    height: 100%;
     font-size: 1.2em;
     transition: 0.8s background-color;
 }
