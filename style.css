@@ -1,15 +1,55 @@
+html {
+    min-height: 100%;
+}
 body {
-    font-family: 'Roboto', sans-serif;
-    font-weight: 200;
+    font-family: 'Open Sans', sans-serif;
     margin: 0px;
     padding: 0px;
+    width: 100%;
+    min-height: 100%;
+}
+
+a {
+    text-decoration: none;
+    color: #0090aa;
+    transition: 0.5s color;
+}
+a:hover {
+    color: #005099;
+    border-bottom: 1px #111 solid;
+}
+
+h1, h2 {
+    font-weight: 300;
+    font-family: 'Roboto';
+}
+h2 {
+    font-size: 1.4em;
+}
+h1 {
+    font-size: 2em;
+    margin: 1em 0;
+}
+
+div#header, div#footer {
+    background: #222;
+    color: #fff;
+    font-family: 'Roboto';
+    font-weight: 300;
+    text-align: center;
 }
 
 div#header {
-    padding-top: 3.0em;
-    background: #222;
-    color: #fff;
-    text-align: center;
+    padding-top: 3em;
+}
+
+div#footer {
+    padding: 2.5em 0 2em 0;
+    font-size: 0.8em;
+}
+
+div#content {
+    margin: 5em 3em;
 }
 
 div#sitename {
@@ -39,26 +79,27 @@ div#navbar li {
 }
 
 div#navbar a {
-    text-decoration: none;
     display: inline-block;
     margin: 0;
+    border: 0;
     width: 10em;
-    font-weight: 300;
     color: #fff;
     padding-top: 0.2em;
     font-size: 1.2em;
     transition: 0.8s background-color;
 }
 
+/* Responsive navbar, set width of li and the anchor to 30% instead of fixed width,
+ * if the screen is too small to contain the fixed width items */
 @media screen and (max-width: 40em) and (min-width: 250px) {
     div#navbar li {
         width: 30%;
     }
-    div#navbar a {
-        width: 100%;
+    div#navbar a { width: 100%;
     }
 }
 
+/* Responsive navbar, swicth to vertical bar if screen is too small to contain all the items in one line. */
 @media screen and (max-width: 250px) {
     div#navbar li {
         display: block;
@@ -73,13 +114,13 @@ div#navbar a:hover {
     background-color: #555;
 }
 
-div#navbar a.selected {
+div#navbar a#selected {
     background-color: #fff;
     color: #000;
 }
 
-
 div#quote {
     font-style: italic;
+    text-align: center;
     margin: 0 5em;
 }

@@ -3,7 +3,24 @@
   <head>
     <title>amhndu.github.io</title>
     <link rel="stylesheet" href="style.css">
-    <link href='http://fonts.googleapis.com/css?family=Roboto:300,400' rel='stylesheet' type='text/css'>
+    <!-- Google Fonts : Robota and Open Sans -->
+    <link href='http://fonts.googleapis.com/css?family=Roboto:400,300|Open+Sans' rel='stylesheet' type='text/css'>
+    <script language="javascript">
+      var qArray = [
+        "&ldquo;Skepticism is my nature. Free Thought is my methodology.  Agnosticism is my conclusion.  Atheism is my opinion.  Humanitarianism is my motivation.&rdquo;<br>--Jerry DeWitt",
+        "&ldquo;Epiphany, heresy, novelty, ingenuity, industry, ubiquity.<br>Science. Usually in that order.&rdquo;<br>-- A wise redditor",
+        "&ldquo;I am free of all prejudices. I hate everyone equally.&rdquo;<br>-- W. C. Field",
+        "&ldquo;Age is no proof of wisdom, youth no proof of vitality. Courtesy is given, but respect earned.&rdquo;<br>-- A wise redditor"
+        ];
+      var q = 0;
+      function setRandomQuote()
+      {
+        q = Math.floor(Math.random()*qArray.length);
+        document.getElementById("quote").innerHTML = qArray[q];
+      }
+      window.onload = setRandomQuote;
+      window.setInterval("setRandomQuote()", 20000);
+    </script>
   </head>
   <body>
     <div id="header">
@@ -15,21 +32,19 @@
       </div>
       <div id="navbar">
         <ul>
-          <li><a href="index.html" class="selected">Home</a></li>
+          <li><a href="index.html" id="selected">Home</a></li>
           <li><a href="projects.html">Projects</a></li>
           <li><a href="articles.html">Articles</a></li>
         </ul>
       </div>
     </div>
-    <br>
-    <br>
-    <div id="quote">
-      Skepticism is my nature.
-Free Thought is my methodology.
-Agnosticism is my conclusion.
-Atheism is my opinion.
-Humanitarianism is my motivation.
-—Jerry DeWitt
+    <div id="content">
+      <div id="quote">
+        &ldquo;Epiphany, heresy, novelty, ingenuity, industry, ubiquity.<br>Science. Usually in that order.&rdquo;<br>-- A wise redditor
+      </div>
+    </div>
+    <div id="footer">
+      No Rights Reserved except where stated. Last Updated : 29 May 2015
     </div>
   </head>
 </html>
