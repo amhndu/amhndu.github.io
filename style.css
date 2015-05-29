@@ -14,7 +14,7 @@ a {
     transition: 0.5s color;
 }
 a:hover {
-    color: #005099;
+    color: #003075;
     border-bottom: 1px #111 solid;
 }
 
@@ -45,6 +45,13 @@ div#header {
 div#footer {
     padding: 2.5em 0 2em 0;
     font-size: 0.8em;
+}
+div#footer a {
+    color: #2099ee;
+}
+div#footer a:hover {
+    color: #20ccff;
+    border-bottom: 1px #fff solid;
 }
 
 div#content {
@@ -96,6 +103,9 @@ div#navbar a {
     }
     div#navbar a { width: 100%;
     }
+    div#content {
+        margin: auto;
+    }
 }
 
 /* Responsive navbar, swicth to vertical bar if screen is too small to contain all the items in one line. */
@@ -106,6 +116,9 @@ div#navbar a {
     }
     div#navbar a {
         width: 100%;
+    }
+    div#content {
+        margin: auto;
     }
 }
 
