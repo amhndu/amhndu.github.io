@@ -1,13 +1,9 @@
-html {
-    width: 100%;
-}
 body {
     font-family: 'Open Sans', sans-serif;
     margin: 0px;
     padding: 0px;
     width: 100%;
 }
-
 a {
     text-decoration: none;
     color: #0090aa;
@@ -31,7 +27,7 @@ h1 {
 }
 
 div#header, div#footer {
-    background: #222;
+    background: #444;
     color: #fff;
     font-family: 'Roboto';
     font-weight: 300;
@@ -47,10 +43,10 @@ div#footer {
     font-size: 0.9em;
 }
 div#footer a {
-    color: #2099ee;
+    color: #60ccff;
 }
 div#footer a:hover {
-    color: #20ccff;
+    color: #60eeff;
     border-bottom: 1px #fff solid;
 }
 div#footer a.imglink:hover {
@@ -108,7 +104,7 @@ div#navbar a {
     div#navbar a { width: 100%;
     }
     div#content {
-        margin: auto;
+        margin: 5em 2px;
     }
 }
 
@@ -122,12 +118,12 @@ div#navbar a {
         width: 100%;
     }
     div#content {
-        margin: auto;
+        margin: 5em 2px;
     }
 }
 
 div#navbar a:hover {
-    background-color: #555;
+    background-color: #588;
 }
 
 div#navbar a#selected {
@@ -137,6 +133,5 @@ div#navbar a#selected {
 
 div#quote {
     font-style: italic;
-    text-align: center;
     margin: 0 5em;
 }
