@@ -26,12 +26,28 @@ h1 {
     margin: 1em 0;
 }
 
-div#header, div#footer {
+pre {
+    background-color: #f4f4f4;
+    padding: 1em;
+}
+div#header, div#footer, button {
     background: #444;
     color: #fff;
     font-family: 'Roboto';
     font-weight: 300;
     text-align: center;
+    border : 0;
+}
+
+button {
+    padding: 0.6em;
+    outline: 0;
+    cursor: pointer;
+    transition: 0.5s background-color;
+    font-size: 1em;
+}
+button:hover {
+    background: #588;
 }
 
 div#header {
@@ -53,9 +69,13 @@ div#footer a.imglink:hover {
     border-width: 0;
 }
 
-
 div#content {
     margin: 5em 3em;
+}
+
+div#content img {
+    border: 0;
+    max-width: 100%;
 }
 
 div#sitename {
