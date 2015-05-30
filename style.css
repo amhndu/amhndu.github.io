@@ -14,7 +14,7 @@ a {
     transition: 0.5s color;
 }
 a:hover {
-    color: #003075;
+    color: #003060;
     border-bottom: 1px #111 solid;
 }
 
@@ -44,7 +44,7 @@ div#header {
 
 div#footer {
     padding: 2.5em 0 2em 0;
-    font-size: 0.8em;
+    font-size: 0.9em;
 }
 div#footer a {
     color: #2099ee;
@@ -94,8 +94,7 @@ div#navbar a {
     border: 0;
     width: 10em;
     color: #fff;
-    padding: 0.2em 0 0 0;
-    height: 100%;
+    padding: 0.5em 0 0.5em 0;
     font-size: 1.2em;
     transition: 0.8s background-color;
 }
