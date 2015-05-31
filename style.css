@@ -29,11 +29,11 @@ h1 {
 pre {
     background-color: #f7f7f7;
     padding: 1em;
-    overflow: scroll;
+    overflow: auto;
 }
 @media handheld {
     pre {
-        word-wrap: break-word;
+        white-space: pre-wrap;
     }
 }
 div#header, div#footer, button {
