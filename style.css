@@ -35,6 +35,7 @@ pre {
     pre {
         word-wrap: break-word;
     }
+}
 div#header, div#footer, button {
     background: #444;
     color: #fff;
