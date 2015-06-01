@@ -47,7 +47,7 @@ img.thumb {
     border: 0;
     margin: 0 1.5em 0 1.5em;
 }
-@media all and (max-width: 40em) {
+@media all and (max-width: 30em) {
     img.thumb {
         float: none;
         display: block;
