@@ -130,12 +130,15 @@ div#navbar a {
     div#content {
         margin: 5em auto;
     }
+}
+@media all and (max-width: 500px) {
     img.thumb {
+        float: none;
         display: block;
-        width: 100%;
+        margin: 2em;
+        max-width: 100%;
     }
 }
-
 /* Responsive navbar, set width of li and the anchor to 30% instead of fixed width,
  * if the screen is too small to contain the fixed width items */
 @media all and (max-width: 40em) and (min-width: 250px) {
