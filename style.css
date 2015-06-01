@@ -15,7 +15,7 @@ a:hover {
 }
 
 h2, h3 {
-    font-weight: 200;
+    font-weight: 300;
     font-family: 'Roboto', sans-serif;
 }
 h3 {
@@ -36,7 +36,7 @@ div#header, div#footer, button {
     background: #444;
     color: #fff;
     font-family: 'Roboto';
-    font-weight: 200;
+    font-weight: 300;
     text-align: center;
     border : 0;
 }
