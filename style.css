@@ -1,5 +1,5 @@
 body {
-    font-family: 'Open Sans', sans-serif;
+    font-family: sans-serif;
     margin: 0px;
     padding: 0px;
     width: 100%;
@@ -14,14 +14,14 @@ a:hover {
     border-bottom: 1px #111 solid;
 }
 
-h1, h2 {
-    font-weight: 300;
-    font-family: 'Roboto';
+h2, h3 {
+    font-weight: 200;
+    font-family: 'Roboto', sans-serif;
 }
-h2 {
+h3 {
     font-size: 1.4em;
 }
-h1 {
+h2 {
     font-size: 2em;
     margin: 1em 0;
 }
@@ -40,7 +40,7 @@ div#header, div#footer, button {
     background: #444;
     color: #fff;
     font-family: 'Roboto';
-    font-weight: 300;
+    font-weight: 200;
     text-align: center;
     border : 0;
 }
@@ -84,7 +84,7 @@ div#content img {
     max-width: 100%;
 }
 
-div#sitename {
+h1#sitename {
     font-size: 2.2em;
     font-weight: 400;
 }

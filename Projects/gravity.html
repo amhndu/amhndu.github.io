@@ -5,8 +5,7 @@
     <meta name=viewport content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="../style.css">
     <link rel="icon" type="image/png" href="../favicon.png">
-    <!-- Google Fonts : Robota and Open Sans -->
-    <link href='http://fonts.googleapis.com/css?family=Roboto%3A400%2C300%7COpen%2BSans' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Roboto:400,300">
     <script>
       var state = 0; //0 means hidden
       function toggle_screenshots()
@@ -28,9 +27,9 @@
  </head>
   <body>
     <div id="header">
-      <div id="sitename">
+      <h1 id="sitename">
         <b>amhndu.github.io</b>
-      </div>
+      </h1>
       <div id="subtext">
         Amish Naidu's website
       </div>
@@ -43,14 +42,14 @@
       </div>
     </div>
     <div id="content">
-      <h1>Gravity</h1>
+      <h2>Gravity</h2>
         Gravity is a survial game set in space, you are in a space station orbiting Earth but things have gone awry and you have a situation with broken satellites, how long can you survie ? (Yes, the premise is very similar to that Hollywood movie of the same name).<br>
         Programmed with C++11 with the <a href="http://www.sfml-dev.org/">SFML</a> library for graphics.
         I made this is as my final project in school. This is a clone of the HTML5 game <a href="http://www.allworkallplay.org/games/orbitaldebris/">Orbital Debris</a>.<br>
         <a href="https://github.com/amhndu/gravity">View on GitHub</a>
-        <h1>Controls</h1>
+        <h2>Controls</h2>
           Click "New Game" to start playing, then satellites will start appearing. Dodge the satellites and their debris by increasing the space spation's (i.e. your) orbit by pressing the arrow keys. Up to increase, down to decrease the orbit radii.
-        <h1>Screenshots</h1>
+        <h2>Screenshots</h2>
         <button onclick="toggle_screenshots()" id="show_button">Show images</button><br><br>
         <div id="screens" style="display: none; transition: 0.3s display">
           <img src="screenshots/gravity1.jpg" alt="Gravity Screenshot 1"><br>
@@ -58,12 +57,12 @@
           <img src="screenshots/gravity3.jpg" alt="Gravity Screenshot 3"><br>
           <img src="screenshots/gravity4.jpg" alt="Gravity Screenshot 4"><br>
         </div>
-        <h1>Gameplay video</h1>
+        <h2>Gameplay video</h2>
         <a href="https://www.youtube.com/watch?v=LI_u30P6zTA">Watch on YouTube</a><br><br>
         <iframe width="420" height="315" src="https://www.youtube.com/embed/LI_u30P6zTA" style="border: 0;" allowfullscreen></iframe>
-        <h1>Download</h1>
+        <h2>Download</h2>
         <a href="https://github.com/amhndu/gravity/archive/master.zip">Download the source</a>
-        <h1>Compiling</h1>
+        <h2>Compiling</h2>
         You need a C++11 compliant compiler and <a href="http://www.sfml-dev.org/">SFML 2.1+</a> to compile gravity.
         After you've downloaded the source, you can use <a href="http://www.cmake.org/">cmake</a> to compile <i>Gravity</i>.<br>
         On any Linux distribution, these are the typical steps :
@@ -79,7 +78,7 @@ $ make
 $ g++ -o gravity *.cpp -std=c++11 -lsfml-graphics -lsfml-window -lsfml-system
 </pre>
     Note : To compile on windows, you also need to link the <i>sfml-main</i> component.
-      <h1>License</h1>
+      <h2>License</h2>
         The following images have been taken from <a href="http://www.allworkallplay.org/games/orbitaldebris/">here</a>
       <ul>
         <li>assets/satellite&lt;n&gt;.png where n = {0,1,2,3}</li>
@@ -92,11 +91,7 @@ $ g++ -o gravity *.cpp -std=c++11 -lsfml-graphics -lsfml-window -lsfml-system
     </div>
     <div id="footer">
       <a href="../index.html#contact">Contact Me</a><br><br>
-      Last Updated : 29 May 2015<br>
-      <a class="imglink" rel="license" href="http://creativecommons.org/licenses/by/4.0/">
-        <img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by/4.0/88x31.png" />
-      </a><br>
       This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>.
     </div>
-  </body>
+ </body>
 </html>

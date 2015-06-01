@@ -5,8 +5,7 @@
     <meta name=viewport content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="../style.css">
     <link rel="icon" type="image/png" href="../favicon.png">
-    <!-- Google Fonts : Robota and Open Sans -->
-    <link href='http://fonts.googleapis.com/css?family=Roboto%3A400%2C300%7COpen%2BSans' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Roboto:400,300">
     <script>
       var state = 0; //0 means hidden
       function toggle_screenshots()
@@ -28,9 +27,9 @@
  </head>
   <body>
     <div id="header">
-      <div id="sitename">
+      <h1 id="sitename">
         <b>amhndu.github.io</b>
-      </div>
+      </h1>
       <div id="subtext">
         Amish Naidu's website
       </div>
@@ -43,17 +42,17 @@
       </div>
     </div>
     <div id="content">
-      <h1>Mini Tanks</h1>
+      <h2>Mini Tanks</h2>
         A turn-based, artillery game where you destroy other tanks to win. Features a fully destructible, procedurally generated terrain. Play multiplayer with upto 8 local players.<br>
         It was inspired from Pocket Tanks and Scorched Earth.<br>
         Programmed with C++11 with the <a href="http://www.sfml-dev.org/">SFML</a> library for graphics.<br>
         <a href="https://github.com/amhndu/tanks-game">View on GitHub</a>
-        <h1>Controls and Objective</h1>
+        <h2>Controls and Objective</h2>
           Use your mouse to click on the HUD or press R to set the Rotation of the turret, similarly set power by clicking the power bar (or by hovering the cursor above it and using your scroll wheel)<br>
           Use the Left or Right Arrow Keys to move the Tank on the terrain.
           Click on "FIRE" on the HUD or press Space to fire.
           The objective is to destroy all other tanks and win by surviving till the last.<br>
-        <h1>Screenshots</h1>
+        <h2>Screenshots</h2>
         <button onclick="toggle_screenshots()" id="show_button">Show images</button><br><br>
         <div id="screens" style="display: none; transition: 0.3s display">
           <img src="screenshots/tanks0.jpg" alt="Gravity Screenshot 1"><br>
@@ -62,16 +61,16 @@
           <img src="screenshots/tanks3.jpg" alt="Gravity Screenshot 3"><br>
           <img src="screenshots/tanks4.jpg" alt="Gravity Screenshot 4"><br>
         </div>
-        <h1>Gameplay video</h1>
+        <h2>Gameplay video</h2>
         <a href="https://www.youtube.com/watch?v=YbG_ej2fQKE">Watch on YouTube</a><br><br>
         <iframe width="420" height="315" src="https://www.youtube.com/embed/YbG_ej2fQKE" style="border: 0; max-width: 100%; display: block;" allowfullscreen></iframe>
-        <h1>Download</h1>
+        <h2>Download</h2>
         <a href="https://github.com/amhndu/tanks-game/archive/master.zip">Download the source</a><br>
         Executables :<br>
         Note : These are outdated by a few commits (which were only some fixes). It is recommended to compile <i>Mini Tanks</i> from source if you can.<br>
         <a href="https://www.dropbox.com/s/v4shlyt8j8odv4e/tanks-bin-linux32.tar.gz">Linux 32-bit</a> (compiled using g++ 4.8.1)<br>
         <a href="https://www.dropbox.com/s/ixu8g65mszea4b4/tanks-bin-win32.zip">Windows 32-bit</a> (compiled using VC 2013 and requires VC2013 redistributable)<br>
-        <h1>Compiling</h1>
+        <h2>Compiling</h2>
         You need a C++11 compliant compiler and <a href="http://www.sfml-dev.org/">SFML 2.0+</a> to compile Mini Tanks.
         After you've downloaded the source, you can use <a href="http://www.cmake.org/">cmake</a> to compile <i>Mini Tanks</i>.<br>
         On any Linux distribution, these are the typical steps :
@@ -87,16 +86,12 @@ $ make
 $ g++ -o miniTanks *.cpp -std=c++11 -lsfml-graphics -lsfml-window -lsfml-system
 </pre>
     Note : To compile on windows, you also need to link the <i>sfml-main</i> component.
-      <h1>License</h1>
+      <h2>License</h2>
     No rights have been reserved, but in the event that you use anything, please drop me a <a href="../index.html#contact">mail</a> and give me attribution by linking here.
     </div>
     <div id="footer">
       <a href="../index.html#contact">Contact Me</a><br><br>
-      Last Updated : 29 May 2015<br>
-      <a class="imglink" rel="license" href="http://creativecommons.org/licenses/by/4.0/">
-        <img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by/4.0/88x31.png" />
-      </a><br>
       This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>.
     </div>
-  </body>
+ </body>
 </html>
