@@ -19,11 +19,11 @@ h2, h3 {
     font-family: 'Roboto', sans-serif;
 }
 h3 {
-    font-size: 1.4em;
+    font-size: 1.5em;
 }
 h2 {
     font-size: 2em;
-    margin: 1.2em 0;
+    margin: 1.25em 0;
 }
 
 pre {
@@ -47,7 +47,14 @@ img.thumb {
     border: 0;
     margin: 0 1.5em 0 1.5em;
 }
-
+@media all and (max-width: 40em) {
+    img.thumb {
+        float: none;
+        display: block;
+        margin: 2em;
+        max-width: 100%;
+    }
+}
 button {
     padding: 0.6em;
     outline: 0;
@@ -81,7 +88,15 @@ div#footer a.imglink:hover {
 div#content {
     margin: 5em 3em;
 }
+/* If the screen is small :*/
+@media all and (max-width: 40em) {
+    /* reduce the horizontal margin to fit in more text */
+    div#content {
+        margin: 5em auto;
+    }
+}
 
+/
 div#content img {
     border: 0;
     max-width: 100%;
@@ -124,22 +139,7 @@ div#navbar a {
     transition: 0.8s background-color;
 }
 
-/* If the screen is small :*/
-@media all and (max-width: 250px) {
-    /* reduce the horizontal margin to fit in more text */
-    div#content {
-        margin: 5em auto;
-    }
-}
-@media all and (max-width: 500px) {
-    img.thumb {
-        float: none;
-        display: block;
-        margin: 2em;
-        max-width: 100%;
-    }
-}
-/* Responsive navbar, set width of li and the anchor to 30% instead of fixed width,
+* Responsive navbar, set width of li and the anchor to 30% instead of fixed width,
  * if the screen is too small to contain the fixed width items */
 @media all and (max-width: 40em) and (min-width: 250px) {
     div#navbar li {
