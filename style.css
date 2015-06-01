@@ -139,8 +139,8 @@ div#navbar a {
     transition: 0.8s background-color;
 }
 
-* Responsive navbar, set width of li and the anchor to 30% instead of fixed width,
- * if the screen is too small to contain the fixed width items */
+/* Responsive navbar, set width of li and the anchor to 30% instead of fixed width,
+* if the screen is too small to contain the fixed width items */
 @media all and (max-width: 40em) and (min-width: 250px) {
     div#navbar li {
         width: 30%;
