@@ -37,14 +37,16 @@
       In this guide we'll be using Python 3 although you may be able to apply this to Python 2.4 and above with minor adjustments. Since D-Bus is only used by Linux and BSD distributions, needless to say, this will only work with *nix systems<br>
       We'll connect to a media player which implements the <b>Media Player Remote Interfacing Specification</b> or MPRIS for short. Most popular players like Audacious, Amarok, Clementine, VLC etc will work.<br>
       This can be useful for purposes like priting metadata of the current track on <a href="../Projects/conky-cards.html">conky</a> and controling the player with widgets. For a particular example, Clementine, for some reason would not bind the media keys on my keyboard for global shortcuts, so with the help of a python script I made the keybindings directly in Openbox.<br>
-      I made this guide because I couldn't find a simple guide like this myself, I had to scour through the D-bus and MPRIS specifications, hopefully, this will make it easier for someone else.
+      This guide follows the python documentation convention for code.<br>
+      <span class="inline-pre">>>></span> imples the python interpreter prompt, <span class="inline-pre">...</span> imples a multiline prompt continuing from the previous command and a line with neither of the prompts implies output, therefore, if you are copy-pasting code, you will have to copy a line at a time.
+      Also, you should be versed in python terminology and should have some basic knowledge of Python.<br>
       Let's get started, launch a terminal with the python interpreter and put on some music!
       <h3>D-Bus Basics</h3>
-      DBus is a message bus system which allows <i>Inter-process communication</i> i.e it allows different processes to talk to each other and even different instances of the same application or service.<br>
+      DBus is a message bus system which allows <i>Inter-process communication</i> i.e it allows different processes to talk to each other and even different instances of the same applicatione.<br>
       The <i>dbus daemon</i> runs in the background allowing applications to connect to this <i>daemon</i> using the <i>libdbus</i> library and it's wrappers for different languages and frameworks.<br>
-      Communication is done using a <b>bus</b>, each application is granted a unique name (e.g. a unique name could be <i>:1-45</i> or <i>:2-16</i>) when it connects to the bus.
+      Communication is done using a <b>bus</b>, each application is granted a unique name like <i>:1-45</i> or <i>:2-16</i>) when it connects to the bus.
       The application may request a familiar bus name (based on the <a href="https://en.wikipedia.org/wiki/Reverse_domain_name_notation">Reversed domain name</a> convention) e.g. <i>org.freedesktop.PowerManagement, com.Skype.API and org.mpris.MediaPlayer2.clementine</i><br>
-      Each application or service can have multiple <b>object paths</b> representing a unique object within the application, they look like filesystme paths e.g. <i>/org/mpris/MediaPlayer2</i><br>
+      Each application or service can have multiple <b>object paths</b> representing a unique object within the application, they look like filesystem paths e.g. <i>/org/mpris/MediaPlayer2</i><br>
       <b>Interfaces</b> act like namespaces, within which <b>Methods</b> and <b>Signals</b> are defined.<br>
       Therefore, to make a method call you need:
       <ul>
@@ -66,7 +68,7 @@
       Try this
 <pre>
 >>> bus.get_unique_name()
-'1.113'
+':1.113'
 </pre>
       Your unique name will vary<br>
       We can also request a name with the method <span class="inline-pre">request_name()</span> following the reverse domain convention.
@@ -85,7 +87,7 @@
       <h3>Connecting to the player</h3>
       The <a href="#mpris-spec">MPRIS 2.0</a> spec defines that the player must request a name prefixed with <i>org.mpris.MediaPlayer2</i>.
       Therefore a player can have a name of form <i>org.mpris.MediaPlayer2.clementine</i> where the name ends the the name of the player.<br>
-      To find out all the services of this form, you can run:
+      To find out all the services of this form we can use regex to filter it out:
 <pre>
 >>> import re
 >>> for service in bus.list_names():
@@ -173,8 +175,18 @@ bitrate 	 256
 xesam:lastUsed 	 2015-06-09T13:27:53
 </pre>
       The attribute name follows the <a href="http://www.freedesktop.org/wiki/Specifications/mpris-spec/metadata/">"Xesam ontology"</a>.
-      Note that the <i>xesam:artist</i> and <i>xesam:genere</i> attributes above are <i>dbus arrays</i> which can used like python lists, this array will mostly have a singular item.
-      For more information, see the <a href="http://www.freedesktop.org/wiki/Specifications/mpris-spec/metadata/">MPRIS v2 metadata guidelines</a>
+      Note that the <i>xesam:artist</i> and <i>xesam:genre</i> attributes above are <i>dbus arrays</i> which can used like python lists, this array will mostly have a singular item which can accesed this way:
+<pre>
+>>> print('Artist :\t', metadata['artist'][0])
+Switchfoot
+</pre>
+      Note: Only the <span class="inline-pre">xesam:trackid</span> is guaranteed to exist in the metadata dictionary,
+      so, accessing attributes should be done with a check whether it exists.
+<pre>
+>>> print('Title :\t', metadata['xesam:title'] if 'xesam:title' in metadata else 'Unknown')
+</pre>
+      We used the ternary conditional operator to make it succint.<br>
+      For more information on metadata, see the <a href="http://www.freedesktop.org/wiki/Specifications/mpris-spec/metadata/">MPRIS v2 metadata guidelines</a>
       <br>
       <h3>Conclusion</h3>
       Now, you should be able to make your own scripts or just use the interactive interpreter to control your media player. You can have a look at <a href="../Projects/mediaplayer.py">mediaplayer.py</a>, a python script I made which I use to print metadata in <a href="../Projects/conky-cards.html">conky</a> and make keybindings for clementine, which I was unable to do through clementine itself. For more information, see the D-Bus and MPRIS specifications in the references section below.
