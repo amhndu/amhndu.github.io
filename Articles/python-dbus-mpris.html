@@ -31,7 +31,7 @@
       I made this guide because I couldn't find a simple guide like this myself, I had to scour through the D-bus and MPRIS specifications, hopefully, this will make it easier for someone else.
       Let's get started, launch a terminal with the python interpreter and put on some music!
       <h3>D-Bus Basics</h3>
-      DBus is message bus system which allows <i>Inter-process communication</i> i.e it allows different processes to talk to each other and even different instances of the same application or service.<br>
+      DBus is a message bus system which allows <i>Inter-process communication</i> i.e it allows different processes to talk to each other and even different instances of the same application or service.<br>
       The <i>dbus daemon</i> runs in the background allowing applications to connect to this <i>daemon</i> using the <i>libdbus</i> library and it's wrappers for different languages and frameworks.<br>
       Communication is done using a <b>bus</b>, each application is granted a unique name (e.g. a unique name could be <i>:1-45</i> or <i>:2-16</i>) when it connects to the bus.
       The application may request a familiar bus name (based on the <a href="https://en.wikipedia.org/wiki/Reverse_domain_name_notation">Reversed domain name</a> convention) e.g. <i>org.freedesktop.PowerManagement, com.Skype.API and org.mpris.MediaPlayer2.clementine</i><br>
@@ -52,7 +52,7 @@
 >>> import dbus
 >>> bus = dbus.SessionBus()
 </pre>
-      In the first line, we import dbus and in the second line we make an object of the class <b>SessionBus</b>.<br>
+      In the first line, we import the dbus module and in the second line we make an object of the class <b>SessionBus</b>.<br>
       This class will makes us a connection with the session bus granting us a unique name which can retrieved with the <span class="inline-pre">get_unique_name()</span> method.
       Try this
 <pre>

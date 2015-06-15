@@ -92,7 +92,7 @@ div#content {
 @media all and (max-width: 40em) {
     /* reduce the horizontal margin to fit in more text */
     div#content {
-        margin: 5em auto;
+        margin: 5em 2px;
     }
 }
 div#content img {
