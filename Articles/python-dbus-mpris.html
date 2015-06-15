@@ -25,7 +25,7 @@
     </div>
     <div id="content">
       <h2>HOWTO: Connect and control your media player with python and dbus</h2>
-      In this guide we'll be using Python 3 although you may be able to apply this to Python 2.4 and above with minor adjustments.<br>
+      In this guide we'll be using Python 3 although you may be able to apply this to Python 2.4 and above with minor adjustments. Since D-Bus is only used by Linux and BSD distributions, needless to say, this will only work with *nix systems<br>
       We'll connect to a media player which implements the <b>Media Player Remote Interfacing Specification</b> or MPRIS for short. Most popular players like Audacious, Amarok, Clementine, VLC etc will work.<br>
       This can be useful for purposes like priting metadata of the current track on <a href="../Projects/conky-cards.html">conky</a> and controling the player with widgets. For a particular example, Clementine, for some reason would not bind the media keys on my keyboard for global shortcuts, so with the help of a python script I made the keybindings directly in Openbox.<br>
       I made this guide because I couldn't find a simple guide like this myself, I had to scour through the D-bus and MPRIS specifications, hopefully, this will make it easier for someone else.
