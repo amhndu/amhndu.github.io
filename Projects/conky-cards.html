@@ -1,0 +1,134 @@
+
+<!doctype html>
+<html>
+  <head>
+    <title>Conky Cards | Projects | Amish Naidu</title>
+    <meta name=viewport content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="../style.css">
+    <link rel="icon" type="image/png" href="../favicon.png">
+    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Roboto:400,300">
+      <script>
+        var state = 0; //0 means hidden
+        function toggle_screenshots()
+        {
+          if(state)
+          {
+            document.getElementById("screens").style.display = "none";
+            document.getElementById("show_button").innerHTML = "Show Images";
+            state = 0;
+          }
+          else
+          {
+            document.getElementById("screens").style.display = "block";
+            document.getElementById("show_button").innerHTML = "Hide Images";
+            state = 1;
+          }
+        }
+      </script>
+    </head>
+    <body>
+    <div id="header">
+      <h1 id="sitename">
+        amhndu.github.io
+      </h1>
+      <div id="subtext">
+        Amish Naidu's website
+      </div>
+      <div id="navbar">
+        <ul>
+          <li><a href="../index.html">Home</a></li>
+          <li><a href="../projects.html" id="selected">Projects</a></li>
+          <li><a href="../articles.html">Articles</a></li>
+        </ul>
+      </div>
+    </div>
+    <div id="content">
+      <h2>Conky Cards</h2>
+      <h3><a href="https://github.com/amhndu/conky-cards">View on GitHub</a></h3>
+      This conky setup consists of eight individual conky scripts ("cards") which display
+      <ul>
+        <li>Date and time</li>
+        <li>General system information</li>
+        <li>Processes (top processes and usage)</li>
+        <li>Memory and swap usage</li>
+        <li>A "fortune" message from <span class="inline-pre">fortune</span></li>
+        <li>Disk usage</li>
+        <li>Network usage</li>
+        <li>Metadata of the current track playing</li>
+      </ul>
+      <h2>Screenshots</h2>
+        <button onclick="toggle_screenshots()" id="show_button">Show images</button><br><br>
+        <div id="screens" style="display: none;">
+          <img src="screenshots/conky1.jpg" alt="Conky Cards Screenshot 1"><br>
+          <img src="screenshots/conky2.jpg" alt="Conky Cards Screenshot 2"><br>
+        </div>
+      <h2>Installation</h2>
+      Download the zip from <a href="https://github.com/amhndu/conky-cards">here</a>
+      <h3>Requirements</h3>
+      Install <span class="inline-pre">conky</span> , preferably the package <span class="inline-pre">conky-all</span><br>
+      For the mediaplayer "card", you need <span class="inline-pre">python3</span><br>
+      For the fortune "card", you need <span class="inline-pre">fortune</span><br>
+      The script uses the following fonts, which are included in the repository/download, install them
+      (see Customization if you want to use your fonts)
+      <ul>
+        <li>Antipasto <a href="(http://www.dafont.com/antipasto.font">Download here</a></li>
+        <li>Open Sans <a href="http://www.fontsquirrel.com/fonts/open-sans">Download here</a></li>
+        <li>Oswald <a href="http://www.fontsquirrel.com/fonts/oswald">Download here</a></li>
+      </ul>
+      Copy/Move the contents to a directory of your liking and edit the following files to specify this directory by replacing <span class="inline-pre">INSERT_PATH</span> to your directory.<br>
+      e.g. if the scripts are in /home/foo/path/to/my/dir then run
+<pre>
+$ cd /home/foo/path/to/my/dir
+$ sed -i 's:INSERT_PATH:/home/foo/path/to/my/dir:' mediaplayer_rc launch_all.sh
+</pre>
+      Now, set <span class="inline-pre">launch_all.sh</span> as executable (<span class="inline-pre">chmod u+x launch_all.sh</span>) and add it to startup applications. If you don't know how, Google is your friend.
+      <h2>Customization</h2>
+      <h3>Network</h3>
+      You might want to replace <span class="inline-pre">usb0</span> in <i>network_rc</i> with the device you are connected to the internet like <span class="inline-pre">eth0</span> or <span class="inline-pre">ppp0</span>  e.g.
+<pre>
+$ sed -i 's/usb0/eth0/' network_rc
+</pre>
+      <h3>Media Player</h3>
+      Replace <i>clementine</i> in <i>mediaplayer_rc</i> with your media player. This should probably work just fine after replacement if the media player you are using implements MPRIS 2.0 (most players do).
+      To customize the output, you might want to see python3 mediaplayer.py --help
+      <h3>Fortune</h3>
+      See <span class="inline-pre">man fortune</span> and edit the arguments to the fortune call in <i>fortune_rc</i>
+      <h3>Colors</h3>
+      Each script uses a set of three colors, defined as
+      <ul>
+        <li>color1 (color)</li>
+          Color of the Card heading
+        <li>color2 (color)</li>
+          Color of the horizontal line stretching from the heading to the right end
+        <li>color3 (color)  </li>
+          Text color
+      </ul><br>
+      Here, (color) can be specified using the hexadecimal notation (without the preceding #) or a string from <span class="inline-pre">/usr/share/X11/rgb.txt</span><br>
+      Examples of legit colors : red, blue, 20efef<br>
+      You can change any of the above colors to suit you liking/theme
+      Examples:
+      If you want headings in blue, then run
+<pre>
+$ sed -i -r 's/color1 [a-z0-9]+$/color1 0000ff/' *_rc
+</pre>
+Similarly, you can change the background color of the 'cards' specified by the variable <span class="inline-pre">own_window_colour (color)</span>
+For transparency, uncomment the lines <span class="inline-pre">#own_window_transparent yes</span> (by removing the #).
+Background opacity is specified by <span class="inline-pre">own_window_argb_value (value between 0 and 255)</span>
+      <h3>Fonts</h3>
+      The following fonts are used
+      <ul>
+        <li>Antipasto <a href="(http://www.dafont.com/antipasto.font">Download here</a></li>
+          Font in which the clock (time) is displayer
+        <li>Open Sans <a href="http://www.fontsquirrel.com/fonts/open-sans">Download here</a></li>
+          Font for general text
+        <li>Oswald <a href="http://www.fontsquirrel.com/fonts/oswald">Download here</a></li>
+          Font cards' headings
+      </ul>
+      Substitue them using sed like above.
+    </div>
+    <div id="footer">
+      <a href="../index.html#contact">Contact Me</a><br><br>
+      This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>.
+    </div>
+ </body>
+</html>

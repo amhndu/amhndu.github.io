@@ -13,7 +13,6 @@ a:hover {
     color: #003060;
     border-bottom: 1px #111 solid;
 }
-
 h2, h3 {
     font-weight: 300;
     font-family: 'Roboto', sans-serif;
@@ -25,13 +24,16 @@ h2 {
     font-size: 2em;
     margin: 1.25em 0;
 }
-
-pre {
+pre, span.inline-pre {
     background-color: #f7f7f7;
-    padding: 1em;
-    overflow: auto;
 }
-
+span.inline-pre {
+    font-family: monospace;
+    white-space: pre;
+}
+pre {
+    padding: 1em;
+}
 div#header, div#footer, button {
     background: #444;
     color: #fff;
@@ -40,7 +42,6 @@ div#header, div#footer, button {
     text-align: center;
     border : 0;
 }
-
 img.thumb {
     float: right;
     width: 10em;
@@ -70,7 +71,6 @@ div#header {
     padding-top: 3em;
     border: 0;
 }
-
 div#footer {
     padding: 2.5em 0 2em 0;
     font-size: 0.9em;
@@ -85,7 +85,6 @@ div#footer a:hover {
 div#footer a.imglink:hover {
     border-width: 0;
 }
-
 div#content {
     margin: 5em 3em;
 }
@@ -96,29 +95,23 @@ div#content {
         margin: 5em auto;
     }
 }
-
-/
 div#content img {
     border: 0;
     max-width: 100%;
 }
-
 h1#sitename {
     font-size: 2.2em;
     font-weight: 400;
 }
-
 div#subtext {
     padding-top: 0.8em;
     color: #e0e0e0;
 }
-
 div#navbar {
     margin: 0;
     border: 0;
     padding: 3em 0 0 0;
 }
-
 div#navbar ul {
     list-style: none;
     padding: 0;
@@ -126,11 +119,9 @@ div#navbar ul {
     border: 0;
     text-align: center;
 }
-
 div#navbar li {
     display: inline-block;
 }
-
 div#navbar a {
     display: inline-block;
     margin: 0;
@@ -141,7 +132,6 @@ div#navbar a {
     font-size: 1.2em;
     transition: 0.8s background-color;
 }
-
 /* Responsive navbar, set width of li and the anchor to 30% instead of fixed width,
 * if the screen is too small to contain the fixed width items */
 @media all and (max-width: 40em) and (min-width: 250px) {
@@ -152,7 +142,6 @@ div#navbar a {
         width: 100%;
     }
 }
-
 /* Responsive navbar, swicth to vertical bar if screen is too small to contain all the items in one line. */
 @media all and (max-width: 250px) {
     div#navbar li {
@@ -163,16 +152,13 @@ div#navbar a {
         width: 100%;
     }
 }
-
 div#navbar a:hover {
     background-color: #588;
 }
-
 div#navbar a#selected {
     background-color: #fff;
     color: #000;
 }
-
 div#quote {
     font-style: italic;
     margin: 0 5em;
