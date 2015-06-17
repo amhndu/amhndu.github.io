@@ -2,6 +2,9 @@
 <html>
   <head>
     <title>Mini Tanks | Projects | Amish Naidu</title>
+    <meta charset="utf-8">
+    <meta name="description" content="Mini Tanks is a turn-based, artillery game where you destroy other tanks to win. It features a fully destructible, procedurally generated terrain. Play multiplayer with upto 8 local players. Programmed in C++ with SFML">
+    <meta name="author" content="Amish Naidu">
     <meta name=viewport content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="../style.css">
     <link rel="icon" type="image/png" href="../favicon.png">
@@ -16,7 +19,7 @@
       ga('send', 'pageview');
     </script>
     <script>
-      var state = 0; //0 means hidden
+      var state = 1;
       function toggle_screenshots()
       {
         if(state)
@@ -36,11 +39,11 @@
  </head>
   <body>
     <div id="header">
-      <h1 id="sitename">
-        amhndu.github.io
+      <h1>
+        Amish Naidu
       </h1>
       <div id="subtext">
-        Amish Naidu's website
+        amhndu.github.io
       </div>
       <div id="navbar">
         <ul>
@@ -62,8 +65,8 @@
           Click on "FIRE" on the HUD or press Space to fire.
           The objective is to destroy all other tanks and win by surviving till the last.<br>
         <h2>Screenshots</h2>
-        <button onclick="toggle_screenshots()" id="show_button">Show images</button><br><br>
-        <div id="screens" style="display: none; transition: 0.3s display">
+        <button onclick="toggle_screenshots()" id="show_button">Hide images</button><br><br>
+        <div id="screens">
           <img src="screenshots/tanks0.jpg" alt="Gravity Screenshot 1"><br>
           <img src="screenshots/tanks1.jpg" alt="Gravity Screenshot 1"><br>
           <img src="screenshots/tanks2.jpg" alt="Gravity Screenshot 2"><br>

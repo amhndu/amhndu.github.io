@@ -2,6 +2,9 @@
 <html>
   <head>
     <title>Conky Cards | Projects | Amish Naidu</title>
+    <meta charset="utf-8">
+    <meta name="description" content="Conky Cards is a theme for conky, a system monitor for X. Conky Cards is simple but elegent theme to display system information, time and other information">
+    <meta name="author" content="Amish Naidu">
     <meta name=viewport content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="../style.css">
     <link rel="icon" type="image/png" href="../favicon.png">
@@ -16,7 +19,7 @@
       ga('send', 'pageview');
     </script>
     <script>
-        var state = 0; //0 means hidden
+        var state = 1;
         function toggle_screenshots()
         {
           if(state)
@@ -37,10 +40,10 @@
     <body>
     <div id="header">
       <h1 id="sitename">
-        amhndu.github.io
+        Amish Naidu
       </h1>
       <div id="subtext">
-        Amish Naidu's website
+        amhndu.github.io
       </div>
       <div id="navbar">
         <ul>
@@ -53,6 +56,8 @@
     <div id="content">
       <h2>Conky Cards</h2>
       <h3><a href="https://github.com/amhndu/conky-cards">View on GitHub</a></h3>
+      Conky Cards is a theme for conky, a system monitor for X.
+      Conky Cards is simple but elegent theme to display system information, time and other information.
       This conky setup consists of eight individual conky scripts ("cards") which display
       <ul>
         <li>Date and time</li>
@@ -65,8 +70,8 @@
         <li>Metadata of the current track playing</li>
       </ul>
       <h2>Screenshots</h2>
-        <button onclick="toggle_screenshots()" id="show_button">Show images</button><br><br>
-        <div id="screens" style="display: none;">
+        <button onclick="toggle_screenshots()" id="show_button">Hide images</button><br><br>
+        <div id="screens" style="display: block;">
           <img src="screenshots/conky1.jpg" alt="Conky Cards Screenshot 1"><br>
           <img src="screenshots/conky2.jpg" alt="Conky Cards Screenshot 2"><br>
         </div>

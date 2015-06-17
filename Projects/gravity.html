@@ -3,6 +3,10 @@
   <head>
     <title>Gravity | Projects | Amish Naidu</title>
     <meta name=viewport content="width=device-width, initial-scale=1">
+    <meta charset="utf-8">
+    <meta name="description" content="Gravity is a survial game set in space, you are in a space station orbiting Earth but things have gone awry and you have a situation with broken satellites, how long can you survie ? Gravity is programmed in C++ with SFML">
+    <meta name="author" content="Amish Naidu">
+    <meta name=viewport content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="../style.css">
     <link rel="icon" type="image/png" href="../favicon.png">
     <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Roboto:400,300">
@@ -16,7 +20,7 @@
       ga('send', 'pageview');
     </script>
     <script>
-      var state = 0; //0 means hidden
+      var state = 1;
       function toggle_screenshots()
       {
         if(state)
@@ -37,10 +41,10 @@
   <body>
     <div id="header">
       <h1 id="sitename">
-        amhndu.github.io
+        Amish Naidu
       </h1>
       <div id="subtext">
-        Amish Naidu's website
+        amhndu.github.io
       </div>
       <div id="navbar">
         <ul>
@@ -59,8 +63,8 @@
         <h2>Controls</h2>
           Click "New Game" to start playing, then satellites will start appearing. Dodge the satellites and their debris by increasing the space spation's (i.e. your) orbit by pressing the arrow keys. Up to increase, down to decrease the orbit radii.
         <h2>Screenshots</h2>
-        <button onclick="toggle_screenshots()" id="show_button">Show images</button><br><br>
-        <div id="screens" style="display: none; transition: 0.3s display">
+        <button onclick="toggle_screenshots()" id="show_button">Hide images</button><br><br>
+        <div id="screens" style="display: block; transition: 0.3s display">
           <img src="screenshots/gravity1.jpg" alt="Gravity Screenshot 1"><br>
           <img src="screenshots/gravity2.jpg" alt="Gravity Screenshot 2"><br>
           <img src="screenshots/gravity3.jpg" alt="Gravity Screenshot 3"><br>
