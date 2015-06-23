@@ -1,7 +1,7 @@
 <!doctype html>
 <html>
   <head>
-    <title>xkcd shuffle -- Browse xkcd in a random order without clashes or duplicates</title>
+    <title>xkcd shuffle -- Random done right</title>
     <meta name=viewport content="width=device-width, initial-scale=1">
     <meta charset="utf-8">
     <meta name="description" content="xkcd shuffle aims to fix the random button in xkcd. Browse xkcd in a random order, the order is saved between different sessions">
@@ -25,6 +25,7 @@
       var container, message_div;
       var comic_list;
       var current_index = 0;
+      var limit = 2000;
       var loading_message = "Loading...",
           error_message = "Couldn't load comic data :(\n" +
             "What has the black hat guy done now ?"
@@ -44,7 +45,12 @@
         fetch("https://xkcd.com/info.0.json",
             function(){
               total_comics = comic_data.num;
-              init_comic_list(seed, comic)
+              if (total_comics > limit)
+              {
+                message_div.innerHTML = "ERROR: Number of xkcd comics exceed the number supported by this web app !!" +
+                  "The programmer was lousy and stupidly made this limit. Please report this to amhndu --at-- gmail"
+              }
+              else init_comic_list(seed, comic);
             }
           );
       }
@@ -71,7 +77,7 @@
           seed = Math.floor(Math.random() * ((1 << 31) >>> 0));
         }
         document.getElementById('seed_box').value = seed;
-        comic_list = get_random_list(seed, total_comics);
+        comic_list = get_random_list(seed);
         if (typeof(start) != 'number' || isNaN(start))
           current_index = 0;
         else
@@ -86,18 +92,18 @@
         log2 = Math.log2 || function(x) {
           return Math.log(x) / Math.LN2;
           };
-        var bits = Math.floor(log2(n));
-        var r = mt.genrand_int32() >> (32 - bits);
+        var bits = Math.floor(log2(n)) + 1;
+        var r = mt.genrand_int32() >>> (32 - bits);
         while (r >= n)
-          r = mt.genrand_int32() >> (32 - bits);
+          r = mt.genrand_int32() >>> (32 - bits);
         return r;
       }
-      function get_random_list(seed, end)
+      function get_random_list(seed)
       {
         var mt =  new MersenneTwister(seed);
-        var a = Array(end), j = 0;
+        var a = Array(limit), j = 0;
         //Simple "in-place" fisher-yates shuffling
-        for (var i = 0; i < end - 1; ++i)
+        for (var i = 0; i < limit; ++i)
         {
           j = randbelow(mt, i + 1);
           if (j != i)
@@ -110,13 +116,19 @@
       {
         if (typeof(dir) == 'undefined' || dir < 0)
         {
-          --current_index;
-          if (current_index < 0) current_index = total_comics - 1;
+          do
+          {
+            --current_index;
+            if (current_index < 0) current_index = total_comics - 1;
+          } while (comic_list[current_index] > total_comics)
         }
         else
         {
-          ++current_index;
-          if (current_index >= total_comics) current_index = 0;
+          do
+          {
+            ++current_index;
+            if (current_index >= limit) current_index = 0;
+          } while (comic_list[current_index] > total_comics)
         }
         var url = "https://xkcd.com/" +
                   comic_list[current_index] +
@@ -127,8 +139,8 @@
         var img = container.getElementsByTagName('img')[0];
         fetch(url,
             function(){
-              container.getElementsByTagName('h3')[0].innerHTML = comic_data.num +
-                ': ' + comic_data.title;
+              container.getElementsByTagName('h3')[0].innerHTML = comic_data.title;
+              document.getElementById('comic_num_box').value = comic_data.num;
               img.src = comic_data.img;
               img.title = comic_data.alt;
               container.getElementsByTagName('p')[0].innerHTML = 'Alt text: &ldquo;' + comic_data.alt + '&rdquo;';
@@ -173,6 +185,15 @@
         container.style.display = 'block';
         message_div.style.display = 'none';
       }
+      function jump_to_comic()
+      {
+        var num = parseInt(document.getElementById('comic_num_box').value);
+        if (num <= total_comics)
+        {
+          current_index = comic_list.indexOf(num) - 1;
+          nav_random_comic(1);
+        }
+      }
     </script>
     <script id="json">
     </script>
@@ -206,13 +227,20 @@
       </div>
       <br><br>
       <div style="text-align: center;">
-        Seed: <input type="text" id="seed_box">
+        Seed: <input type="text" id="seed_box" value="Loading...">
         <button onclick="init_comic_list(parseInt(document.getElementById('seed_box').value))">Change Seed</button>
         <button onclick="init_comic_list()">New Random Seed</button>
+        <br><br>
+        Comic no.: <input type="text" id="comic_num_box" value="Loading...">
+        <button onclick="jump_to_comic()">Jump</button>
+
         <br><br>
         <button onclick="nav_random_comic(-1)">Prev Random</button>
         <button onclick="nav_random_comic(1)">Next Random</button>
         <br><br>
+        <h3 id="message" style="min-height: 15em;">
+          Loading...
+        </h3>
         <div id="container">
           <h3></h3>
           <img onload="comic_loaded()">
@@ -221,12 +249,11 @@
                a = document.getElementById('alt_text');
                a.style.display = (a.style.display != 'none') ? 'none' : 'block';
             ">Show/Hide Alt Text</button>
+          <br>
           <p id="alt_text" style="display: none;"></p>
         </div>
-        <h3 id="message">
-          Loading...
-        </h3>
       </div>
+      <br><br>
       <a href="https://xkcd.com">xkcd by Randall Munroe</a>, is licensed under Creative Commmon BY-NC 2.5.<br>
       Disclaimer: This page is not associated with xkcd and is not responsible for the content.
     </div>
