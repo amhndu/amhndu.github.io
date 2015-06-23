@@ -18,24 +18,6 @@
       ga('create', 'UA-64115447-1', 'auto');
       ga('send', 'pageview');
     </script>
-    <script>
-        var state = 1;
-        function toggle_screenshots()
-        {
-          if(state)
-          {
-            document.getElementById("screens").style.display = "none";
-            document.getElementById("show_button").innerHTML = "Show Images";
-            state = 0;
-          }
-          else
-          {
-            document.getElementById("screens").style.display = "block";
-            document.getElementById("show_button").innerHTML = "Hide Images";
-            state = 1;
-          }
-        }
-    </script>
     </head>
     <body>
     <div id="header">
@@ -70,7 +52,10 @@
         <li>Metadata of the current track playing</li>
       </ul>
       <h2>Screenshots</h2>
-        <button onclick="toggle_screenshots()" id="show_button">Hide images</button><br><br>
+        <button onclick="
+             s = document.getElementById('screens');
+             s.style.display = (s.style.display != 'none') ? 'none' : 'block';
+          ">Show/Hide Images</button><br><br>
         <div id="screens" style="display: block;">
           <img src="screenshots/conky1.jpg" alt="Conky Cards Screenshot 1"><br>
           <img src="screenshots/conky2.jpg" alt="Conky Cards Screenshot 2"><br>

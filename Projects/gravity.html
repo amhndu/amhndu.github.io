@@ -19,25 +19,7 @@
       ga('create', 'UA-64115447-1', 'auto');
       ga('send', 'pageview');
     </script>
-    <script>
-      var state = 1;
-      function toggle_screenshots()
-      {
-        if(state)
-        {
-          document.getElementById("screens").style.display = "none";
-          document.getElementById("show_button").innerHTML = "Show Images";
-          state = 0;
-        }
-        else
-        {
-          document.getElementById("screens").style.display = "block";
-          document.getElementById("show_button").innerHTML = "Hide Images";
-          state = 1;
-        }
-      }
-    </script>
- </head>
+  </head>
   <body>
     <div id="header">
       <h1 id="sitename">
@@ -63,7 +45,10 @@
         <h2>Controls</h2>
           Click "New Game" to start playing, then satellites will start appearing. Dodge the satellites and their debris by increasing the space spation's (i.e. your) orbit by pressing the arrow keys. Up to increase, down to decrease the orbit radii.
         <h2>Screenshots</h2>
-        <button onclick="toggle_screenshots()" id="show_button">Hide images</button><br><br>
+        <button onclick="
+             s = document.getElementById('screens');
+             s.style.display = (s.style.display != 'none') ? 'none' : 'block';
+          ">Show/Hide Images</button><br><br>
         <div id="screens" style="display: block; transition: 0.3s display">
           <img src="screenshots/gravity1.jpg" alt="Gravity Screenshot 1"><br>
           <img src="screenshots/gravity2.jpg" alt="Gravity Screenshot 2"><br>

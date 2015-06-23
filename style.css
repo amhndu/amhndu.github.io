@@ -34,7 +34,7 @@ span.inline-pre {
 pre {
     padding: 1em;
 }
-div#header, div#footer, button {
+div#header, div#footer, button, input[type="submit"], .button {
     background: #444;
     color: #fff;
     font-family: 'Roboto';
@@ -56,17 +56,20 @@ img.thumb {
         max-width: 100%;
     }
 }
-button {
+input[type="text"] {
+    padding: 0.6em;
+}
+button, input[type="submit"], .button {
     padding: 0.6em;
     outline: 0;
     cursor: pointer;
     transition: 0.5s background-color;
     font-size: 1em;
 }
-button:hover {
+button:hover, input:hover[type="submit"], .button:hover {
     background: #588;
+    color: #fff;
 }
-
 div#header {
     padding-top: 3em;
     border: 0;
