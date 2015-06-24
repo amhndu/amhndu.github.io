@@ -26,6 +26,7 @@
       var comic_list;
       var current_index = 0;
       var limit = 2000;
+      var _seed;
       var loading_message = "Loading...",
           error_message = "Couldn't load comic data :(\n" +
             "What has the black hat guy done now ?"
@@ -36,19 +37,27 @@
         message_div = document.getElementById('message');
         message_div.style.display = 'block';
         message_div.innerHTML = loading_message;
-        var seed = parseInt(get_cookie('seed')),
-            comic = parseInt(get_cookie('comic'));
-        if (!isNaN(seed))
+        var seed, comic;
+        //Parsing the url to get the seed and comic in the form #seed:comic
+        var match = document.location.hash.match(/^#(\d+):(\d+)$/);
+        if (match)
         {
-          document.getElementById('intro').style.display = 'none';
+          seed = parseInt(match[1]);
+          comic = parseInt(match[2]);
         }
+        else
+        {
+          seed = parseInt(get_cookie('seed'));
+          comic = parseInt(get_cookie('comic'));
+        }
+        if (!isNaN(seed))
+          document.getElementById('intro').style.display = 'none';
         fetch("https://xkcd.com/info.0.json",
             function(){
               total_comics = comic_data.num;
               if (total_comics > limit)
               {
-                message_div.innerHTML = "ERROR: Number of xkcd comics exceed the number supported by this web app !!" +
-                  "The programmer was lousy and stupidly made this limit. Please report this to amhndu --at-- gmail"
+                message_div.innerHTML = "ERROR: Number of xkcd comics exceed the number supported by this web app !!. \nThe programmer was lousy and stupidly made this limit. Please report this to amhndu --at-- gmail"
               }
               else init_comic_list(seed, comic);
             }
@@ -77,12 +86,17 @@
           seed = Math.floor(Math.random() * ((1 << 31) >>> 0));
         }
         document.getElementById('seed_box').value = seed;
+        if (seed == _seed)
+          return;
         comic_list = get_random_list(seed);
         if (typeof(start) != 'number' || isNaN(start))
           current_index = 0;
+        else if (typeof(comic_data) != 'undefined' && start == comic_data.num)
+          return;
         else
           current_index = comic_list.indexOf(start) - 1;
         set_cookie('seed', seed);
+        _seed = seed;
         nav_random_comic(1);
       }
       //mt is an instance of MersenneTwister from mersenne-twister.js
@@ -143,8 +157,9 @@
               document.getElementById('comic_num_box').value = comic_data.num;
               img.src = comic_data.img;
               img.title = comic_data.alt;
-              container.getElementsByTagName('p')[0].innerHTML = 'Alt text: &ldquo;' + comic_data.alt + '&rdquo;';
+              container.getElementsByTagName('p')[0].innerHTML = comic_data.alt;
               set_cookie('comic', comic_data.num);
+              document.location.hash = _seed + ':' + comic_data.num;
             }
           );
       }
@@ -198,7 +213,12 @@
     <script id="json">
     </script>
   </head>
-  <body>
+  <body onhashchange="
+        function() {
+            var match = document.location.hash.match(/^#(\d+):(\d+)$/);
+            if (match) init_comic_list(parseInt(match[1]), parseInt(match[2]));
+          },
+  ">
     <div id="header">
       <h1>
         xkcd shuffle
@@ -222,7 +242,10 @@
         xkcd shuffle lets you browse <a href="http://xkcd.com">xkcd</a> in a random order,
         without presenting the same comic multiple times.
         The order (and the current comic) is preserved between sessions and the order is determined only by the 'seed',
-        so you can copy the seed to different browsers or devices to continue.<br><br>
+        so you can copy the seed to different browsers or devices to continue.<br>
+        Tip: You can copy the URL and paste it anywhere else to continue.
+        The first number after the hash (in the url) is the seed, followed by a colon and then the comic number, these are updated when automatically.
+        <br><br>
         <a href="javascript:void(document.getElementById('intro').style.display='none');">Got it (close this box)</a>
       </div>
       <br><br>
@@ -232,16 +255,17 @@
         <button onclick="init_comic_list()">New Random Seed</button>
         <br><br>
         Comic no.: <input type="text" id="comic_num_box" value="Loading...">
-        <button onclick="jump_to_comic()">Jump</button>
+        <button onclick="init_comic_list(_seed,
+          parseInt(document.getElementById('comic_num_box').value))">Jump</button>
 
         <br><br>
         <button onclick="nav_random_comic(-1)">Prev Random</button>
         <button onclick="nav_random_comic(1)">Next Random</button>
         <br><br>
-        <h3 id="message" style="min-height: 15em;">
+        <h3 id="message" style="display: block;">
           Loading...
         </h3>
-        <div id="container">
+        <div id="container" style="display: none;">
           <h3></h3>
           <img onload="comic_loaded()">
           <br><br>
@@ -250,7 +274,8 @@
                a.style.display = (a.style.display != 'none') ? 'none' : 'block';
             ">Show/Hide Alt Text</button>
           <br>
-          <p id="alt_text" style="display: none;"></p>
+          <p id="alt_text" style="display: none; background: #fafafa;
+          border: 1px solid #ccc; padding: 0.5em"></p>
         </div>
       </div>
       <br><br>
