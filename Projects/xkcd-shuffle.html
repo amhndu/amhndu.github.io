@@ -225,6 +225,7 @@
                 '#' + _seed + ':' + comic_data.num;
               document.getElementById('reddit_submit').href = 'https://reddit.com/submit?url=' +
                 encodeURIComponent('xkcd.com/' + comic_data.num);
+              document.getElementById('alt_text').styel.display = 'none';
               //Some comics have an external link associated with them,
               //it sometimes have big versions or some other relavant link
               var el = document.getElementById('external_link');
@@ -249,13 +250,18 @@
         {
           old_comic_data = comic_data;
           var t = match[1], n = parseInt(match[2]);
+          console.log(n)
+          console.log(current_index-n+1)
           var url = "https://xkcd.com/" +
                   comic_list[current_index-n+1] +
                   "/info.0.json";
+          console.log(url)
           fetch(url, function() {
               match = comic_data.title.match(pattern);
+              console.log(match);
               if (match && match[0] == t && match[0] == '1')
               {
+                console.log('boo');
                 panel.style.display = 'block';
                 var series_links = panel.getElementsByTagName('a');
                 series_links[0].href = '#:' + comic_data.num;
@@ -374,7 +380,10 @@
           <a href="#" id="external_link" style="display: none;">
             External link associated with the comic
           </a><br>
-          <button onclick>Show/Hide Alt Text</button>
+          <button onclick="
+            var e = document.getElementById('alt_text');
+            e.style.display = (e.style.display == 'none') ? 'block' : 'none';
+            " style="display: none;">Show/Hide Alt Text</button>
           <p id="alt_text" style="background: #fafafa;
           border: 1px solid #ccc; padding: 0.5em"></p>
           <br><br>
