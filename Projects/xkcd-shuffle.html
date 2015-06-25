@@ -296,16 +296,7 @@
         <br><br>
         <a href="javascript:void(document.getElementById('intro').style.display='none');">Got it (close this box)</a>
       </div>
-      <br><br>
       <div style="text-align: center;">
-        Seed: <input type="text" id="seed_box" value="Loading...">
-        <button onclick="init_comic_list(parseInt(document.getElementById('seed_box').value))">Change Seed</button>
-        <button onclick="init_comic_list()">New Random Seed</button>
-        <br><br>
-        Comic no.: <input type="text" id="comic_num_box" value="Loading...">
-        <button onclick="init_comic_list(_seed,
-          parseInt(document.getElementById('comic_num_box').value))">Jump</button>
-        <br><br>
         <button onclick="nav_random_comic(-1)">Prev Random</button>
         <button onclick="nav_random_comic(1)">Next Random</button>
         <br><br>
@@ -330,6 +321,15 @@
         <br><br>
         <button onclick="nav_random_comic(-1)">Prev Random</button>
         <button onclick="nav_random_comic(1)">Next Random</button>
+        <br><br><br>
+        Comic no.: <input type="text" id="comic_num_box" value="Loading...">
+        <button onclick="init_comic_list(_seed,
+          parseInt(document.getElementById('comic_num_box').value))">Jump</button>
+        <br><br>
+        Seed: <input type="text" id="seed_box" value="Loading...">
+        <button onclick="init_comic_list(parseInt(document.getElementById('seed_box').value))">Change Seed</button>
+        <button onclick="init_comic_list()">New Random Seed</button>
+        <br><br>
       </div>
       <div style="margin: 5em 0 0 0;">
       <a href="https://xkcd.com">xkcd by Randall Munroe</a>, is licensed under Creative Commmon BY-NC 2.5.<br>
