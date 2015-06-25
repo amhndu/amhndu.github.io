@@ -4,12 +4,13 @@
     <title>xkcd shuffle -- Random done right</title>
     <meta name=viewport content="width=device-width, initial-scale=1">
     <meta charset="utf-8">
-    <meta name="description" content="xkcd shuffle aims to fix the random button in xkcd. Browse xkcd in a random order, the order is saved between different sessions">
+    <meta name="description" content="xkcd shuffle aims to fix the random button in xkcd. Browse xkcd in a random order, persistant across sessions and easily continue anywhere with a link.">
     <meta name="author" content="Amish Naidu">
     <link rel="stylesheet" href="../style.css">
     <link rel="icon" type="image/png" href="../favicon.png">
     <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Roboto:400,300">
     <script>
+      //Google Analytics
       (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
       (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
       m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
@@ -21,15 +22,15 @@
     <script src="mersenne-twister.js"></script>
     <script>
       var comic_data;
-      var total_comics;
+      var total_comics = null;
       var container, message_div;
       var comic_list;
       var current_index = 0;
       var limit = 2000;
       var _seed;
       var loading_message = "Loading...",
-          error_message = "Couldn't load comic data :(\n" +
-            "What has the black hat guy done now ?"
+          error_message = "Couldn't load comic data :(<br> Please try again.<br>" +
+            "<small>(What has the black hat guy done now ?)</small>"
       function init()
       {
         container = document.getElementById('container');
@@ -37,9 +38,57 @@
         message_div = document.getElementById('message');
         message_div.style.display = 'block';
         message_div.innerHTML = loading_message;
-        var seed, comic;
-        //Parsing the url to get the seed and comic in the form #seed:comic
-        var match = document.location.hash.match(/^#(\d+):(\d+)$/);
+        var res = parse_url_hash();
+        var seed = res[0], comic = res[1];
+        if (typeof(seed) != 'number')
+          seed = parseInt(get_cookie('seed'));
+        if (typeof(comic) != 'number')
+          comic = parseInt(get_cookie('comic'));
+        if (document.cookie.search(/(seed)|(comic)/) >= 0)
+        {
+          document.getElementById('intro').style.display = 'none';
+        }
+        fetch("https://xkcd.com/info.0.json",
+            function(){
+              total_comics = comic_data.num;
+              if (total_comics > limit)
+              {
+                message_div.innerHTML = "ERROR: Number of xkcd comics exceed the number supported by this web app !!."+
+                  "\nThe programmer was lousy and stupidly made this limit. Please report this to amhndu --at-- gmail"
+              }
+              else init_comic_list(seed, comic);
+            }
+          );
+      }
+      window.onload = init;
+      window.onkeydown = function(e)
+      {
+        switch(e.keyCode)
+        {
+          case 0x48:  //h
+          case 0x25:  //left arrow key
+            nav_random_comic(-1);
+            break;
+          case 0x4C:  //l
+          case 0x27:  //right arrow key
+            nav_random_comic(1);
+            break;
+          case 0x4A:  //j
+            window.scrollBy(0, 40);
+            break;
+          case 0x4B:  //k
+            window.scrollBy(0, -40);
+            break;
+        }
+      }
+      window.onhashchange= function()
+      {
+        var res = parse_url_hash();
+        init_comic_list(res[0], res[1]);
+      }
+      function parse_url_hash()
+      {
+        var seed, comic, match = location.hash.match(/^#(\d+):(\d+)$/);
         if (match)
         {
           seed = parseInt(match[1]);
@@ -47,23 +96,12 @@
         }
         else
         {
-          seed = parseInt(get_cookie('seed'));
-          comic = parseInt(get_cookie('comic'));
+          match = location.hash.match(/^#:(\d+)$/);
+          if (match)
+            comic = parseInt(match[1]);
         }
-        if (!isNaN(seed))
-          document.getElementById('intro').style.display = 'none';
-        fetch("https://xkcd.com/info.0.json",
-            function(){
-              total_comics = comic_data.num;
-              if (total_comics > limit)
-              {
-                message_div.innerHTML = "ERROR: Number of xkcd comics exceed the number supported by this web app !!. \nThe programmer was lousy and stupidly made this limit. Please report this to amhndu --at-- gmail"
-              }
-              else init_comic_list(seed, comic);
-            }
-          );
+        return [seed, comic];
       }
-      window.onload = init;
       function get_cookie(name)
       {
         var pattern = new RegExp(name + '\\s*\\=\\s*([^;]*)');
@@ -86,9 +124,8 @@
           seed = Math.floor(Math.random() * ((1 << 31) >>> 0));
         }
         document.getElementById('seed_box').value = seed;
-        if (seed == _seed)
-          return;
-        comic_list = get_random_list(seed);
+        if (seed != _seed)
+          comic_list = get_random_list(seed);
         if (typeof(start) != 'number' || isNaN(start))
           current_index = 0;
         else if (typeof(comic_data) != 'undefined' && start == comic_data.num)
@@ -116,7 +153,7 @@
       {
         var mt =  new MersenneTwister(seed);
         var a = Array(limit), j = 0;
-        //Simple "in-place" fisher-yates shuffling
+        //Simple "in-place" shuffling
         for (var i = 0; i < limit; ++i)
         {
           j = randbelow(mt, i + 1);
@@ -150,16 +187,37 @@
         container.style.display = 'none';
         message_div.style.display = 'block';
         message_div.innerHTML = loading_message;
-        var img = container.getElementsByTagName('img')[0];
+        if (comic_list[current_index] == 404)
+        {
+          document.getElementById('comic_num_box').value = 404;
+        }
         fetch(url,
             function(){
+              set_cookie('comic', comic_data.num);
+              location.hash = _seed + ':' + comic_data.num;
               container.getElementsByTagName('h3')[0].innerHTML = comic_data.title;
               document.getElementById('comic_num_box').value = comic_data.num;
+              var img = container.getElementsByTagName('img')[0];
               img.src = comic_data.img;
               img.title = comic_data.alt;
-              container.getElementsByTagName('p')[0].innerHTML = comic_data.alt;
-              set_cookie('comic', comic_data.num);
-              document.location.hash = _seed + ':' + comic_data.num;
+              document.getElementById('alt_text').innerHTML = comic_data.alt;
+              document.getElementById('explain').href = 'http://explainxkcd.com/' +
+                comic_data.num;
+              document.getElementById('official').href = 'https://xkcd.com/' +
+                comic_data.num;
+              document.getElementById('current').href = location.href.split('#')[0] +
+                '#:' + comic_data.num;
+              document.getElementById('current_w_seed').href = location.href;
+              //Some comics have an external link associated with them,
+              //it sometimes have big versions or some other relavant link
+              var el = document.getElementById('external_link');
+              if (comic_data.link)
+              {
+                el.href = comic.data.link;
+                el.style.display = 'block';
+              }
+              else
+                el.style.display = 'none';
             }
           );
       }
@@ -168,16 +226,19 @@
         if (json.query.count)
         {
           comic_data = json.query.results.json;
+          return true;
         }
         else
         {
           message_div.innerHTML = error_message;
+          return false;
         }
       }
       function fetch(url, callback)
       {
+        var success = false;
         if(typeof(callback) == 'function')
-          cbwrapper = function(json){ jsoncb(json); callback(); };
+          cbwrapper = function(json){ if (jsoncb(json)) callback(); };
         else
           cbwrapper = jsoncb;
         /*Use Yahoo! query language API to indirectly-
@@ -200,25 +261,11 @@
         container.style.display = 'block';
         message_div.style.display = 'none';
       }
-      function jump_to_comic()
-      {
-        var num = parseInt(document.getElementById('comic_num_box').value);
-        if (num <= total_comics)
-        {
-          current_index = comic_list.indexOf(num) - 1;
-          nav_random_comic(1);
-        }
-      }
     </script>
     <script id="json">
     </script>
   </head>
-  <body onhashchange="
-        function() {
-            var match = document.location.hash.match(/^#(\d+):(\d+)$/);
-            if (match) init_comic_list(parseInt(match[1]), parseInt(match[2]));
-          },
-  ">
+  <body>
     <div id="header">
       <h1>
         xkcd shuffle
@@ -234,17 +281,18 @@
           <li><a href="../articles.html">Articles</a></li>
         </ul>
       </div>
-      <br>
-      <br>
+      <br><br>
     </div>
     <div id="content">
       <div style="background: #fafafa; border: 1px solid #ccc; padding: 0.5em" id="intro">
-        xkcd shuffle lets you browse <a href="http://xkcd.com">xkcd</a> in a random order,
+        xkcd-shuffle lets you browse <a href="http://xkcd.com">xkcd</a> in a random order,
         without presenting the same comic multiple times.
-        The order (and the current comic) is preserved between sessions and the order is determined only by the 'seed',
+        The order (and the current comic) is preserved between sessions and this order is determined only by the 'seed',
         so you can copy the seed to different browsers or devices to continue.<br>
-        Tip: You can copy the URL and paste it anywhere else to continue.
-        The first number after the hash (in the url) is the seed, followed by a colon and then the comic number, these are updated when automatically.
+        You can copy the URL and paste it anywhere else to continue.
+        The first number after the hash (in the url) is the seed, followed by a colon and then the comic number, these are updated when automatically.<br>
+        Tip: You can easily browse with "h, j, k, l" keys for previous, scroll down, scroll up and next respectively
+        or if you prefer just the arrow keys -- Left or Right for Previous and Next comic respectively.
         <br><br>
         <a href="javascript:void(document.getElementById('intro').style.display='none');">Got it (close this box)</a>
       </div>
@@ -257,32 +305,39 @@
         Comic no.: <input type="text" id="comic_num_box" value="Loading...">
         <button onclick="init_comic_list(_seed,
           parseInt(document.getElementById('comic_num_box').value))">Jump</button>
-
         <br><br>
         <button onclick="nav_random_comic(-1)">Prev Random</button>
         <button onclick="nav_random_comic(1)">Next Random</button>
         <br><br>
-        <h3 id="message" style="display: block;">
+        <h3 id="message" style="display: block; margin: 5em 0;">
           Loading...
         </h3>
         <div id="container" style="display: none;">
           <h3></h3>
           <img onload="comic_loaded()">
           <br><br>
-          <button onclick="
-               a = document.getElementById('alt_text');
-               a.style.display = (a.style.display != 'none') ? 'none' : 'block';
-            ">Show/Hide Alt Text</button>
-          <br>
-          <p id="alt_text" style="display: none; background: #fafafa;
+          <a href="#" id="external_link" style="display: none;">
+            External link associated with the comic
+          </a><br>
+          <p id="alt_text" style="background: #fafafa;
           border: 1px solid #ccc; padding: 0.5em"></p>
+          <br><br>
+          <a id="explain" href="http://explainxkcd.com" target="_blank">Explain xkcd</a> -
+          <a id="official" href="http://xkcd.com" target="_blank">Official comic page</a><br>
+          on xkcd-shuffle: <a id="current" href="#">Direct link</a> -
+          <a id="current_w_seed" href="#">Direct link with current seed</a>
         </div>
+        <br><br>
+        <button onclick="nav_random_comic(-1)">Prev Random</button>
+        <button onclick="nav_random_comic(1)">Next Random</button>
       </div>
-      <br><br>
+      <div style="margin: 5em 0 0 0;">
       <a href="https://xkcd.com">xkcd by Randall Munroe</a>, is licensed under Creative Commmon BY-NC 2.5.<br>
       Disclaimer: This page is not associated with xkcd and is not responsible for the content.
+      </div>
     </div>
     <div id="footer">
+      <a href="../index.html">Home</a> |
       <a href="../index.html#contact">Contact Me</a><br><br>
       This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>.
     </div>
