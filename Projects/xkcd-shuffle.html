@@ -44,10 +44,9 @@
           seed = parseInt(get_cookie('seed'));
         if (typeof(comic) != 'number')
           comic = parseInt(get_cookie('comic'));
-        if (isNaN(seed) && isNaN(comic))
+        if (document.cookie.search(/(seed)|(comic)/) >= 0)
         {
           document.getElementById('intro').style.display = 'none';
-          message_div.innerHTML = 'Click \'New Random Seed\' below to begin.';
         }
         fetch("https://xkcd.com/info.0.json",
             function(){
@@ -57,8 +56,7 @@
                 message_div.innerHTML = "ERROR: Number of xkcd comics exceed the number supported by this web app !!."+
                   "\nThe programmer was lousy and stupidly made this limit. Please report this to amhndu --at-- gmail"
               }
-              else if (!isNaN(seed) || !isNaN(comic))
-                message_div.innerHTML = 'Click \'Next Random\' or \'Prev Random\'.'
+              else init_comic_list(seed, comic);
             }
           );
       }
@@ -196,7 +194,7 @@
         fetch(url,
             function(){
               set_cookie('comic', comic_data.num);
-              location.hash = _seed + ':' + comic_data.num;
+              //location.hash = _seed + ':' + comic_data.num;
               container.getElementsByTagName('h3')[0].innerHTML = comic_data.title;
               document.getElementById('comic_num_box').value = comic_data.num;
               var img = container.getElementsByTagName('img')[0];
@@ -291,10 +289,9 @@
           xkcd-shuffle lets you browse <a href="http://xkcd.com">xkcd</a> in a random order,
           without presenting the same comic multiple times.
           The order (and the current comic) is preserved between sessions so that you can continue where you left.<br>
-          You can also copy the URL with the hash and paste it anywhere else to continue.<br>
+          You can also copy the URL of the link \'Direct link with Seed\' below the comic to continue anywhere.<br>
           Tip: You can easily browse with "h, j, k, l" keys for previous, scroll down, scroll up and next respectively
-          or if you prefer just the arrow keys -- Left or Right for Previous and Next comic respectively.<br>
-          To begin, click 'New Random Seed' below!
+          or if you prefer just the arrow keys -- Left or Right for Previous and Next comic respectively.
           <br><br>
           <a href="javascript:void(document.getElementById('intro').style.display='none');">Got it (close this box)</a>
         </div>
@@ -326,11 +323,11 @@
         <button onclick="nav_random_comic(-1)">Prev Random</button>
         <button onclick="nav_random_comic(1)">Next Random</button>
         <br><br><br>
-        Comic no.: <input type="text" id="comic_num_box" value="-">
+        Comic no.: <input type="text" id="comic_num_box" value="Loading...">
         <button onclick="init_comic_list(_seed,
           parseInt(document.getElementById('comic_num_box').value))">Jump</button>
         <br><br>
-        Seed: <input type="text" id="seed_box" value="-">
+        Seed: <input type="text" id="seed_box" value="Loading...">
         <button onclick="init_comic_list(parseInt(document.getElementById('seed_box').value))">Change Seed</button>
         <button onclick="init_comic_list()">New Random Seed</button>
         <br><br>
