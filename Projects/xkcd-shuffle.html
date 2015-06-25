@@ -212,7 +212,9 @@
               var img = container.getElementsByTagName('img')[0];
               img.src = comic_data.img;
               img.title = comic_data.alt;
-              document.getElementById('alt_text').innerHTML = comic_data.alt;
+              var alt = document.getElementById('alt_text');
+              alt.innerHTML = '';
+              alt.appendChild(document.createTextNode(comic_data.alt));
               document.getElementById('explain').href = 'http://explainxkcd.com/' +
                 comic_data.num;
               document.getElementById('official').href = 'https://xkcd.com/' +
@@ -233,8 +235,39 @@
               }
               else
                 el.style.display = 'none';
+              //handle_multi_part();
             }
           );
+      }
+      function handle_multi_part()
+      {
+        var old_comic_data;
+        var pattern = new RegExp('^(\\w+)\\s*:\\s*Part (\\d)$');
+        var match = comic_data.title.match(pattern);
+        var panel = document.getElementById('series_panel');
+        if (match)
+        {
+          old_comic_data = comic_data;
+          var t = match[1], n = parseInt(match[2]);
+          var url = "https://xkcd.com/" +
+                  comic_list[current_index-n+1] +
+                  "/info.0.json";
+          fetch(url, function() {
+              match = comic_data.title.match(pattern);
+              if (match && match[0] == t && match[0] == '1')
+              {
+                panel.style.display = 'block';
+                var series_links = panel.getElementsByTagName('a');
+                series_links[0].href = '#:' + comic_data.num;
+                series_links[1].href = '#:' + String(old_comic_data.num + 1);
+                series_links[2].href = '#:' + String(old_comic_data.num - 1);
+              }
+            }
+          );
+          comic_data = old_comic_data;
+        }
+        else if(panel.style.display == 'block')
+          panel.style.display = 'none';
       }
       function jsoncb(data)
       {
@@ -269,7 +302,7 @@
         newscript.setAttribute('src', yql);
         newscript.setAttribute('id', 'json');
         head = document.getElementsByTagName('head')[0];
-        jsonp_load_timer = window.setTimeout(function() {
+        /*jsonp_load_timer = window.setTimeout(function() {
             s = document.createElement('scirpt');
             s.setAttribute('id', 'json');
             head.replaceChild(s, document.getElementById('json'));
@@ -277,14 +310,14 @@
             message_div.innerHTML = 'Loading timed out :(<br>' +
               'Please try again.';
             container.style.display = 'none';
-          }, 180000); //3 minutes
+          }, 180000); //3 minutes*/
         head.replaceChild(newscript, document.getElementById('json'));
       }
       function comic_loaded()
       {
         container.style.display = 'block';
         message_div.style.display = 'none';
-        window.clearTimeout(jsonp_load_timer);
+        //window.clearTimeout(jsonp_load_timer);
       }
     </script>
     <script id="json">
@@ -331,11 +364,17 @@
         </h3>
         <div id="container" style="display: none;">
           <h3></h3>
+          <div id="series_panel" style="display: none">
+            This comic <i>looks</i> like a part in a series of comics. Navigate the series:<br>
+            <a href="#">First</a><br>
+            <a href="#">Prev</a><a href="#">Next</a>
+          </div>
           <img onload="comic_loaded()">
           <br><br>
           <a href="#" id="external_link" style="display: none;">
             External link associated with the comic
           </a><br>
+          <button onclick>Show/Hide Alt Text</button>
           <p id="alt_text" style="background: #fafafa;
           border: 1px solid #ccc; padding: 0.5em"></p>
           <br><br>
