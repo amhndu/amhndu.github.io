@@ -221,6 +221,8 @@
                 '#:' + comic_data.num;
               document.getElementById('current_w_seed').href = location.href.split('#')[0] +
                 '#' + _seed + ':' + comic_data.num;
+              document.getElementById('reddit_submit').href = 'https://reddit.com/submit?url=' +
+                encodeURIComponent('xkcd.com/' + comic_data.num);
               //Some comics have an external link associated with them,
               //it sometimes have big versions or some other relavant link
               var el = document.getElementById('external_link');
@@ -340,7 +342,8 @@
           <a id="explain" href="http://explainxkcd.com" target="_blank">Explain xkcd</a> -
           <a id="official" href="https://xkcd.com" target="_blank">Official comic page</a><br>
           on xkcd-shuffle: <a id="current" href="#">Direct link</a> -
-          <a id="current_w_seed" href="#">Direct link with current seed</a>
+          <a id="current_w_seed" href="#">Direct link with current seed</a><br>
+          <a id="reddit_submit" href="https://reddit.com/submit">Submit/discuss on reddit</a>
         </div>
         <br><br>
         <button onclick="nav_random_comic(-1)">Prev Random</button>
