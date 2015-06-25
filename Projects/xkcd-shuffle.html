@@ -37,7 +37,7 @@
         container.style.display = 'none';
         message_div = document.getElementById('message');
         message_div.style.display = 'block';
-        message_div.innerHTML = 'Click \'New Random Seed\' below to begin.';
+        message_div.innerHTML = loading_message;
         var res = parse_url_hash();
         var seed = res[0], comic = res[1];
         if (typeof(seed) != 'number')
@@ -47,6 +47,7 @@
         if (isNaN(seed) && isNaN(comic))
         {
           document.getElementById('intro').style.display = 'none';
+          message_div.innerHTML = 'Click \'New Random Seed\' below to begin.';
         }
         fetch("https://xkcd.com/info.0.json",
             function(){
@@ -56,9 +57,8 @@
                 message_div.innerHTML = "ERROR: Number of xkcd comics exceed the number supported by this web app !!."+
                   "\nThe programmer was lousy and stupidly made this limit. Please report this to amhndu --at-- gmail"
               }
-              else if (isNaN(seed) && isNaN(comic))
-                message_div.innerHTML = 'Click \'New Random Seed\' below to begin.';
-              else init_comic_list(seed, comic);
+              else if (!isNaN(seed) || !isNaN(comic))
+                init_comic_list(seed, comic);
             }
           );
       }
