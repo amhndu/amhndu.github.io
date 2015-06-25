@@ -43,7 +43,12 @@
         message_div.style.display = 'block';
         message_div.innerHTML = loading_message;
         var res = parse_url_hash();
-        var seed = res[0], comic = res[1];
+        var seed, comic;
+        if (typeof(res))
+        {
+          seed = res[0];
+          comic = res[1];
+        }
         if (typeof(seed) != 'number')
           seed = parseInt(get_cookie('seed'));
         if (typeof(comic) != 'number')
@@ -88,10 +93,13 @@
       window.onhashchange= function()
       {
         var res = parse_url_hash();
-        init_comic_list(res[0], res[1]);
+        if(res)
+          init_comic_list(res[0], res[1]);
       }
       function parse_url_hash()
       {
+        if (location.hash.match(/container/))
+          return false;
         var seed, comic, match = location.hash.match(/^#(\d+):(\d+)$/);
         if (match)
         {
@@ -211,7 +219,8 @@
                 comic_data.num;
               document.getElementById('current').href = location.href.split('#')[0] +
                 '#:' + comic_data.num;
-              document.getElementById('current_w_seed').href = location.href;
+              document.getElementById('current_w_seed').href = location.href.split('#')[0] +
+                '#' + _seed + ':' + comic_data.num;
               //Some comics have an external link associated with them,
               //it sometimes have big versions or some other relavant link
               var el = document.getElementById('external_link');
@@ -336,6 +345,8 @@
         <br><br>
         <button onclick="nav_random_comic(-1)">Prev Random</button>
         <button onclick="nav_random_comic(1)">Next Random</button>
+        <br><br>
+        <a href="#container">Go up to the comic</a>
         <br><br><br>
         Comic no.: <input type="text" id="comic_num_box" value="Loading...">
         <button onclick="init_comic_list(_seed,
