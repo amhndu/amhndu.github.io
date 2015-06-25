@@ -56,7 +56,7 @@
                 message_div.innerHTML = "ERROR: Number of xkcd comics exceed the number supported by this web app !!."+
                   "\nThe programmer was lousy and stupidly made this limit. Please report this to amhndu --at-- gmail"
               }
-              if (isNaN(seed) && isNaN(comic))
+              else if (isNaN(seed) && isNaN(comic))
                 message_div.innerHTML = 'Click \'New Random Seed\' below to begin.';
               else init_comic_list(seed, comic);
             }
@@ -326,11 +326,11 @@
         <button onclick="nav_random_comic(-1)">Prev Random</button>
         <button onclick="nav_random_comic(1)">Next Random</button>
         <br><br><br>
-        Comic no.: <input type="text" id="comic_num_box" value="Loading...">
+        Comic no.: <input type="text" id="comic_num_box" value="-">
         <button onclick="init_comic_list(_seed,
           parseInt(document.getElementById('comic_num_box').value))">Jump</button>
         <br><br>
-        Seed: <input type="text" id="seed_box" value="Loading...">
+        Seed: <input type="text" id="seed_box" value="-">
         <button onclick="init_comic_list(parseInt(document.getElementById('seed_box').value))">Change Seed</button>
         <button onclick="init_comic_list()">New Random Seed</button>
         <br><br>
