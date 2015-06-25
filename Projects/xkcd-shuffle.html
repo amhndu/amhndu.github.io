@@ -10,14 +10,17 @@
     <link rel="icon" type="image/png" href="../favicon.png">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:400,300">
     <script>
-      //Google Analytics
-      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      if(location.host != 'localhost')
+      {
+        //Google Analytics
+        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
 
-      ga('create', 'UA-64115447-1', 'auto');
-      ga('send', 'pageview');
+        ga('create', 'UA-64115447-1', 'auto');
+        ga('send', 'pageview');
+      }
     </script>
     <script src="mersenne-twister.js"></script>
     <script>
@@ -28,6 +31,7 @@
       var current_index = 0;
       var limit = 2000;
       var _seed;
+      var jsonp_load_timer;
       var loading_message = "Loading...",
           error_message = "Couldn't load comic data :(<br> Please try again.<br>" +
             "<small>(What has the black hat guy done now ?)</small>"
@@ -221,11 +225,11 @@
             }
           );
       }
-      function jsoncb(json)
+      function jsoncb(data)
       {
-        if (json.query.count)
+        if (data.query.count)
         {
-          comic_data = json.query.results.json;
+          comic_data = data.query.results.json;
           return true;
         }
         else
@@ -238,7 +242,7 @@
       {
         var success = false;
         if(typeof(callback) == 'function')
-          cbwrapper = function(json){ if (jsoncb(json)) callback(); };
+          cbwrapper = function(data){ if (jsoncb(data)) callback(); };
         else
           cbwrapper = jsoncb;
         /*Use Yahoo! query language API to indirectly-
@@ -254,12 +258,22 @@
         newscript.setAttribute('src', yql);
         newscript.setAttribute('id', 'json');
         head = document.getElementsByTagName('head')[0];
+        jsonp_load_timer = window.setTimeout(function() {
+            s = document.createElement('scirpt');
+            s.setAttribute('id', 'json');
+            head.replaceChild(s, document.getElementById('json'));
+            message_div.style.display = 'block';
+            message_div.innerHTML = 'Loading timed out :(<br>' +
+              'Please try again.';
+            container.style.display = 'none';
+          }, 180000); //3 minutes
         head.replaceChild(newscript, document.getElementById('json'));
       }
       function comic_loaded()
       {
         container.style.display = 'block';
         message_div.style.display = 'none';
+        window.clearTimeout(jsonp_load_timer);
       }
     </script>
     <script id="json">
@@ -286,7 +300,7 @@
     <div id="content">
       <div id="intro">
         <div style="background: #fafafa; border: 1px solid #ccc; padding: 0.5em">
-          xkcd-shuffle lets you browse <a href="http://xkcd.com">xkcd</a> in a random order,
+          xkcd-shuffle lets you browse <a href="https://xkcd.com">xkcd</a> in a random order,
           without presenting the same comic multiple times.
           The order (and the current comic) is preserved between sessions so that you can continue where you left.<br>
           You can also copy the URL of the link 'Direct link with Seed' below the comic to continue anywhere.<br>
@@ -315,7 +329,7 @@
           border: 1px solid #ccc; padding: 0.5em"></p>
           <br><br>
           <a id="explain" href="http://explainxkcd.com" target="_blank">Explain xkcd</a> -
-          <a id="official" href="http://xkcd.com" target="_blank">Official comic page</a><br>
+          <a id="official" href="https://xkcd.com" target="_blank">Official comic page</a><br>
           on xkcd-shuffle: <a id="current" href="#">Direct link</a> -
           <a id="current_w_seed" href="#">Direct link with current seed</a>
         </div>
