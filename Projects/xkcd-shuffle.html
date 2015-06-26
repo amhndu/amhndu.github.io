@@ -231,49 +231,13 @@
               var el = document.getElementById('external_link');
               if (comic_data.link)
               {
-                el.href = comic.data.link;
-                el.style.display = 'block';
+                el.href = comic_data.link;
+                el.style.display = 'inline';
               }
               else
                 el.style.display = 'none';
-              //handle_multi_part();
             }
           );
-      }
-      function handle_multi_part()
-      {
-        var old_comic_data;
-        var pattern = new RegExp('^(\\w+)\\s*:\\s*Part (\\d)$');
-        var match = comic_data.title.match(pattern);
-        var panel = document.getElementById('series_panel');
-        if (match)
-        {
-          old_comic_data = comic_data;
-          var t = match[1], n = parseInt(match[2]);
-          console.log(n)
-          console.log(current_index-n+1)
-          var url = "https://xkcd.com/" +
-                  comic_list[current_index-n+1] +
-                  "/info.0.json";
-          console.log(url)
-          fetch(url, function() {
-              match = comic_data.title.match(pattern);
-              console.log(match);
-              if (match && match[0] == t && match[0] == '1')
-              {
-                console.log('boo');
-                panel.style.display = 'block';
-                var series_links = panel.getElementsByTagName('a');
-                series_links[0].href = '#:' + comic_data.num;
-                series_links[1].href = '#:' + String(old_comic_data.num + 1);
-                series_links[2].href = '#:' + String(old_comic_data.num - 1);
-              }
-            }
-          );
-          comic_data = old_comic_data;
-        }
-        else if(panel.style.display == 'block')
-          panel.style.display = 'none';
       }
       function jsoncb(data)
       {
@@ -370,16 +334,11 @@
         </h3>
         <div id="container" style="display: none;">
           <h3></h3>
-          <div id="series_panel" style="display: none">
-            This comic <i>looks</i> like a part in a series of comics. Navigate the series:<br>
-            <a href="#">First</a><br>
-            <a href="#">Prev</a><a href="#">Next</a>
-          </div>
           <img onload="comic_loaded()">
           <br><br>
           <a href="#" id="external_link" style="display: none;">
             External link associated with the comic
-          </a><br>
+          </a><br><br>
           <button onclick="
             var e = document.getElementById('alt_text');
             e.style.display = (e.style.display == 'none') ? 'block' : 'none';
