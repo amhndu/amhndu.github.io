@@ -88,6 +88,10 @@
           case 0x4B:  //k
             window.scrollBy(0, -40);
             break;
+          case 0x41: //a
+            var e = document.getElementById('alt_text');
+            e.style.display = (e.style.display == 'none') ? 'block' : 'none';
+            break;
         }
       }
       window.onhashchange= function()
@@ -319,7 +323,8 @@
           The order (and the current comic) is preserved between sessions so that you can continue where you left.<br>
           You can also copy the URL of the link 'Direct link with Seed' below the comic to continue anywhere.<br>
           Tip: You can easily browse with "h, j, k, l" keys for previous, scroll down, scroll up and next respectively
-          or if you prefer just the arrow keys -- Left or Right for Previous and Next comic respectively.
+          or if you prefer just the arrow keys -- Left or Right for Previous and Next comic respectively.<br>
+          And press 'a' to show/hide the title text.
           <br><br>
           <a href="javascript:void(document.getElementById('intro').style.display='none');">Got it (close this box)</a>
         </div>
@@ -342,7 +347,7 @@
           <button onclick="
             var e = document.getElementById('alt_text');
             e.style.display = (e.style.display == 'none') ? 'block' : 'none';
-                ">Show/Hide Alt Text</button>
+                  ">Show/Hide <u>a</u>lt text</button>
           <p id="alt_text" style="background: #fafafa; display: none;
           border: 1px solid #ccc; padding: 0.5em"></p>
           <br><br>
