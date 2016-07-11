@@ -1,0 +1,85 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Notes -- Notes is a simple graphical musical notes player. </title>
+    <meta name=viewport content="width=device-width, initial-scale=1">
+    <meta charset="utf-8">
+    <meta name="description" content="Notes is a simple graphical musical notes player. Notes is programmed in C++ with SFML">
+    <meta name="author" content="Amish Naidu">
+    <meta name=viewport content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="../style.css">
+    <link rel="icon" type="image/png" href="../favicon.png">
+    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Roboto:400,300">
+  </head>
+  <body>
+    <div id="header">
+      <h1 id="sitename">
+        Amish Naidu
+      </h1>
+      <div id="subtext">
+        amhndu.github.io
+      </div>
+      <div id="navbar">
+        <ul>
+          <li><a href="../index.html">Home</a></li>
+          <li><a href="../projects.html" id="selected">Projects</a></li>
+          <li><a href="../articles.html">Articles</a></li>
+        </ul>
+      </div>
+    </div>
+    <div id="content">
+      <h2>Notes</h2>
+        <h3><a href="https://github.com/amhndu/Notes">View on GitHub</a></h3>
+        Notes is a simple graphical musical notes player. Within the window use the keyboard to play. The numeric row and alphabetical rows are used.Using each row is equivalent, thus 1, Q, A and Z all play the same note. The notes get higher from left to right.<br>
+        <h2>Command line options</h2>
+<pre>
+Usage ./notes [OPTIONS]
+--help, -h                        Display this text and exit
+--note-duration, -d <duration>    Set the note duration in milliseconds
+                                  (default: 300)
+--sample-rate, -r <rate>          Set the sample in samples per second, higher
+                                  means higher quality but also higher load time
+                                  (default: 441000)
+--namednotesinput, -n             Input/play notes by their names instead.
+                                  Available notes: C D E F G A B
+                                  Don't use this option if you want more notes
+                                  or the positional input (the default)
+</pre>
+        <h2>Download</h2>
+        <a href="https://github.com/amhndu/Notes/archive/master.zip">Download the source</a>
+        <h2>Compiling</h2>
+        You need a C++11 compliant compiler and <a href="http://www.sfml-dev.org/">SFML 2.1+</a> to compile gravity.
+        After you've downloaded the source, you can use <a href="http://www.cmake.org/">cmake</a> to compile <i>Notes</i>.<br>
+        On any Linux distribution or OS X, these are the typical steps :
+<pre>
+cd Notes                        #Go the the project directory
+mkdir build/ && cd build/
+cmake -DCMAKE_BUILD_TYPE=Release .. && make
+./notes                         #Launch
+</pre>
+        <h2>Songs</h2>
+        Try these tunes!
+        <h3>Twinkle Twinkle</h3>
+<pre>
+QQTTYYT RREEWWQ TTRREEW TTRREEW QQTTYYT RREEWWQ
+</pre>
+        <h3>Happy Birthday</h3>
+<pre>
+1-1-2-1-4-3- -1-1-2-1-5-4- -1-1-8-6-4-3-2- -8-8-7-4-5-4
+</pre>
+        <h3>Harry Potter theme</h3>
+<pre>
+E-Y-I-U-Y-P-O-U-Y-I-U-Y-U-E
+</pre>
+        <h3>Mary had a little lamb</h3>
+        In named input method, launch with -n (./notes -n)
+<pre>
+EDCDEEE DDDEEE EDCDEEE EDDEDC
+</pre>
+    </div>
+    <div id="footer">
+      <a href="../index.html#contact">Contact Me</a><br><br>
+      This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>.
+    </div>
+ </body>
+</html>
