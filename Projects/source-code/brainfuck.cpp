@@ -1,3 +1,8 @@
+// No rights reserved.
+// Author: Amish Naidu (amhndu@gmail.com)
+// Pass a file with brainfuck source as an argument
+// Pass "-" or nothing to use stdin as input (don't forget to generate EOF at the end!)
+
 #include <iostream>
 #include <string>
 #include <vector>
@@ -5,17 +10,31 @@
 
 int main(int argc, char** argv)
 {
+    std::istream *in;
     if(argc < 2)
     {
-        std::cout << "Argument required for input.\n";
-        return EXIT_FAILURE;
+        in = &std::cin;
     }
-    std::fstream file(argv[1]);
+    std::fstream file;
+    if (argc > 1 && std::string(argv[1]) != "-")
+    {
+        file.open(argv[1]);
+        if (file.is_open() && file.good())
+            in = &file;
+        else
+        {
+            std::cout << "Failure in opening source.\n";
+            return 1;
+        }
+    }
+    else
+        in = &std::cin;
+    
     std::vector<char> data(30000);
     std::size_t cell_ptr = 0;
     std::string input;
     std::string line;
-    while(std::getline(file, line))
+    while(std::getline(*in, line))
     {
         input += line;
     }
