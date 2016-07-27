@@ -33,6 +33,7 @@ span.inline-pre {
 }
 pre {
     padding: 1em;
+    overflow: auto;
 }
 div#header, div#footer, button, input[type="submit"], .button {
     background: #444;
