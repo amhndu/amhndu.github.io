@@ -9,28 +9,10 @@
     <link rel="stylesheet" href="../style.css">
     <link rel="icon" type="image/png" href="../favicon.png">
     <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Roboto:400,300">
-   <script>
-      var state = 1;
-      function toggle_screenshots()
-      {
-        if(state)
-        {
-          document.getElementById("screens").style.display = "none";
-          document.getElementById("show_button").innerHTML = "Show Images";
-          state = 0;
-        }
-        else
-        {
-          document.getElementById("screens").style.display = "block";
-          document.getElementById("show_button").innerHTML = "Hide Images";
-          state = 1;
-        }
-      }
-    </script>
  </head>
   <body>
     <div id="header">
-      <h1">
+      <h1>
         Amish Naidu
       </h1>
       <div id="subtext">
@@ -49,8 +31,18 @@
       <img src="https://raw.githubusercontent.com/TheIllusionistMirage/Prattle/master/Client/resources/images/prattle-logo.png" alt="Prattle Logo"><br>
         Prattle is a simple chat program with a Client-Server architecture, a collaboration with <a href="http://fleptic.eu">Koushtav Chakrabarty</a>.<br>
         Programmed with C++11 with the <a href="http://www.sfml-dev.org/">SFML</a> library for graphics and <a href="http://tgui.eu">TGUI</a> as the GUI framework.<br>
-        <a href="https://github.com/TheIllusionistMirage/Prattle">View on GitHub</a><br>
-        This project is under works at the moment.
+        <h2>Screenshots</h2>
+        <button onclick="
+             s = document.getElementById('screens');
+             s.style.display = (s.style.display != 'none') ? 'none' : 'block';
+          ">Show/Hide Images</button><br><br>
+        <div id="screens">
+          <img src="screenshots/prattle1.png" alt="Screenshot 1"><br>
+          <img src="screenshots/prattle2.png" alt="Screenshot 2"><br>
+          <img src="screenshots/prattle3.png" alt="Screenshot 3"><br>
+        </div>
+        <br>
+        <h3><a href="https://github.com/TheIllusionistMirage/Prattle">For more information, view on GitHub</a></h3><br>
     </div>
     <div id="footer">
       <a href="../index.html#contact">Contact Me</a><br><br>
