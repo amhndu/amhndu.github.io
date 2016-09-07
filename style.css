@@ -72,6 +72,19 @@ button:hover, input:hover[type="submit"], .button:hover {
     background: #588;
     color: #fff;
 }
+
+span.button a {
+    display: inline-block;
+    margin: 0;
+    border: 0;
+    width: 10em;
+    color: #fff;
+    text-decoration: none;
+}
+span.button a:hover {
+    text-decoration: none;
+}
+
 div#header {
     padding-top: 3em;
     border: 0;
@@ -167,4 +180,19 @@ div#navbar a#selected {
 div#quote {
     font-style: italic;
     margin: 0 5em;
+}
+
+table {
+    border-spacing: 0;
+    border-collapse: collapse;
+    border-color: #808080;
+}
+
+table td, table th {
+    padding: 6px 13px;
+    border: 1px solid #ddd;
+}
+
+table th {
+    text-align: left;
 }
