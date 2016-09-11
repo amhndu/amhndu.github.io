@@ -73,8 +73,11 @@ button:hover, input:hover[type="submit"], .button:hover {
     color: #fff;
 }
 
-span.button a {
+span.button {
     display: inline-block;
+}
+
+span.button a {
     margin: 0;
     border: 0;
     width: 10em;
