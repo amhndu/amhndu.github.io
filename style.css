@@ -36,7 +36,7 @@ pre {
     overflow: auto;
 }
 div#header, div#footer, button, input[type="submit"], .button {
-    background: #444;
+    background: #232628/*444*/;
     color: #fff;
     font-family: 'Roboto';
     font-weight: 300;
@@ -91,10 +91,14 @@ span.button a:hover {
 div#header {
     padding-top: 3em;
     border: 0;
+    background-color: #232628;
+    background-image: url('cover.png');
+    background-size: cover;
 }
 div#footer {
     padding: 2.5em 0 2em 0;
     font-size: 0.9em;
+    background-color: #232628;
 }
 div#footer a {
     color: #60ccff;
@@ -123,6 +127,7 @@ div#content img {
 div#header h1 {
     font-size: 2.2em;
     font-weight: 400;
+
 }
 div#subtext {
     padding-top: 0.8em;
