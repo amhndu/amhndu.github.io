@@ -9,7 +9,7 @@
     <meta name=viewport content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="../style.css">
     <link rel="icon" type="image/png" href="../favicon.png">
-    <!--link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Roboto:400,300"-->
+    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Roboto:400,300">
   </head>
   <body>
     <div id="header">
@@ -31,28 +31,29 @@
       <h2>SimpleNES</h2>
         <h3><a href="https://github.com/amhndu/SimpleNES">View on GitHub</a></h3>
         SimpleNES is an NES emulator hacked together for nothing but fun.<br>
-        Programmed with C++11 with the <a href="http://www.sfml-dev.org/">SFML</a> library for graphics.<br>
-        Currently WIP.<br>
-        Only games with atmost 2 program banks, 1 character banks and no "mapper" are supported.
-        Only one controller is setup at the moment.<br><br>
-        Examples of games that have been tested to run (but not limited to):<br>
+        Programmed with C++11 and the <a href="http://www.sfml-dev.org/">SFML</a> library for graphics.<br>
+        Roughly 40-50% of games should work (ie. games that use either no mapper or mappers 1, 2 or 3)..<br><br>
+        Examples of games that have been tested to run (but NOT limited to):<br>
         (USA/Japan or World versions only i.e. NTSC compatible)
 
         <ul>
-        <li>Super Mario Bros.</li>
-        <li>Wrecking Crew    </li>
-        <li>Ice Climber      </li>
-        <li>Mario Bros.      </li>
-        <li>Donky Kong       </li>
-        <li>Donkey Kong Jr.  </li>
-        <li>Arkanoid         </li>
-        <li>Balloon Fight    </li>
-        <li>Tennis           </li>
-        <li>Elevator Action  </li>
-        <li>Excitebike      </li>
+        <li>Super Mario Bros.             </li>
+        <li>Contra                        </li>
+        <li>Adventure Island              </li>
+        <li>Ninja Gaiden                  </li>
+        <li>Wrecking Crew                 </li>
+        <li>Megaman and Megaman 2         </li>
+        <li>Mario Bros.                   </li>
+        <li>Donky Kong and Donkey Kong Jr.</li>
+        <li>Battle City                   </li>
+        <li>Paperboy                      </li>
+        <li>Legend of Zelda               </li>
+        <li>Pacman                        </li>
+        <li>Tennis                        </li>
+        <li>Excitebike                    </li>
         </ul>
-        
-        <a href="http://pastebin.com/pUkJN64z">Here's</a> a big list of games that match the supported specs from SimpleNES.<br>  
+
+        <a href="https://gist.github.com/amhndu/5b6da39ee06959d93dc706a0b165fb80">Here's</a> a big list of games that match the supported specs from SimpleNES.<br>
         (Unlike the list above, these aren't tested. Some may or may not work)
         <br>
         <h2>Screenshots</h2>
@@ -66,14 +67,18 @@
           <img src="screenshots/nes3.png" alt="NES Screenshot 3"><br>
           <img src="screenshots/nes4.png" alt="NES Screenshot 4"><br>
           <img src="screenshots/nes5.png" alt="NES Screenshot 5"><br>
+          <img src="screenshots/nes6.png" alt="NES Screenshot 6"><br>
         </div>
         <h2>Download</h2>
         <span class="button"><a href="https://www.dropbox.com/s/7eswcdektlkdz65/SimpleNES-linux64?dl=0">Linux 64-bit</a></span>
         <span class="button"><a href="https://www.dropbox.com/s/1gqhtbmvzo1ozsz/SimpleNES-win32.rar?dl=0">Windows 32-bit</a></span><br>
         <br>
         ROMs available <a href="http://www.emuparadise.me/Nintendo_Entertainment_System_ROMs/13">here</a> for testing.
+        <h2>Videos</h2>
+        Here's a playlist of SimpleNES in action!<br><br>
+        <iframe width="560" height="315" src="https://www.youtube.com/embed/videoseries?list=PLiULt7qySWt2VbHTkvIt9kYPMPcWt01qN" frameborder="0" allowfullscreen></iframe>
         <h2>Compiling</h2>
-        You need a :
+        You need :
         <ul>
         <li> A C++11 compliant compiler </li>
         <li> <a href="http://www.sfml-dev.org/">SFML 2.1+</a> development headers and library. </li>
@@ -85,22 +90,28 @@
 <pre>
 $ git clone https://github.com/amhndu/SimpleNES
 $ cd SimpleNES
-$ mkdir build/ && cd build/
+$ mkdir build/ &nbsp;&nbsp; cd build/
 $ cmake -DCMAKE_BUILD_TYPE=Release ..
 $ make -j4    #Replace 4 with however many cores you have to spare
 </pre>
         <h2>Running</h2>
         Just pass the path to a .nes image like
-<pre>
-$ ./SimpleNES ~/Games/super_mario_bros.nes
-</pre>
 
+<pre>
+$ ./SimpleNES ~/Games/SuperMarioBros.nes
+</pre>
+        To set size of the window,
+<pre>
+$ ./SimpleNES -w 600 ~/Games/Contra.nes
+</pre>
         For supported command line options, try
 <pre>
 $ ./SimpleNES -h
 </pre>
-        Download some demo ROMs <a href="https://www.dropbox.com/s/mfzukqy8uul4ae3/demo-roms.zip?dl=0">here</a>
         <h2>Controller</h2>
+        Keybindings can be configured with keybindings.conf.<br>
+        Default keybindings:<br>
+        <h3>Player 1:</h3>
         <table>
         <thead>
             <tr>
@@ -143,9 +154,52 @@ $ ./SimpleNES -h
             </tr>
         </tbody>
         </table>
+
+        <h3>Player 2:</h3>
+        <table>
+        <thead>
+            <tr>
+                <th>Button</th>
+                <th>Mapped to</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Start</td>
+                <td>Numpad9</td>
+            </tr>
+            <tr>
+                <td>Select</td>
+                <td>Numpad8</td>
+            </tr>
+            <tr>
+                <td>A</td>
+                <td>Numpad5</td>
+            </tr>
+            <tr>
+                <td>B</td>
+                <td>Numpad6</td>
+            </tr>
+            <tr>
+                <td>Up</td>
+                <td>Up</td>
+            </tr>
+            <tr>
+                <td>Down</td>
+                <td>Down</td>
+            </tr>
+            <tr>
+                <td>Left</td>
+                <td>Left</td>
+            </tr>
+            <tr>
+                <td>Right</td>
+                <td>Right</td>
+            </tr>
+        </tbody>
+        </table>
         <br>
         <br>
-        F2 pauses/resumes emulation.
         <h2>License</h2>
         This code is in public domain until an Open Source License is picked.<br>
         NES ROMs are subject to the respective studio's terms.
