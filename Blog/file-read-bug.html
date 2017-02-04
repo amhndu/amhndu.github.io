@@ -52,7 +52,7 @@ bool Cartridge::loadFromFile(std::string path)
 </pre>
         <br>
         No matter what ROM you tried, the above function always failed and returned at the highlighted block.<br>
-        However, if you open any other file but the ROMs, it works fine, thus I realised the key is the iNES file formate itself.<br>
+        However, if you try to open any other binary file (which is not an NES ROM) with the template I used above, it would work fine, thus I realized the key has to be the iNES file format itself.<br>
         So I looked up at the hexdump
 <pre>
 $ xxd nestest.nes | head
@@ -82,7 +82,7 @@ std::ifstream romFile (path, std::ios_base::binary | std::ios_base::in);
 <pre>
 00000000: 4e45 53<b style="color:red">1a</b> 0101 0000 0000 0000 0000 0000  NES.............
 </pre>
-        The issue was with magic number of iNES file format, which Windows considered special.
+        The issue was with one byte of the magic number for the iNES file format, which Windows considered special.
         <br><br>
         Moral of the story: Those pesky flags and conventions are there for a reason.<br>
     </div>
