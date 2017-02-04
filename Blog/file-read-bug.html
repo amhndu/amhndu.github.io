@@ -1,0 +1,94 @@
+<!doctype html>
+<html>
+  <head>
+    <title>The file you can't read on Windows</title>
+    <meta name=viewport content="width=device-width, initial-scale=1">
+    <meta charset="utf-8">
+    <meta name="description" content="A debugging tale of a file that won't open under only Windows but worked without a hitch on Linux and macOS.">
+    <meta name="author" content="Amish Naidu">
+    <meta name=viewport content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="../style.css">
+    <link rel="icon" type="image/png" href="../favicon.png">
+    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Roboto:400,300">
+  </head>
+  <body>
+    <div id="header">
+      <h1>
+        Amish Naidu
+      </h1>
+      <div id="subtext">
+        amhndu.me
+      </div>
+      <div id="navbar">
+        <ul>
+          <li><a href="../index.html">Home</a></li>
+          <li><a href="../projects.html">Projects</a></li>
+          <li><a href="../blog.html" id="selected">Blog</a></li>
+        </ul>
+      </div>
+    </div>
+    <div id="content">
+      <h2>Bug story: The file that won't open under Windows with C++'s fstream</h2>
+        I stumbled on this bug with my <a href="../Projects/nes-emu.html">NES emulator</a> where the ROMs won't open under Windows but had worked without a hitch on Linux and macOS.<br>
+        I use Linux as my primary OS thus I had only been testing it on Linux and occasionally had a friend try it on macOS. So it wasn't until quite late into the development that I found that the emulator can't open <i>any</i> ROM files on Windows. <br>
+        This bug had me really perpexled, for why the emulator breaks only under Windows.<br>
+        My immediate reaction was of course to suspect Microsoft, as the old saying goes &ldquo;Whenever anything goes wrong, always blame Microsoft.&rdquo;<br>
+
+        Without much adieu, below is the relavant part of the code, here the ROM is opened and we try to read the iNES header.
+        <br><br>
+<pre>
+bool Cartridge::loadFromFile(std::string path)
+{
+    std::ifstream romFile (path);
+    ...
+    std::vector<Byte> header(0x10);
+    if (!romFile.read(reinterpret_cast<char&#42;>(&amp;header[0]), 0x10))
+    {
+        <span style="color:red">LOG(Error) &lt;&lt; "Reading iNES header failed." &lt;&lt; std::endl;
+        return false;</span>
+    }
+    ...
+}
+</pre>
+        <br>
+        No matter what ROM you tried, the above function always failed and returned at the highlighted block.<br>
+        However, if you open any other file but the ROMs, it works fine, thus I realised the key is the iNES file formate itself.<br>
+        So I looked up at the hexdump
+<pre>
+$ xxd nestest.nes | head
+00000000: 4e45 531a 0101 0000 0000 0000 0000 0000  NES.............
+00000010: 4cf5 c560 78d8 a2ff 9aad 0220 10fb ad02  L..`x...... ....
+00000020: 2010 fba9 008d 0020 8d01 208d 0520 8d05   ...... .. .. ..
+00000030: 20ad 0220 a220 8e06 20a2 008e 0620 a200   .. . .. .... ..
+00000040: a00f a900 8d07 20ca d0fa 88d0 f7a9 3f8d  ...... .......?.
+...
+</pre>
+        Do you spot something ? <br><br>
+
+        So after some futile attempts, I tried a hunch and much to the bewilderment of me and the friend who was helping me debug this on Windows, it worked!.<br><br>
+        The patch:
+<pre>
+std::ifstream romFile (path, std::ios_base::binary | std::ios_base::in);
+</pre>
+        Yup, that's all it was, all I lacked was the binary flag.<br>
+        But, this didn't explain why this only happened with Windows nor why I had never encountered this issue while working on other binary files before.<br>
+
+        So I took to the tubes and after some searching found something interesting on <a href="http://en.cppreference.com/w/cpp/io/c#Binary_and_text_modes">cppreference</a>,
+        quoting the important parts:<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&ldquo; ..on Windows OS, the character '\0x1A' terminates input. &rdquo;<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&ldquo; POSIX implementations do not distinguish between text and binary streams (there is no special mapping for \n or any other characters) &rdquo;
+        <br><br>
+        Let me emphasize the byte.
+<pre>
+00000000: 4e45 53<b style="color:red">1a</b> 0101 0000 0000 0000 0000 0000  NES.............
+</pre>
+        The issue was with magic number of iNES file format, which Windows considered special.
+        <br><br>
+        Moral of the story: Those pesky flags and conventions are there for a reason.<br>
+    </div>
+    <div id="footer">
+      <a href="../index.html#contact">Contact Me</a><br><br>
+      This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>.
+    </div>
+ </body>
+</html>
