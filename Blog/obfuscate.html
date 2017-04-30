@@ -53,7 +53,7 @@
             </ol>
         <h3>The Plan</h3>
             We'll be making a small C program which generates <a href="https://en.wikipedia.org/wiki/Sampling_(signal_processing)">samples</a> of a song (we'll stick with the 'Happy Birthday' song), whose output will then be piped to <span class="inline-pre">aplay</span>. Most standard Linux distributions come with <span class="inline-pre">aplay</span>, bundled along with ALSA (default on most Linux distributions). To follow along on macOS or Windows, you might try using <a href="http://sox.sourceforge.net/">sox</a>.<br><br>
-            We'll start with a non-obfuscated version, aka the <i>unreadable</i> version, and obfuscate it, step-by-step.<br>
+            We'll start with a non-obfuscated version, and obfuscate it, step-by-step.<br>
         <h3>The Code</h3>
         Here's the base we'll be obfuscating. Although it's commented, understanding the sample generation isn't very important as long as you see the big picture.
         <pre><span style='color:#004a43; '>#</span><span style='color:#004a43; '>include </span><span style='color:#800000; '>&lt;</span><span style='color:#40015a; '>math.h</span><span style='color:#800000; '>></span>
@@ -109,7 +109,7 @@ You should be able to hear a nice little "Happy Birthday To You" melody.
 <span style='color:#800000; font-weight:bold; '>main</span><span style='color:#806030; '>(</span><span style='color:#806030; '>)</span>
 <span style='color:#806030; '>.</span><span style='color:#806030; '>.</span><span style='color:#806030; '>.</span>
 </pre>
-        I also renamed the frequencies array to <span class="inline-pre">_</span>. This greatly <i>improves</i> readability.
+Another added benifit of glabal variables is that they are automatically initialized to 0. I also renamed the frequencies array to <span class="inline-pre">_</span>. This greatly <i>improves</i> readability.<br><br>
         Here's our inner loop:
         <pre><span style='color:#400000; font-weight:bold; '>for</span> <span style='color:#806030; '>(</span>i <span style='color:#806030; '>=</span> <span style='color:#c00000; '>0</span><span style='color:#806030; '>;</span> i <span style='color:#806030; '>&lt;</span> <span style='color:#c00000; '>3200</span><span style='color:#806030; '>;</span> <span style='color:#806030; '>+</span><span style='color:#806030; '>+</span>i<span style='color:#806030; '>)</span>
 <span style='color:#806030; '>{</span>
@@ -178,11 +178,12 @@ _<span style='color:#806030; '>[</span><span style='color:#806030; '>]</span><sp
 </pre>
         Those if blocks are quite verbose. Let's replace them with something more fun. Real programmers use <a href="https://softwareengineering.stackexchange.com/a/201899">short circuit evaluation</a>, not the ternary conditional operators or measerly if blocks.
         Here's quick revision on short circuit evaluation:
-<pre>
-a &amp;&amp; b   -->  b will only be evaluated if a is true.  If a is false, we know the expression will be false anyway.
-a || b   -->  b will only be evaluated if a is false. If a is true, the expression will be true regardless of b.
+        <ol>
+            <li><span class="inline-pre">a &amp;&amp; b</span>   --&gt;  b will only be evaluated if a is true.  If a is false, we know the expression will be false anyway.</li>
+            <li><span class="inline-pre">a || b</span>   --&gt;  b will only be evaluated if a is false. If a is true, the expression will be true regardless of b.</li>
+        </ol>
 </pre>
-        Talking about fun things reminds of the less-used <a href="https://stackoverflow.com/a/52558">comma operator</a>. It lets us do <span class="inline-pre">(expression1, expression2, expression3)</span>, which will evaluate to <span class="inline-pre">expression3</span>.
+        Talking about fun things reminds of the less-used <a href="https://stackoverflow.com/a/52558">comma operator</a>. It lets us do <span class="inline-pre">(expression1, expression2)</span>, which will evaluate to <span class="inline-pre">expression2</span>.
         How else can you code more <i>readable</i> than doing many things in one line ?<br><br>
         Another useful operator is the xor operator. It has some useful properties that we'll be using. For any integers <i>a, b</i>, the following hold:<br><ol><li><span class="inline-pre">a ^ a == 0</span></li><li>Thus, <span class="inline-pre">a != b</span> is equivalent to <span class="inline-pre">a ^ b</span> (testing equality)</li><li><span class="inline-pre">a ^= a</span> will zero a number. (In fact, this is a very common optimization, used by compilers and assembly programmers alike)</li></ol><br>
         Putting it all together:
@@ -197,7 +198,7 @@ _<span style='color:#806030; '>[</span><span style='color:#806030; '>]</span><sp
 <span style='color:#806030; '>}</span>
 </pre>
         Now this looks like some obfuscation! But we're not done yet.<br><br>
-        Instead of printf, we can use <a href="https://linux.die.net/man/2/write">write(2)</a>. If you were following on Windows, then I'm sorry you can't use this step.<br><br>The printf line becomes:
+        Instead of printf, we can use <a href="https://linux.die.net/man/2/write">write(2)</a>. If you were following on Windows, then I'm sorry you be able to follow this step.<br><br>The printf line becomes:
 <pre>write<span style='color:#806030; '>(</span>STDIN<span style='color:#806030; '>,</span> <span style='color:#806030; '>&amp;</span>__<span style='color:#806030; '>,</span> <span style='color:#c00000; '>1</span><span style='color:#806030; '>)</span><span style='color:#806030; '>;</span>
 </pre>
         Now we can strip all whitespace and make some minor tweaks to get this final version (run this the same way we ran the first unobfuscated version):
@@ -213,11 +214,11 @@ j<span style='color:#806030; '>+</span><span style='color:#806030; '>+</span><sp
         <li>Replaced 128 with (1 &lt;&lt; 7). See <a href="https://en.wikipedia.org/wiki/Bitwise_operation#Bit_shifts">Bit shifts</a>.</li>
         <li>Replaced 15 with 017. Literals starting with a zero (not followed by an x) are in octal.</li>
         <li>STDIN's fd is 1. The write call is in line 5, thus __LINE__ >> 2 evaluates to 5. As evident from the name, the macro __LINE__ expands to the line number.</li>
-        </ol>
-        For write()'s third arguemnt, we use the incantation:
+        <li>For write()'s third arguemnt, we use the incantation:
 <pre><span style='color:#806030; '>~</span><span style='color:#806030; '>*</span>_<span style='color:#806030; '>&amp;</span><span style='color:#c00000; '>1</span>
 </pre>
-        First, <span class="inline-pre">_</span> is the frequencies array, decayed to the base pointer. We dereference it, thus we get the first element, which is 0. Then we bitwise-negate it (~), we get a whole bunch of 1s which we finally bitwise-and with 1 which just yields 1. This all works out thanks to the <a href="http://www.difranco.net/compsci/C_Operator_Precedence_Table.htm">C precedence rules</a>.<br>
+First, <span class="inline-pre">_</span> is the frequencies array, decayed to the base pointer. We dereference it, thus we get the first element, which is 0. Then we bitwise-negate it (~), we get a whole bunch of 1s which we finally bitwise-and with 1 which just yields 1. This all works out thanks to the <a href="http://www.difranco.net/compsci/C_Operator_Precedence_Table.htm">C precedence rules</a>.<br></li>
+        </ol>
         <br>
         And there you have it! Wish your loved one a very happy birthday, the IOCCC way ;)<br><br>
         </div>
