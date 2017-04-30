@@ -1,10 +1,10 @@
 <!doctype html>
 <html>
   <head>
-    <title>Let's make an obfuscated greeting!</title>
+    <title>Let's Make an Extremely Readable Birthday Melody, the IOCCC Way</title>
     <meta name=viewport content="width=device-width, initial-scale=1">
     <meta charset="utf-8">
-    <meta name="description" content="Introduction to obfuscation in C where we make an obfuscated greeting.">
+    <meta name="description" content="In this article, I make an obfuscated C program which plays the Birthday Melody, starting from a readable and slowly obfuscating it step-by-step.">
     <meta name="author" content="Amish Naidu">
     <meta name=viewport content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="../style.css">
@@ -28,28 +28,34 @@
       </div>
     </div>
     <div id="content">
-      <h2>Let's make an obfuscated greeting!</h2>
-        <li type=none><B>Obfuscate:</B> tr.v. -cated, -cating, -cates.
-        <ol><li type=1>
-        <ol><li type=a>To render obscure.
-        <LI type=a>To darken.
-        </ol>
-        <li type=1>To confuse: his emotions obfuscated his judgment.<br/>
-        [LLat. obfuscare, to darken : ob(intensive) + Lat. fuscare,<br/>
-        to darken &lt; fuscus, dark.] -obfuscation n. obfuscatory adj <sup>[1]</sup><br/>
+      <h2>Let's Make an Extremely Readable Birthday Melody, the IOCCC Way</h2>
+        <b>Obfuscate:</b> tr.v. -cated, -cating, -cates.
+        <ol>
+            <li type=1>
+                <ol>
+                    <li type=a>To render obscure.</li>
+                    <li type=a>To darken.</li>
+                </ol>
+                <br>
+            </li>
+            <li type=1>To confuse: his emotions obfuscated his judgment.
+                <br/> [LLat. obfuscare, to darken : ob(intensive) + Lat. fuscare,
+                <br/> to darken &lt; fuscus, dark.] -obfuscation n. obfuscatory adj <sup>[1]</sup>
+                <br/>
+            </li>
         </ol>
         (taken from <a href="http://www.ioccc.org/">IOCCC</a>)
         <h3>The Why</h3>
-            <ul type=none>
+            <ol type=none>
                 <li>You learn lesser known aspects of the language</li>
-                <li>Job security. Write obfuscated code and make sure no one else can maintain it but you! <small>Don't actually do dis</small></li>
+                <li>Job security. Write obfuscated code and make sure no one else can maintain it but you! <i><small>Don't actually do dis</small></i></li>
                 <li>It's fun. 'nuff said.</li>
-            </ul>
+            </ol>
         <h3>The Plan</h3>
-            We'll be making a small C program which generates <a href="https://en.wikipedia.org/wiki/Sampling_(signal_processing)">samples</a> of a song (we'll stick with the 'Happy Birthday' song), which we'll play using <span class="inline-pre">aplay</span>, it comes along with ALSA (default on most Linux distributions). To follow along on macOS or Windows, you can install <a href="http://sox.sourceforge.net/">sox</a>.<br>
-            We'll start with a non-obfuscated version and obfuscate it step-by-step.<br>
+            We'll be making a small C program which generates <a href="https://en.wikipedia.org/wiki/Sampling_(signal_processing)">samples</a> of a song (we'll stick with the 'Happy Birthday' song), whose output will then be piped to <span class="inline-pre">aplay</span>. Most standard Linux distributions come with <span class="inline-pre">aplay</span>, bundled along with ALSA (default on most Linux distributions). To follow along on macOS or Windows, you might try using <a href="http://sox.sourceforge.net/">sox</a>.<br><br>
+            We'll start with a non-obfuscated version, aka the <i>unreadable</i> version, and obfuscate it, step-by-step.<br>
         <h3>The Code</h3>
-        Here's the base we'll be obfuscating. It's commented, however understanding the sample generation isn't very important as long as you understand the outline.
+        Here's the base we'll be obfuscating. Although it's commented, understanding the sample generation isn't very important as long as you see the big picture.
         <pre><span style='color:#004a43; '>#</span><span style='color:#004a43; '>include </span><span style='color:#800000; '>&lt;</span><span style='color:#40015a; '>math.h</span><span style='color:#800000; '>></span>
 #</span><span style='color:#004a43; '>include </span><span style='color:#800000; '>&lt;</span><span style='color:#40015a; '>stdio.h</span><span style='color:#800000; '>></span>
 
@@ -93,19 +99,17 @@ gcc unobfuscated.c -w -lm &amp;&amp; ./a.out | aplay -f U8 -r 8000
 <pre>
 gcc unobfuscated.c -w -lm &amp;&amp; ./a.out | play -c 1 -b 8 -e unsigned -traw -r 8k -
 </pre>
-        Download <a href="">unobfuscated.c</a>.<br/>
+
+You should be able to hear a nice little "Happy Birthday To You" melody.
         <h3>The Obfuscation</h3>
-        First, let's substitute those space-wasting variables with <a href=https://en.wikipedia.org/wiki/Magic_number_(programming)>magic numbers</a>.<br>
-        Then, we can just remove the include for stdio, it's still valid code. The compiler will assume the implicit definition for printf with return type int.<br>
-        And during linking, the actual printf can just fit in here!<br>
-        However, we can't do this with math.h, as the sin() function returns a double, which will cause a linker error.<br>
-        In C, all global variables or functions without a given type are implicitly assumed to be int (or in case of functions, return type is int as remarked above).
-        This lets us do
+        First, let's substitute those space-wasting variables with <a href=https://en.wikipedia.org/wiki/Magic_number_(programming)>magic numbers</a>. Then, we can just remove the include for stdio, it's still valid code. The compiler will assume the implicit definition for printf with return type int. And during linking, the actual printf can just fit in here! However, we can't do this with math.h, as the sin() function returns a double, which will cause a linker error.<br>
+        In C, all global variables or functions without a given type are implicitly assumed to be int (or in case of functions, return type is int as remarked above).<br><br>
+        This let's us do
         <pre>_<span style='color:#806030; '>[</span><span style='color:#806030; '>]</span><span style='color:#806030; '>=</span><span style='color:#806030; '>{</span><span style='color:#c00000; '>0</span><span style='color:#806030; '>,</span><span style='color:#c00000; '>392</span><span style='color:#806030; '>,</span><span style='color:#c00000; '>440</span><span style='color:#806030; '>,</span><span style='color:#c00000; '>493</span><span style='color:#806030; '>,</span><span style='color:#c00000; '>523</span><span style='color:#806030; '>,</span><span style='color:#c00000; '>587</span><span style='color:#806030; '>,</span><span style='color:#c00000; '>659</span><span style='color:#806030; '>,</span><span style='color:#c00000; '>698</span><span style='color:#806030; '>,</span><span style='color:#c00000; '>783</span><span style='color:#806030; '>}</span><span style='color:#806030; '>,</span>i<span style='color:#806030; '>,</span>j<span style='color:#806030; '>;</span>
 <span style='color:#800000; font-weight:bold; '>main</span><span style='color:#806030; '>(</span><span style='color:#806030; '>)</span>
 <span style='color:#806030; '>.</span><span style='color:#806030; '>.</span><span style='color:#806030; '>.</span>
 </pre>
-        I also renamed the frequencies array to a <span class="inline-pre">_</span>. This greatly improves readability.
+        I also renamed the frequencies array to <span class="inline-pre">_</span>. This greatly <i>improves</i> readability.
         Here's our inner loop:
         <pre><span style='color:#400000; font-weight:bold; '>for</span> <span style='color:#806030; '>(</span>i <span style='color:#806030; '>=</span> <span style='color:#c00000; '>0</span><span style='color:#806030; '>;</span> i <span style='color:#806030; '>&lt;</span> <span style='color:#c00000; '>3200</span><span style='color:#806030; '>;</span> <span style='color:#806030; '>+</span><span style='color:#806030; '>+</span>i<span style='color:#806030; '>)</span>
 <span style='color:#806030; '>{</span>
@@ -113,12 +117,9 @@ gcc unobfuscated.c -w -lm &amp;&amp; ./a.out | play -c 1 -b 8 -e unsigned -traw 
     <span style='color:#800040; '>printf</span><span style='color:#806030; '>(</span><span style='color:#800000; '>"</span><span style='color:#007997; '>%c</span><span style='color:#800000; '>"</span><span style='color:#806030; '>,</span> sample<span style='color:#806030; '>)</span>;</span>
 }</span>
 </pre>
-        We'll use another small C quirk.<br>
-        <span class="inline-pre">A[i]</span> is equivalent to <span class="inline-pre">i[A]</span> where A can be any array-type or a pointer.<br>
-        The array subscript is just syntactic sugar for pointer arithmatic.<br>
-        <span class="inline-pre">A[i]</span> is essentially converted to <span class="inline-pre"><span style='color:#806030; '>*</span><span style='color:#806030; '>(</span>A <span style='color:#806030; '>+</span> i<span style='color:#806030; '>)</span></span>. Note that if you swap A and i in this form, it doesn't really make a difference. Instead of A here, we can put our song, which is a string. The string will decay to a pointer to the first element and we'll subsequently get the corresponding note.<br>
-        Also, we see that <span class="inline-pre">@</span> has an ASCII value of 64, a power of 2. Observe that the minuend is always between 64 and 64 + 8 (eight is the total number of frequencies we can play). Instead of subtracting by 64, we can simply mask off the four lower bits to get the index.
-        So
+        We'll use another small C quirk.<br><br>
+        <span class="inline-pre">A[i]</span> is equivalent to <span class="inline-pre">i[A]</span> where A can be any array-type or a pointer. The array subscript is just syntactic sugar for pointer arithmatic. <span class="inline-pre">A[i]</span> is essentially converted to <span class="inline-pre"><span style='color:#806030; '>*</span><span style='color:#806030; '>(</span>A <span style='color:#806030; '>+</span> i<span style='color:#806030; '>)</span></span>. Note that if you swap <span class="inline-pre">A</span> and <span class="inline-pre">i</span> in this form, it doesn't really make a difference. Instead of <span class="inline-pre">A</span> here, we can put our song, which is a string. The string will decay to a pointer to the first element and we'll subsequently get the corresponding note. Also, we see that <span class="inline-pre">@</span> has an ASCII value of 64, a power of 2. Observe that the minuend is always between 64 and 64 + 8 (eight is the total number of frequencies we can play). Instead of subtracting by 64, we can simply mask off the four lower bits to get the index.
+        So,
 <pre>
 <span style='color:#400000; font-weight:bold; '>int</span> frequency <span style='color:#806030; '>=</span> frequencies<span style='color:#806030; '>[</span>song<span style='color:#806030; '>[</span>j<span style='color:#806030; '>]</span> <span style='color:#806030; '>-</span> <span style='color:#008000; '>'@'</span><span style='color:#806030; '>]</span><span style='color:#806030; '>;</span>
 </pre>
@@ -153,7 +154,7 @@ gcc unobfuscated.c -w -lm &amp;&amp; ./a.out | play -c 1 -b 8 -e unsigned -traw 
     <span style='color:#806030; '>}</span>
 <span style='color:#806030; '>}</span>
 </pre>
-        Making things better, let's just use recursion. With main.
+        To make our code more <i>readable</i>, let's just use recursion. On <span class="inline-pre">main</span>.
 <pre><span style='color:#004a43; '>#</span><span style='color:#004a43; '>include </span><span style='color:#800000; '>&lt;</span><span style='color:#40015a; '>math.h</span><span style='color:#800000; '>></span>
 _<span style='color:#806030; '>[</span><span style='color:#806030; '>]</span><span style='color:#806030; '>=</span><span style='color:#806030; '>{</span><span style='color:#c00000; '>0</span><span style='color:#806030; '>,</span><span style='color:#c00000; '>392</span><span style='color:#806030; '>,</span><span style='color:#c00000; '>440</span><span style='color:#806030; '>,</span><span style='color:#c00000; '>493</span><span style='color:#806030; '>,</span><span style='color:#c00000; '>523</span><span style='color:#806030; '>,</span><span style='color:#c00000; '>587</span><span style='color:#806030; '>,</span><span style='color:#c00000; '>659</span><span style='color:#806030; '>,</span><span style='color:#c00000; '>698</span><span style='color:#806030; '>,</span><span style='color:#c00000; '>783</span><span style='color:#806030; '>}</span><span style='color:#806030; '>,</span>i<span style='color:#806030; '>,</span>j<span style='color:#806030; '>;</span>
 <span style='color:#800000; font-weight:bold; '>main</span><span style='color:#806030; '>(</span><span style='color:#806030; '>)</span>
@@ -175,18 +176,15 @@ _<span style='color:#806030; '>[</span><span style='color:#806030; '>]</span><sp
         <span style='color:#400000; font-weight:bold; '>return</span> <span style='color:#c00000; '>0</span><span style='color:#806030; '>;</span>
 <span style='color:#806030; '>}</span>
 </pre>
-        Those if blocks are quite verbose. Let's replace them with something more fun.<br>
-        Real programmers use <a href="https://softwareengineering.stackexchange.com/a/201899">short circuit evaluation</a> not the ternary conditional operators or if blocks.
+        Those if blocks are quite verbose. Let's replace them with something more fun. Real programmers use <a href="https://softwareengineering.stackexchange.com/a/201899">short circuit evaluation</a>, not the ternary conditional operators or measerly if blocks.
         Here's quick revision on short circuit evaluation:
 <pre>
 a &amp;&amp; b   -->  b will only be evaluated if a is true.  If a is false, we know the expression will be false anyway.
 a || b   -->  b will only be evaluated if a is false. If a is true, the expression will be true regardless of b.
 </pre>
-        Talking about fun things, reminds of the less-used <a href="https://stackoverflow.com/a/52558">comma operator</a>.<br>
-        How else can you code more readable than doing many things in one line ?<br><br>
-        Another useful operator is the xor operator. It a useful property, for any a, <span class="inline-pre">a ^ a = 0</span><br>
-        We can test equality with it: <span class="inline-pre">a == b</span> is equivalent to <span class="inline-pre">a ^ b</span>.<br>
-        Zero a number: <span class="inline-pre">a ^= a</span>. In fact, this is a very common optimization, used by compilers and assembly programmers alike.<br>
+        Talking about fun things reminds of the less-used <a href="https://stackoverflow.com/a/52558">comma operator</a>. It lets us do <span class="inline-pre">(expression1, expression2, expression3)</span>, which will evaluate to <span class="inline-pre">expression3</span>.
+        How else can you code more <i>readable</i> than doing many things in one line ?<br><br>
+        Another useful operator is the xor operator. It has some useful properties that we'll be using. For any integers <i>a, b</i>, the following hold:<br><ol><li><span class="inline-pre">a ^ a == 0</span></li><li>Thus, <span class="inline-pre">a != b</span> is equivalent to <span class="inline-pre">a ^ b</span> (testing equality)</li><li><span class="inline-pre">a ^= a</span> will zero a number. (In fact, this is a very common optimization, used by compilers and assembly programmers alike)</li></ol><br>
         Putting it all together:
 <pre><span style='color:#004a43; '>#</span><span style='color:#004a43; '>include </span><span style='color:#800000; '>&lt;</span><span style='color:#40015a; '>math.h</span><span style='color:#800000; '>></span>
 _<span style='color:#806030; '>[</span><span style='color:#806030; '>]</span><span style='color:#806030; '>=</span><span style='color:#806030; '>{</span><span style='color:#c00000; '>0</span><span style='color:#806030; '>,</span><span style='color:#c00000; '>392</span><span style='color:#806030; '>,</span><span style='color:#c00000; '>440</span><span style='color:#806030; '>,</span><span style='color:#c00000; '>493</span><span style='color:#806030; '>,</span><span style='color:#c00000; '>523</span><span style='color:#806030; '>,</span><span style='color:#c00000; '>587</span><span style='color:#806030; '>,</span><span style='color:#c00000; '>659</span><span style='color:#806030; '>,</span><span style='color:#c00000; '>698</span><span style='color:#806030; '>,</span><span style='color:#c00000; '>783</span><span style='color:#806030; '>}</span><span style='color:#806030; '>,</span>i<span style='color:#806030; '>,</span>j<span style='color:#806030; '>;</span>
@@ -198,8 +196,8 @@ _<span style='color:#806030; '>[</span><span style='color:#806030; '>]</span><sp
     <span style='color:#400000; font-weight:bold; '>return</span> <span style='color:#806030; '>(</span>j<span style='color:#806030; '>^</span><span style='color:#c00000; '>28</span><span style='color:#806030; '>)</span> <span style='color:#806030; '>&amp;</span><span style='color:#806030; '>&amp;</span> <span style='color:#800000; font-weight:bold; '>main</span><span style='color:#806030; '>(</span><span style='color:#806030; '>)</span><span style='color:#806030; '>;</span>
 <span style='color:#806030; '>}</span>
 </pre>
-        Not this looks like some obfuscation! But we're not done yet.<br>
-        Instead of printf, we can use <a href="https://linux.die.net/man/2/write">write(2)</a>. If you were following on Windows, then I'm sorry you can't use this step.<br>The printf line becomes:
+        Now this looks like some obfuscation! But we're not done yet.<br><br>
+        Instead of printf, we can use <a href="https://linux.die.net/man/2/write">write(2)</a>. If you were following on Windows, then I'm sorry you can't use this step.<br><br>The printf line becomes:
 <pre>write<span style='color:#806030; '>(</span>STDIN<span style='color:#806030; '>,</span> <span style='color:#806030; '>&amp;</span>__<span style='color:#806030; '>,</span> <span style='color:#c00000; '>1</span><span style='color:#806030; '>)</span><span style='color:#806030; '>;</span>
 </pre>
         Now we can strip all whitespace and make some minor tweaks to get this final version (run this the same way we ran the first unobfuscated version):
@@ -210,22 +208,19 @@ _<span style='color:#806030; '>[</span><span style='color:#806030; '>]</span><sp
 <span style='color:#e60000; '>ED</span><span style='color:#800000; '>"</span><span style='color:#806030; '>]</span><span style='color:#806030; '>&amp;</span><span style='color:#c00000; '>017</span><span style='color:#806030; '>]</span><span style='color:#806030; '>)</span><span style='color:#806030; '>)</span><span style='color:#806030; '>;</span>write<span style='color:#806030; '>(</span>__LINE__<span style='color:#806030; '>></span><span style='color:#806030; '>></span><span style='color:#c00000; '>0x2</span><span style='color:#806030; '>,</span><span style='color:#806030; '>&amp;</span>__<span style='color:#806030; '>,</span><span style='color:#806030; '>~</span><span style='color:#806030; '>*</span>_<span style='color:#806030; '>&amp;</span><span style='color:#c00000; '>1</span><span style='color:#806030; '>)</span><span style='color:#806030; '>;</span><span style='color:#806030; '>(</span>
 j<span style='color:#806030; '>+</span><span style='color:#806030; '>+</span><span style='color:#806030; '>^</span><span style='color:#c00000; '>3200</span><span style='color:#806030; '>)</span><span style='color:#806030; '>|</span><span style='color:#806030; '>|</span><span style='color:#806030; '>(</span>j<span style='color:#806030; '>^</span><span style='color:#806030; '>=</span>j<span style='color:#806030; '>,</span><span style='color:#806030; '>+</span><span style='color:#806030; '>+</span>i<span style='color:#806030; '>)</span><span style='color:#806030; '>;</span><span style='color:#400000; font-weight:bold; '>return</span><span style='color:#806030; '>(</span>i<span style='color:#806030; '>^</span><span style='color:#c00000; '>28</span><span style='color:#806030; '>)</span><span style='color:#806030; '>&amp;</span><span style='color:#806030; '>&amp;</span><span style='color:#800000; font-weight:bold; '>main</span><span style='color:#806030; '>(</span><span style='color:#806030; '>)</span><span style='color:#806030; '>;</span><span style='color:#806030; '>}</span>
 </pre>
-        These are the tweaks (most are to justify the text, some increase the line-width, some decrease):<br>
-        Replaced 128 with (1 &lt;&lt; 7). See <a href="https://en.wikipedia.org/wiki/Bitwise_operation#Bit_shifts">Bit shifts</a>.<br>
-        Replaced 15 with 017. Literals starting with a zero (not followed by an x) are in octal.<br>
-        STDIN's fd is 1. The write call is in line 5, thus __LINE__ >> 2 evaluates to 5. As evident from the name, the macro __LINE__ expands to the line number.<br>
-        For write()'s third arguemnt, we use the incantation
+        The following are the tweaks (most are to justify the text, some increase the line-width, some decrease):<br><br>
+        <ol>
+        <li>Replaced 128 with (1 &lt;&lt; 7). See <a href="https://en.wikipedia.org/wiki/Bitwise_operation#Bit_shifts">Bit shifts</a>.</li>
+        <li>Replaced 15 with 017. Literals starting with a zero (not followed by an x) are in octal.</li>
+        <li>STDIN's fd is 1. The write call is in line 5, thus __LINE__ >> 2 evaluates to 5. As evident from the name, the macro __LINE__ expands to the line number.</li>
+        </ol>
+        For write()'s third arguemnt, we use the incantation:
 <pre><span style='color:#806030; '>~</span><span style='color:#806030; '>*</span>_<span style='color:#806030; '>&amp;</span><span style='color:#c00000; '>1</span>
 </pre>
-        First, _ is the frequencies array, decayed to the base pointer. We dereference it, thus we get the first element, which is 0.<br>
-        Then we bitwise-negate it (~), we get a whole bunch of 1s which we finally bitwise-and with 1 which just yields 1.<br>
-        This all works out thanks to the <a href="http://www.difranco.net/compsci/C_Operator_Precedence_Table.htm">C precedence rules</a>.<br>
+        First, <span class="inline-pre">_</span> is the frequencies array, decayed to the base pointer. We dereference it, thus we get the first element, which is 0. Then we bitwise-negate it (~), we get a whole bunch of 1s which we finally bitwise-and with 1 which just yields 1. This all works out thanks to the <a href="http://www.difranco.net/compsci/C_Operator_Precedence_Table.htm">C precedence rules</a>.<br>
         <br>
-        And there you have it!<br>
-        An awesome place for obfuscation is the IOCCC. Check out the previous winners, they are all mind-blowing.
-        This was nowhere supposed to be the smallest or the most obfuscated program to do what it's doing. I'm sure people have done better.<br>
-        But by making this, we sure learned a lot about C and broke into obfuscation.<br>
-    </div>
+        And there you have it! Wish your loved one a very happy birthday, the IOCCC way ;)<br><br>
+        </div>
     <div id="footer">
       <a href="../index.html#contact">Contact Me</a><br><br>
       This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>.
