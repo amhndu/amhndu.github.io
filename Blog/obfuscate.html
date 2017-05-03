@@ -198,7 +198,7 @@ _<span style='color:#806030; '>[</span><span style='color:#806030; '>]</span><sp
 <span style='color:#806030; '>}</span>
 </pre>
         Now this looks like some obfuscation! But we're not done yet.<br><br>
-        Instead of printf, we can use <a href="https://linux.die.net/man/2/write">write(2)</a>. If you were following on Windows, then I'm sorry you be able to follow this step.<br><br>The printf line becomes:
+        Instead of printf, we can use <a href="https://linux.die.net/man/2/write">write(2)</a>. If you were following on Windows, then I'm sorry you won't be able to follow this step.<br><br>The printf line becomes:
 <pre>write<span style='color:#806030; '>(</span>STDIN<span style='color:#806030; '>,</span> <span style='color:#806030; '>&amp;</span>__<span style='color:#806030; '>,</span> <span style='color:#c00000; '>1</span><span style='color:#806030; '>)</span><span style='color:#806030; '>;</span>
 </pre>
         Now we can strip all whitespace and make some minor tweaks to get this final version (run this the same way we ran the first unobfuscated version):
