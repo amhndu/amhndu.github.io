@@ -1,0 +1,70 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Ryuuk -- A concurrent web-server written in C++</title>
+    <meta name=viewport content="width=device-width, initial-scale=1">
+    <meta charset="utf-8">
+    <meta name="description" content="A concurrent web-server written in C++ that implements HTTP/1.0 and some things from HTTP/1.1">
+    <meta name="author" content="Amish Naidu">
+    <meta name=viewport content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="../style.css">
+    <link rel="icon" type="image/png" href="../favicon.png">
+    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Roboto:400,300">
+  </head>
+  <body>
+    <div id="header">
+      <h1 id="sitename">
+        Amish Naidu
+      </h1>
+      <div id="subtext">
+        amhndu.me
+      </div>
+      <div id="navbar">
+        <ul>
+          <li><a href="../index.html">Home</a></li>
+          <li><a href="../projects.html" id="selected">Projects</a></li>
+          <li><a href="../blog.html">Blog</a></li>
+        </ul>
+      </div>
+    </div>
+    <div id="content">
+      <h2>Ryuuk</h2>
+        <h3><a href="https://github.com/amhndu/ryuuk">View on GitHub</a></h3>
+        A concurrent web-server written in C++ that implements HTTP/1.0 and some things from HTTP/1.1.<br>
+        Currently Ryuuk runs in POSIX compliant environments only.<br>
+        It can perfectly host static websites (for some definition of "perfect"). Of course, this being a pet project it never was intendeded to be used in production.<br>
+        <h2>Download</h2>
+        <a href="https://github.com/amhndu/ryuuk/archive/master.zip">Download the source</a>
+        <h2>Building</h2>
+<pre>
+$ git clone https://github.com/amhndu/ryuuk
+$ cd ryuuk
+$ mkdir build && cd build
+$ cmake ..
+$ make -ji # where i = no. of cores you can spare
+</pre>
+        <h2>Command line options</h2>
+<pre>
+Usage: ryuuk [OPTION-1] [VALUE-1] [OPTION-2] [VALUE-2] ... [OPTION-N] [VALUE-N]
+
+Options:
+ -h                        Display this help message and exit
+
+ -cfg [PATH-TO-FILE]       Specifiy a config file
+
+ -lvl [LOG-LEVEL]          Specifiy a log level
+
+ -log [PATH-TO-LOG-FILE]   Specifiy a log file
+</pre>
+        <h2>Authors</h2>
+        <ul type=none>
+            <li><a href="https://amhndu.github.io">Amish Naidu</a></li>
+            <li><a href="https://fleptic.eu">Koushtav Chakrabarty</a></li>
+        </ul>
+    </div>
+    <div id="footer">
+      <a href="../index.html#contact">Contact Me</a><br><br>
+      This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>.
+    </div>
+ </body>
+</html>
