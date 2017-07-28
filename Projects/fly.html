@@ -1,0 +1,79 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Fly -- A flight simulator in OpenGL</title>
+    <meta name=viewport content="width=device-width, initial-scale=1">
+    <meta charset="utf-8">
+    <meta name="description" content="A flight simulator in OpenGL with infinite procedural terrain">
+    <meta name="author" content="Amish Naidu">
+    <meta name=viewport content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="../style.css">
+    <link rel="icon" type="image/png" href="../favicon.png">
+    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Roboto:400,300">
+  </head>
+  <body>
+    <div id="header">
+      <h1 id="sitename">
+        Amish Naidu
+      </h1>
+      <div id="subtext">
+        amhndu.me
+      </div>
+      <div id="navbar">
+        <ul>
+          <li><a href="../index.html">Home</a></li>
+          <li><a href="../projects.html" id="selected">Projects</a></li>
+          <li><a href="../blog.html">Blog</a></li>
+        </ul>
+      </div>
+    </div>
+    <div id="content">
+      <h2>Fly</h2>
+        <h3><a href="https://github.com/amhndu/fly">View on GitHub</a></h3>
+        A simple flight simulator in C++11/OpenGL.<br>
+        It uses a coherent noise to create a (practically) infinite terrain over which you can fly an airplane.<br>
+        This isn't supposed to a realistic model of actual flight but I made this because making my own flight-sim seemed fun enough. (who doesn't want to make one ?)<br>
+        <h2>Screenshots</h2>
+        <button onclick="
+             s = document.getElementById('screens');
+             s.style.display = (s.style.display != 'none') ? 'none' : 'block';
+          ">Show/Hide Images</button><br><br>
+        <div id="screens" style="display: block; transition: 0.3s display">
+          <img src="screenshots/fly1.png" alt="Fly Screenshot 1">
+          <img src="screenshots/fly2.png" alt="Fly Screenshot 2">
+          <img src="screenshots/fly3.png" alt="Fly Screenshot 3">
+        </div>
+
+        <h2>Download</h2>
+        <a href="https://github.com/amhndu/fly/archive/master.zip">Download the source</a>
+        <h2>Building</h2>
+        External dependencies are SFML and GLEW, both of which should be available in your repositories (or from their websites).<br>
+        A C++14 compliant compiler is also required.<br>
+        Then, compiling Fly is a matter of running cmake in the project directory and using Makefile or equivalent to compile it e.g. on Linux/macOS/BSDs:
+<pre>
+$ git clone https://github.com/amhndu/Fly
+$ cd Fly
+$ mkdir build &nbsp;&nbsp; cd build
+$ cmake ..
+$ make -ji # where i = no. of cores you can spare
+</pre>
+        <h2>Video</h2>
+        <a href="https://www.youtube.com/playlist?list=PLiULt7qySWt20wzP_o6aeUNaClIziR0TR">Playlist on YouTube</a><br><br>
+        <h2>Command line options</h2>
+<pre>
+usage: Fly [options...]
+
+-h   | --help        Print this help text and exit
+-w X | wX            Set window width to X (default: 1024)
+-H Y | HY            Set window height to Y (default: 720)
+-s Z | sZ            Set seed to Z (default: random seed)
+-f   | --fullscreen  Set fullscreen mode (default: false)
+--wireframe          Render in wireframe mode (default: false)
+</pre>
+    </div>
+    <div id="footer">
+      <a href="../index.html#contact">Contact Me</a><br><br>
+      This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>.
+    </div>
+ </body>
+</html>

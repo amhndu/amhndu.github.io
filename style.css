@@ -204,3 +204,9 @@ table td, table th {
 table th {
     text-align: left;
 }
+
+div#screens img {
+    display: inline-block;
+    padding-right: 1em;
+    padding-bottom: 1em;
+}
