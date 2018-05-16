@@ -16,12 +16,13 @@
       var container, message_div;
       var comic_list;
       var current_index = 0;
-      //Instead of shuffling `total_comics`, shuffle 2000 numbers, this way,
-      //xkcd-shuffle will also show new comics when resumed later
-      //Ya, I know, not very elegant or smart but that's the only way I could think of.
-      //Given three comic updates per week, xkcd will only reach 2000 until 2018
-      //As of this writing it is 2015 so we are quite safe
-      var limit = 2000;
+      // Instead of shuffling `total_comics`, shuffle 2000 numbers, this way,
+      // xkcd-shuffle will also show new comics when resumed later
+      // Ya, I know, not very elegant or smart but that's the only way I could think of.
+      // Given three comic updates per week, xkcd will only reach 2000 until 2018
+      // As of this writing it is 2015 so we are quite safe
+      // 2018 update: bumped to 3000, keeping the comment
+      var limit = 3000;
       var _seed;
       var jsonp_load_timer;
       var loading_message = "Loading...",
@@ -29,6 +30,7 @@
             "<small>(What has the black hat guy done now ?)</small>"
       function init()
       {
+        console.log("init");
         container = document.getElementById('container');
         container.style.display = 'none';
         message_div = document.getElementById('message');
@@ -201,6 +203,7 @@
         }
         fetch(url,
             function(){
+              console.log("cb1");
               set_cookie('comic', comic_data.num);
               //location.hash = _seed + ':' + comic_data.num;
               container.getElementsByTagName('h3')[0].innerHTML = comic_data.num + ': ' + comic_data.title;
@@ -237,9 +240,11 @@
       }
       function jsoncb(data)
       {
+        console.log(data);
         if (data.query.count)
         {
           comic_data = data.query.results.json;
+          console.log(comic_data);
           return true;
         }
         else
@@ -281,6 +286,7 @@
       }
       function comic_loaded()
       {
+        console.log("comicloaded");
         container.style.display = 'block';
         message_div.style.display = 'none';
         //window.clearTimeout(jsonp_load_timer);
@@ -295,8 +301,8 @@
         xkcd shuffle
       </h1>
       <br>
-      <a href="http://amhndu.me" class="button">
-        amhndu.me
+      <a href="http://amhndu.github.io" class="button">
+        amhndu.github.io
       </a>
       <div id="navbar" style="display: none">
         <ul>
