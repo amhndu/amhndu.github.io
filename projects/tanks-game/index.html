@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8"/>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta name="generator" content="Hugo 0.54.0" />
+		<title>Mini Tanks - Amish K. Naidu</title>
+
+		<meta name="description" content="A multi-player, turn-based, artillery game where you destroy other tanks to win in a fully destructible, procedurally generated terrain">
+
+
+		
+		
+		
+		<link rel="stylesheet" href="/css/normalize.css"/>
+		<link rel="stylesheet" href="/css/ui.css"/>
+		<link rel="stylesheet" href="/css/syntax.css"/>
+		
+		
+		
+
+		<link  rel="stylesheet" href="https://fonts.googleapis.com/css?family=Fira+Mono|Lato|Raleway">
+
+		
+
+		<style>
+	a { color: #ff8181; }
+    button, input[type="submit"] {
+        background: #ff8181;
+        color: #fff;
+        border: 0px;
+    }
+	blockquote {
+		border-left-color: #ff8181;
+		border-right-color: #ff8181; }
+	.bar a:hover {
+		color: #ff8181;
+		text-decoration: none; }
+	.sep {
+		margin-top: 2rem;
+		margin-bottom: 1rem;
+		margin-left:0;
+		width: 24rem;
+		border-top: 2px solid #ff8181; }
+</style>
+
+	</head>
+
+<body>
+<header class="container no-print">
+	<div class="u-header">
+		<nav class="bar">
+	<ul><li>
+			<a href="/">
+				<img class="icon-text" src="/img/prev.svg"/>
+			</a>
+		</li><li><a href="/blog/">Blog</a></li><li><a href="/projects/">Projects</a></li></ul>
+</nav>
+
+	</div>
+</header>
+<main class="container">
+
+<article>
+	<header><hgroup id="brand">
+	<h1>Mini Tanks</h1>
+	<h5>
+		
+		<time datetime="2014-04-26 00:00:00 &#43;0000 UTC">Apr 26, 2014</time>
+		<span class="no-print">
+			-
+				
+				<a href="/tags/sfml">sfml</a>
+				
+				<a href="/tags/game">game</a>
+				
+				<a href="/tags/c&#43;&#43;">c&#43;&#43;</a>
+				<span>
+	</h5>
+	
+</hgroup>
+<hr class="sep" />
+</header>
+	
+
+<p>A turn-based, artillery game where you destroy other tanks to win in a fully destructible, procedurally generated terrain. Supports multiplayer with upto 8 local players.
+This was inspired by Pocket Tanks and Scorched Earth.
+Programmed in C++11 with SFML used for graphics.</p>
+
+<h2 id="controls-and-objective">Controls and Objective</h2>
+
+<p>Use your mouse to click on the HUD or press R to set the Rotation of the turret, similarly set power by clicking the power bar (or by hovering the cursor above it and using your scroll wheel)<br />
+Use Arrow Keys Left or Right to move the Tank.<br />
+Click on &ldquo;FIRE&rdquo; on the HUD or press Space to fire.<br />
+The objective is very simple, destroy other tanks and you win.</p>
+
+<h2 id="source">Source:</h2>
+
+<p><a href="https://github.com/amhndu/tanks-game">Github: amhndu/tanks-game</a>.</p>
+
+<h2 id="screenshots">Screenshots</h2>
+
+<p><img src="http://amhndu.github.io/Projects/screenshots/tanks0.jpg" alt="Screenshot 1" />
+<img src="http://amhndu.github.io/Projects/screenshots/tanks1.jpg" alt="Screenshot 2" />
+<img src="http://amhndu.github.io/Projects/screenshots/tanks2.jpg" alt="Screenshot 3" />
+<img src="http://amhndu.github.io/Projects/screenshots/tanks3.jpg" alt="Screenshot 4" />
+<img src="http://amhndu.github.io/Projects/screenshots/tanks4.jpg" alt="Screenshot 5" /></p>
+
+<h2 id="video">Video</h2>
+
+<p><a href="http://www.youtube.com/watch?v=YbG_ej2fQKE">Youtube Video</a></p>
+
+<h2 id="compiling">Compiling</h2>
+
+<p>You need a C++11 compliant compiler and <a href="http://sfml-dev.org">SFML 2.0+</a> to compile <em>Mini Tanks</em>. After you&rsquo;ve downloaded the source and dependencies, you can use <a href="http://cmake.org">cmake</a> to compile <em>Mini Tanks</em>.<br />
+On any Linux distribution, these are the typical steps :</p>
+
+<pre><code>$ git clone https://github.com/amhndu/tanks-game
+$ cd tanks-game
+$ cmake .
+$ make
+</code></pre>
+
+<p>If you don&rsquo;t have cmake and don&rsquo;t wish to install it either, then you can simply compile Mini Tanks by compiling all the cpp files and then linking them with SFML using your IDE/compiler. e.g. With g++, you can enter this command :</p>
+
+<pre><code>$ g++ -o miniTanks *.cpp -std=c++11 -lsfml-graphics -lsfml-window -lsfml-system
+</code></pre>
+
+<p>Note : To compile on windows, you also need to link the sfml-main component.</p>
+
+<h2 id="download">Download</h2>
+
+<p><a href="https://github.com/amhndu/tanks-game/archive/master.zip">Download the source</a>  1
+Executables:<br />
+Note : These are outdated by a few commits (which were only some fixes). It is recommended to compile Mini Tanks from source if you can.
+<a href="https://www.dropbox.com/s/v4shlyt8j8odv4e/tanks-bin-linux32.tar.gz">Linux 32-bit</a> (compiled using g++ 4.8.1)
+<a href="https://www.dropbox.com/s/ixu8g65mszea4b4/tanks-bin-win32.zip">Windows 32-bit</a> (compiled using VC 2013 and requires VC2013 redistributable)</p>
+
+</article>
+<nav class="no-print post-nav">
+
+
+	<a class="next-post" href="/projects/gravity/">Gravity<img class="icon-text" src="/img/next.svg"/>
+	</a>
+
+</nav>
+
+
+
+
+			<hr class="sep" />
+		</main>
+		<footer class="container no-print">
+			<div class="u-footer">
+				
+<a href="mailto:amhndu@gmail.com"><img class="icon-social" src="/img/email.svg" alt="Email Me!"/></a>
+
+
+<a href="https://github.com/amhndu/"><img class="icon-social" src="/img/github.svg" alt="Github"/></a>
+
+
+<a href="https://www.linkedin.com/in/amish-naidu/"><img class="icon-social" src="/img/linkedin.svg" alt="LinkedIn"/></a>
+
+<a href="/index.xml" target="_blank"><img class="icon-social" src="/img/feed.svg" alt="Feed"></a>
+
+				<p>
+					
+					
+					&copy; 2019 Amish K. Naidu
+					
+					
+				</p>
+				
+				<a href="#brand">
+					<img class="icon-text" src="/img/toup.svg" alt="To Up"/>
+					<span>Up</span>
+				</a>
+				
+			</div>
+		</footer>
+		
+	</body>
+</html>
+

@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Game on Amish K. Naidu</title>
+    <link>/tags/game/</link>
+    <description>Recent content in Game on Amish K. Naidu</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <copyright>&amp;copy; 2019 Amish K. Naidu</copyright>
+    <lastBuildDate>Fri, 28 Jul 2017 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="/tags/game/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Fly</title>
+      <link>/projects/fly/</link>
+      <pubDate>Fri, 28 Jul 2017 00:00:00 +0000</pubDate>
+      
+      <guid>/projects/fly/</guid>
+      <description>Screenshots A simple flight simulator in C++11/OpenGL.
+Features a procedurally generated infinite terrain over which you can fly around. With explosions!
+Controls: WASD or Arrow keys to change the plane&amp;rsquo;s direction. Click anywhere on the screen and move the mouse to rotate the camera, and scroll to change zoom.
+Command line arguments: usage: Fly [options...] -h | --help Print this help text and exit -w X | wX Set window width to X (default: 1024) -H Y | HY Set window height to Y (default: 720) -s Z | sZ Set seed to Z (default: random seed) -f | --fullscreen Set fullscreen mode (default: false) --wireframe Render in wireframe mode (default: false) --plane-box Draw a bounding box around the plane (default: false)  YouTube Playlist: Link to YouTube Playlist</description>
+    </item>
+    
+    <item>
+      <title>Gravity</title>
+      <link>/projects/gravity/</link>
+      <pubDate>Wed, 17 Sep 2014 00:00:00 +0000</pubDate>
+      
+      <guid>/projects/gravity/</guid>
+      <description>An Orbital survival game Gravity is a survial game set in space, you are in a space station orbiting Earth but things have gone awry and you have a situation with broken satellites, how long can you survie ? (Yes, the premise is very similar to that Hollywood movie of the same name). Programmed in C++11 with the SFML library for graphics. I made this is as my final project in school.</description>
+    </item>
+    
+    <item>
+      <title>Mini Tanks</title>
+      <link>/projects/tanks-game/</link>
+      <pubDate>Sat, 26 Apr 2014 00:00:00 +0000</pubDate>
+      
+      <guid>/projects/tanks-game/</guid>
+      <description>A turn-based, artillery game where you destroy other tanks to win in a fully destructible, procedurally generated terrain. Supports multiplayer with upto 8 local players. This was inspired by Pocket Tanks and Scorched Earth. Programmed in C++11 with SFML used for graphics.
+Controls and Objective Use your mouse to click on the HUD or press R to set the Rotation of the turret, similarly set power by clicking the power bar (or by hovering the cursor above it and using your scroll wheel)</description>
+    </item>
+    
+  </channel>
+</rss>

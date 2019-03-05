@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Opengl on Amish K. Naidu</title>
+    <link>/tags/opengl/</link>
+    <description>Recent content in Opengl on Amish K. Naidu</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <copyright>&amp;copy; 2019 Amish K. Naidu</copyright>
+    <lastBuildDate>Fri, 28 Jul 2017 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="/tags/opengl/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Fly</title>
+      <link>/projects/fly/</link>
+      <pubDate>Fri, 28 Jul 2017 00:00:00 +0000</pubDate>
+      
+      <guid>/projects/fly/</guid>
+      <description>Screenshots A simple flight simulator in C++11/OpenGL.
+Features a procedurally generated infinite terrain over which you can fly around. With explosions!
+Controls: WASD or Arrow keys to change the plane&amp;rsquo;s direction. Click anywhere on the screen and move the mouse to rotate the camera, and scroll to change zoom.
+Command line arguments: usage: Fly [options...] -h | --help Print this help text and exit -w X | wX Set window width to X (default: 1024) -H Y | HY Set window height to Y (default: 720) -s Z | sZ Set seed to Z (default: random seed) -f | --fullscreen Set fullscreen mode (default: false) --wireframe Render in wireframe mode (default: false) --plane-box Draw a bounding box around the plane (default: false)  YouTube Playlist: Link to YouTube Playlist</description>
+    </item>
+    
+  </channel>
+</rss>

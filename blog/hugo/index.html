@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8"/>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta name="generator" content="Hugo 0.54.0" />
+		<title>Hugo - Amish K. Naidu</title>
+
+		<meta name="description" content="I finally have a new post after about two years!
+This is the customary blog post where I talk about moving to the new static site generator.
+Hugo.
+This is way more flexible and easier to maintain than my previous setup, which was a hand-crafted website written using vanilla HTML and CSS. After about 4 years I realized it was time to move on. It was a bit of a pain to add anything using raw HTML.">
+
+
+		
+		
+		
+		<link rel="stylesheet" href="/css/normalize.css"/>
+		<link rel="stylesheet" href="/css/ui.css"/>
+		<link rel="stylesheet" href="/css/syntax.css"/>
+		
+		
+		
+
+		<link  rel="stylesheet" href="https://fonts.googleapis.com/css?family=Fira+Mono|Lato|Raleway">
+
+		
+
+		<style>
+	a { color: #ff8181; }
+    button, input[type="submit"] {
+        background: #ff8181;
+        color: #fff;
+        border: 0px;
+    }
+	blockquote {
+		border-left-color: #ff8181;
+		border-right-color: #ff8181; }
+	.bar a:hover {
+		color: #ff8181;
+		text-decoration: none; }
+	.sep {
+		margin-top: 2rem;
+		margin-bottom: 1rem;
+		margin-left:0;
+		width: 24rem;
+		border-top: 2px solid #ff8181; }
+</style>
+
+	</head>
+
+<body>
+<header class="container no-print">
+	<div class="u-header">
+		<nav class="bar">
+	<ul><li>
+			<a href="/">
+				<img class="icon-text" src="/img/prev.svg"/>
+			</a>
+		</li><li><a href="/blog/">Blog</a></li><li><a href="/projects/">Projects</a></li></ul>
+</nav>
+
+	</div>
+</header>
+<main class="container">
+
+<article>
+	<header><hgroup id="brand">
+	<h1>Hugo</h1>
+	<h5>
+		
+		<time datetime="2019-03-06 00:57:32 &#43;0530 IST">Mar 06, 2019</time>
+		<span class="no-print">
+			<span>
+	</h5>
+	
+</hgroup>
+<hr class="sep" />
+</header>
+	
+
+<p>I finally have a new post after about two years!</p>
+
+<p>This is the customary blog post where I talk about moving to the new static site generator.</p>
+
+<p>Hugo.</p>
+
+<p>This is way more flexible and easier to maintain than my previous setup, which was a hand-crafted website written
+using vanilla HTML and CSS. After about 4 years I realized it was time to move on. It was a bit of a pain to add anything using raw HTML. A static site generator coupled with markdown for writing content was the obvious solution!<br />
+Deciding which static site generator to choose was not an obvious choice however. I chose Hugo because it supports markdown, written in Go and is simple and lightweight.</p>
+
+<p>But even then, it took me many weeks to completely move over to Hugo, with it requiring moving things to the new format,
+obsessively tweaking everything and adding some content given my preoccupations.
+I ended up editing the <a href="https://github.com/yursan9/manis-hugo-theme">Manis</a>, a minimalistic but elegant theme to fit my needs.</p>
+
+<p>Another thing I should mention is that <a href="/projects/xkcd-shuffle">xkcd-shuffle</a> now works again!  I had to rely on a Yahoo! API previously to wrap the xkcd endpoint with jsonp, as the xkcd API has neither jsonp nor does it have CORS headers, making it impossible to directly use it from within the browser. Unfortunately, YQL, the Yahoo! service I had used was discontinued. Fortunately, <a href="https://github.com/mrmartineau/xkcd-api">someone</a> created a CORS enabled API for xkcd.
+I don&rsquo;t know if anybody even uses xkcd-shuffle but hey it works now.</p>
+
+<p>The last point also made me wonder if I should setup some form of a non intrusive tracking to get some very minimum of statistics about traffic on this site. I used to have Google Analytics at the very beginning, and although it was sometimes fun to look at, I took it down on account of principle. Given that I myself use a brwoser extension to block it on other places, it made no sense to keep it on my site.</p>
+
+<h2 id="screenshots-of-the-previous-site">Screenshots of the previous site</h2>
+
+<p>For posterity, here are some screenshots of the old site:</p>
+
+<p><img src="/hugo/old-index.png" alt="old index image" />
+<p style="text-align:center">Old home page</p></p>
+
+<p><img src="/hugo/old-projects.png" alt="old projects image" />
+<p style="text-align:center">Old projects page</p></p>
+
+<p>That header image is basically a screenshot of xxd output of a screenshot of some code in my <a href="/projects/simplenes">SimpleNES</a> project.</p>
+
+<p>Now here&rsquo;s to hoping that this change would make me keep the site more updated and write more!</p>
+
+</article>
+<nav class="no-print post-nav">
+
+	<a class="prev-post" href="/blog/obfuscate/">
+		<img class="icon-text" src="/img/prev.svg"/>Let&#39;s Make an Extremely Readable Birthday Melody, the IOCCC Way</a>
+
+
+</nav>
+
+
+
+
+			<hr class="sep" />
+		</main>
+		<footer class="container no-print">
+			<div class="u-footer">
+				
+<a href="mailto:amhndu@gmail.com"><img class="icon-social" src="/img/email.svg" alt="Email Me!"/></a>
+
+
+<a href="https://github.com/amhndu/"><img class="icon-social" src="/img/github.svg" alt="Github"/></a>
+
+
+<a href="https://www.linkedin.com/in/amish-naidu/"><img class="icon-social" src="/img/linkedin.svg" alt="LinkedIn"/></a>
+
+<a href="/index.xml" target="_blank"><img class="icon-social" src="/img/feed.svg" alt="Feed"></a>
+
+				<p>
+					
+					
+					&copy; 2019 Amish K. Naidu
+					
+					
+				</p>
+				
+				<a href="#brand">
+					<img class="icon-text" src="/img/toup.svg" alt="To Up"/>
+					<span>Up</span>
+				</a>
+				
+			</div>
+		</footer>
+		
+	</body>
+</html>
+

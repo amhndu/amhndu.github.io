@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Blog on Amish K. Naidu</title>
+    <link>/blog/</link>
+    <description>Recent content in Blog on Amish K. Naidu</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <copyright>&amp;copy; 2019 Amish K. Naidu</copyright>
+    <lastBuildDate>Sun, 02 Jul 2017 08:14:51 +0700</lastBuildDate>
+    
+	<atom:link href="/blog/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Hugo</title>
+      <link>/blog/hugo/</link>
+      <pubDate>Wed, 06 Mar 2019 00:57:32 +0530</pubDate>
+      
+      <guid>/blog/hugo/</guid>
+      <description>I finally have a new post after about two years!
+This is the customary blog post where I talk about moving to the new static site generator.
+Hugo.
+This is way more flexible and easier to maintain than my previous setup, which was a hand-crafted website written using vanilla HTML and CSS. After about 4 years I realized it was time to move on. It was a bit of a pain to add anything using raw HTML.</description>
+    </item>
+    
+    <item>
+      <title>Let&#39;s Make an Extremely Readable Birthday Melody, the IOCCC Way</title>
+      <link>/blog/obfuscate/</link>
+      <pubDate>Sun, 30 Apr 2017 00:00:00 +0000</pubDate>
+      
+      <guid>/blog/obfuscate/</guid>
+      <description>Obfuscate: tr.v. -cated, -cating, -cates.
+1. i. To render obscure.
+ii. To darken. 2. To confuse: his emotions obfuscated his judgment. [Lat. obfuscare, to darken : ob(intensive) + Lat. fuscare, to darken &amp;lt; fuscus, dark.] -obfuscation n. obfuscatory adj
+(taken from IOCCC)
+The Why  You learn lesser known aspects of the language Job security. Write obfuscated code and make sure no one else can maintain it but you! It&amp;rsquo;s fun.</description>
+    </item>
+    
+    <item>
+      <title>The file you can&#39;t read on Windows</title>
+      <link>/blog/file-read-bug/</link>
+      <pubDate>Sat, 04 Feb 2017 00:00:00 +0000</pubDate>
+      
+      <guid>/blog/file-read-bug/</guid>
+      <description>I stumbled on this bug with my NES emulator where the ROMs won&amp;rsquo;t open under Windows but had worked without a hitch on Linux and macOS.
+I had been developing on Linux and occasionally it tested on macOS. So it wasn&amp;rsquo;t until quite late into the development that I found that the emulator can&amp;rsquo;t open any ROM files on Windows.
+This bug had me really perpexled, for why the emulator breaks only under Windows.</description>
+    </item>
+    
+    <item>
+      <title>Connect and control your media player with python and dbus using MPRIS</title>
+      <link>/blog/dbus/</link>
+      <pubDate>Mon, 15 Jun 2015 00:00:00 +0000</pubDate>
+      
+      <guid>/blog/dbus/</guid>
+      <description>In this guide we&amp;rsquo;ll be using Python 3 although you may be able to apply this to Python 2.4 and above with minor adjustments. Since D-Bus is only used by Linux and BSD distributions, needless to say, this will only work with *nix systems
+We&amp;rsquo;ll connect to a media player which implements the Media Player Remote Interfacing Specification or MPRIS for short. Most popular players like Audacious, Amarok, Clementine, VLC etc will work.</description>
+    </item>
+    
+  </channel>
+</rss>

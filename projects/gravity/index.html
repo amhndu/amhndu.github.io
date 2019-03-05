@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8"/>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta name="generator" content="Hugo 0.54.0" />
+		<title>Gravity - Amish K. Naidu</title>
+
+		<meta name="description" content="A survial game set in space, you are in a space station orbiting Earth but things have gone awry and you have a situation with broken satellites">
+
+
+		
+		
+		
+		<link rel="stylesheet" href="/css/normalize.css"/>
+		<link rel="stylesheet" href="/css/ui.css"/>
+		<link rel="stylesheet" href="/css/syntax.css"/>
+		
+		
+		
+
+		<link  rel="stylesheet" href="https://fonts.googleapis.com/css?family=Fira+Mono|Lato|Raleway">
+
+		
+
+		<style>
+	a { color: #ff8181; }
+    button, input[type="submit"] {
+        background: #ff8181;
+        color: #fff;
+        border: 0px;
+    }
+	blockquote {
+		border-left-color: #ff8181;
+		border-right-color: #ff8181; }
+	.bar a:hover {
+		color: #ff8181;
+		text-decoration: none; }
+	.sep {
+		margin-top: 2rem;
+		margin-bottom: 1rem;
+		margin-left:0;
+		width: 24rem;
+		border-top: 2px solid #ff8181; }
+</style>
+
+	</head>
+
+<body>
+<header class="container no-print">
+	<div class="u-header">
+		<nav class="bar">
+	<ul><li>
+			<a href="/">
+				<img class="icon-text" src="/img/prev.svg"/>
+			</a>
+		</li><li><a href="/blog/">Blog</a></li><li><a href="/projects/">Projects</a></li></ul>
+</nav>
+
+	</div>
+</header>
+<main class="container">
+
+<article>
+	<header><hgroup id="brand">
+	<h1>Gravity</h1>
+	<h5>
+		
+		<time datetime="2014-09-17 00:00:00 &#43;0000 UTC">Sep 17, 2014</time>
+		<span class="no-print">
+			-
+				
+				<a href="/tags/sfml">sfml</a>
+				
+				<a href="/tags/game">game</a>
+				
+				<a href="/tags/c&#43;&#43;">c&#43;&#43;</a>
+				<span>
+	</h5>
+	
+</hgroup>
+<hr class="sep" />
+</header>
+	
+
+<h2 id="an-orbital-survival-game">An Orbital survival game</h2>
+
+<p>Gravity is a survial game set in space, you are in a space station orbiting Earth but things have gone awry and you have a situation with broken satellites, how long can you survie ? (Yes, the premise is very similar to that Hollywood movie of the same name).
+Programmed in C++11 with the <a href="http://sfml-dev.org">SFML</a> library for graphics. I made this is as my final project in school. This is a clone of the HTML5 game <a href="http://www.allworkallplay.org/games/orbitaldebris/">Orbital Debris</a>.</p>
+
+<h2 id="screenshots">Screenshots</h2>
+
+<p><img src="/screenshots/gravity1.jpg" alt="Screenshot 1" /><br />
+<img src="/screenshots/gravity2.jpg" alt="Screenshot 2" /><br />
+<img src="/screenshots/gravity3.jpg" alt="Screenshot 3" /><br />
+<img src="/screenshots/gravity4.jpg" alt="Screenshot 4" /></p>
+
+<h2 id="gameplay-video">Gameplay video</h2>
+
+<p>(Note that this video is a bit outdated since the game now supports saving/loading, apart from the new buttons this video remains precise)
+<a href="https://www.youtube.com/watch?v=LI_u30P6zTA">Watch on Youtube</a></p>
+
+<h2 id="compiling">Compiling</h2>
+
+<p>You need a C++11 compliant compiler and <a href="http://sfml-dev.org">SFML 2.0+</a> to compile <em>Gravity</em>. After you&rsquo;ve downloaded the source and dependencies, you can use <a href="http://cmake.org">cmake</a> to compile <em>Gravity</em>.
+On any Linux distribution, these are the typical steps :</p>
+
+<pre><code>$ git clone https://github.com/amhndu/gravity
+$ cd gravity
+$ cmake .
+$ make
+</code></pre>
+
+<p>If you don&rsquo;t have cmake and don&rsquo;t wish to install it either, then you can simply compile Gravity by compiling all the cpp files and then linking them with SFML using your IDE/compiler. e.g. With g++, you can enter this command :</p>
+
+<pre><code>$ g++ -o gravity *.cpp -std=c++11 -lsfml-graphics -lsfml-window -lsfml-system
+</code></pre>
+
+<p>Note : To compile on windows, you also need to link the sfml-main component.</p>
+
+<h2 id="license">License</h2>
+
+<p>The following images have been taken from <a href="http://www.allworkallplay.org/games/orbitaldebris/">here</a></p>
+
+<ul>
+<li>assets/satellite&lt;n&gt;.png where n = {0,1,2,3}</li>
+<li>assets/junk&lt;n&gt;.png where n = {0,1,2}</li>
+<li>assets/Earth.png</li>
+<li>assets/bg.png</li>
+<li>assets/station.png</li>
+</ul>
+
+<p>Other than the above no rights have been reserved, but in the unlikely event that you use anything, please drop me a [mail][mailaddr].</p>
+
+</article>
+<nav class="no-print post-nav">
+
+	<a class="prev-post" href="/projects/tanks-game/">
+		<img class="icon-text" src="/img/prev.svg"/>Mini Tanks</a>
+
+
+	<a class="next-post" href="/projects/xkcd-shuffle/">xkcd-shuffle<img class="icon-text" src="/img/next.svg"/>
+	</a>
+
+</nav>
+
+
+<section id="related">
+  <h4>See Also</h4>
+  <ul>
+    
+  	<li><a href="/projects/tanks-game/">Mini Tanks</a></li>
+  	
+  </ul>
+</section>
+
+
+
+			<hr class="sep" />
+		</main>
+		<footer class="container no-print">
+			<div class="u-footer">
+				
+<a href="mailto:amhndu@gmail.com"><img class="icon-social" src="/img/email.svg" alt="Email Me!"/></a>
+
+
+<a href="https://github.com/amhndu/"><img class="icon-social" src="/img/github.svg" alt="Github"/></a>
+
+
+<a href="https://www.linkedin.com/in/amish-naidu/"><img class="icon-social" src="/img/linkedin.svg" alt="LinkedIn"/></a>
+
+<a href="/index.xml" target="_blank"><img class="icon-social" src="/img/feed.svg" alt="Feed"></a>
+
+				<p>
+					
+					
+					&copy; 2019 Amish K. Naidu
+					
+					
+				</p>
+				
+				<a href="#brand">
+					<img class="icon-text" src="/img/toup.svg" alt="To Up"/>
+					<span>Up</span>
+				</a>
+				
+			</div>
+		</footer>
+		
+	</body>
+</html>
+

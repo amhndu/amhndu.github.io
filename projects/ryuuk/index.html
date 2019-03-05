@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8"/>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta name="generator" content="Hugo 0.54.0" />
+		<title>Ryuuk - Amish K. Naidu</title>
+
+		<meta name="description" content="Ryuuk is a simple concurrent webserver written in C&#43;&#43;17 and bsd sockects.">
+
+
+		
+		
+		
+		<link rel="stylesheet" href="/css/normalize.css"/>
+		<link rel="stylesheet" href="/css/ui.css"/>
+		<link rel="stylesheet" href="/css/syntax.css"/>
+		
+		
+		
+
+		<link  rel="stylesheet" href="https://fonts.googleapis.com/css?family=Fira+Mono|Lato|Raleway">
+
+		
+
+		<style>
+	a { color: #ff8181; }
+    button, input[type="submit"] {
+        background: #ff8181;
+        color: #fff;
+        border: 0px;
+    }
+	blockquote {
+		border-left-color: #ff8181;
+		border-right-color: #ff8181; }
+	.bar a:hover {
+		color: #ff8181;
+		text-decoration: none; }
+	.sep {
+		margin-top: 2rem;
+		margin-bottom: 1rem;
+		margin-left:0;
+		width: 24rem;
+		border-top: 2px solid #ff8181; }
+</style>
+
+	</head>
+
+<body>
+<header class="container no-print">
+	<div class="u-header">
+		<nav class="bar">
+	<ul><li>
+			<a href="/">
+				<img class="icon-text" src="/img/prev.svg"/>
+			</a>
+		</li><li><a href="/blog/">Blog</a></li><li><a href="/projects/">Projects</a></li></ul>
+</nav>
+
+	</div>
+</header>
+<main class="container">
+
+<article>
+	<header><hgroup id="brand">
+	<h1>Ryuuk</h1>
+	<h5>
+		
+		<time datetime="2017-05-11 00:00:00 &#43;0000 UTC">May 11, 2017</time>
+		<span class="no-print">
+			-
+				
+				<a href="/tags/sfml">sfml</a>
+				
+				<a href="/tags/c&#43;&#43;">c&#43;&#43;</a>
+				
+				<a href="/tags/networking">networking</a>
+				<span>
+	</h5>
+	
+</hgroup>
+<hr class="sep" />
+</header>
+	
+
+<p>Ryuuk is a concurrent web-server written in C++.</p>
+
+<p>Currently Ryuuk runs only in POSIX compliant environments only.</p>
+
+<h2 id="building">Building</h2>
+
+<p><strong>nix</strong></p>
+
+<pre><code>$ git clone https://github.com/amhndu/ryuuk
+$ cd ryuuk
+$ mkdir build &amp;&amp; cd build
+$ cmake ..
+$ make -ji # where i = no. of cores you can spare
+</code></pre>
+
+<p><strong>Windows</strong><br />
+<del>Who uses windows anyway ?</del><br />
+Currently not portable with windows. Contributions welcome.</p>
+
+<h2 id="why">Why</h2>
+
+<ul>
+<li>Becuase why not ?</li>
+<li>We wanted to learn a thing or two about sockets &amp; HTTP</li>
+</ul>
+
+<h2 id="keikaku">Keikaku</h2>
+
+<h4 id="short-term">Short term</h4>
+
+<p><del>* Basic HTTP 1.1 GET requests</del><br />
+<del>* A Functional web server</del></p>
+
+<h4 id="long-term">Long term</h4>
+
+<ul>
+<li>Most of HTTP/1.1</li>
+<li>World domination</li>
+</ul>
+
+<p>For a more detailed keikaku, please see the <a href="https://github.com/amhndu/ryuuk/blob/master/TODO.md">TODO</a></p>
+
+<h2 id="references">References</h2>
+
+<ul>
+<li><a href="https://tools.ietf.org/html/rfc723">https://tools.ietf.org/html/rfc723</a><0-7><br /></li>
+<li><a href="https://tools.ietf.org/html/rfc2616">https://tools.ietf.org/html/rfc2616</a><br /></li>
+<li><a href="http://www2005.org/cdrom/docs/p730.pdf">http://www2005.org/cdrom/docs/p730.pdf</a><br /></li>
+</ul>
+
+</article>
+<nav class="no-print post-nav">
+
+	<a class="prev-post" href="/projects/life-hs/">
+		<img class="icon-text" src="/img/prev.svg"/>life.hs</a>
+
+
+	<a class="next-post" href="/projects/fly/">Fly<img class="icon-text" src="/img/next.svg"/>
+	</a>
+
+</nav>
+
+
+<section id="related">
+  <h4>See Also</h4>
+  <ul>
+    
+  	<li><a href="/projects/prattle/">Prattle</a></li>
+  	
+  	<li><a href="/projects/simplenes/">SimpleNES</a></li>
+  	
+  	<li><a href="/projects/gravity/">Gravity</a></li>
+  	
+  </ul>
+</section>
+
+
+
+			<hr class="sep" />
+		</main>
+		<footer class="container no-print">
+			<div class="u-footer">
+				
+<a href="mailto:amhndu@gmail.com"><img class="icon-social" src="/img/email.svg" alt="Email Me!"/></a>
+
+
+<a href="https://github.com/amhndu/"><img class="icon-social" src="/img/github.svg" alt="Github"/></a>
+
+
+<a href="https://www.linkedin.com/in/amish-naidu/"><img class="icon-social" src="/img/linkedin.svg" alt="LinkedIn"/></a>
+
+<a href="/index.xml" target="_blank"><img class="icon-social" src="/img/feed.svg" alt="Feed"></a>
+
+				<p>
+					
+					
+					&copy; 2019 Amish K. Naidu
+					
+					
+				</p>
+				
+				<a href="#brand">
+					<img class="icon-text" src="/img/toup.svg" alt="To Up"/>
+					<span>Up</span>
+				</a>
+				
+			</div>
+		</footer>
+		
+	</body>
+</html>
+

@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8"/>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta name="generator" content="Hugo 0.54.0" />
+		<title>Fly - Amish K. Naidu</title>
+
+		<meta name="description" content="A flight simulator in OpenGL and C&#43;&#43;, with an infinite procedurally generated terrain and explosions!">
+
+
+		
+		
+		
+		<link rel="stylesheet" href="/css/normalize.css"/>
+		<link rel="stylesheet" href="/css/ui.css"/>
+		<link rel="stylesheet" href="/css/syntax.css"/>
+		
+		
+		
+
+		<link  rel="stylesheet" href="https://fonts.googleapis.com/css?family=Fira+Mono|Lato|Raleway">
+
+		
+
+		<style>
+	a { color: #ff8181; }
+    button, input[type="submit"] {
+        background: #ff8181;
+        color: #fff;
+        border: 0px;
+    }
+	blockquote {
+		border-left-color: #ff8181;
+		border-right-color: #ff8181; }
+	.bar a:hover {
+		color: #ff8181;
+		text-decoration: none; }
+	.sep {
+		margin-top: 2rem;
+		margin-bottom: 1rem;
+		margin-left:0;
+		width: 24rem;
+		border-top: 2px solid #ff8181; }
+</style>
+
+	</head>
+
+<body>
+<header class="container no-print">
+	<div class="u-header">
+		<nav class="bar">
+	<ul><li>
+			<a href="/">
+				<img class="icon-text" src="/img/prev.svg"/>
+			</a>
+		</li><li><a href="/blog/">Blog</a></li><li><a href="/projects/">Projects</a></li></ul>
+</nav>
+
+	</div>
+</header>
+<main class="container">
+
+<article>
+	<header><hgroup id="brand">
+	<h1>Fly</h1>
+	<h5>
+		
+		<time datetime="2017-07-28 00:00:00 &#43;0000 UTC">Jul 28, 2017</time>
+		<span class="no-print">
+			-
+				
+				<a href="/tags/sfml">sfml</a>
+				
+				<a href="/tags/opengl">opengl</a>
+				
+				<a href="/tags/c&#43;&#43;">c&#43;&#43;</a>
+				
+				<a href="/tags/game">game</a>
+				<span>
+	</h5>
+	
+</hgroup>
+<hr class="sep" />
+</header>
+	
+
+<h2 id="screenshots">Screenshots</h2>
+
+<p><img src="/screenshots/fly-screenshot.png" alt="fly-screenshot" />
+<img src="https://thumbs.gfycat.com/CharmingFastCoqui-size_restricted.gif" alt="collision gif" /></p>
+
+<p>A simple flight simulator in C++11/OpenGL.</p>
+
+<p>Features a procedurally generated infinite terrain over which you can fly around.
+With <em>explosions</em>!</p>
+
+<h2 id="controls">Controls:</h2>
+
+<p>WASD or Arrow keys to change the plane&rsquo;s direction.
+Click anywhere on the screen and move the mouse to rotate the camera, and scroll to change zoom.</p>
+
+<h2 id="command-line-arguments">Command line arguments:</h2>
+
+<pre><code>usage: Fly [options...]
+
+-h   | --help        Print this help text and exit
+-w X | wX            Set window width to X (default: 1024)
+-H Y | HY            Set window height to Y (default: 720)
+-s Z | sZ            Set seed to Z (default: random seed)
+-f   | --fullscreen  Set fullscreen mode (default: false)
+--wireframe          Render in wireframe mode (default: false)
+--plane-box          Draw a bounding box around the plane (default: false)
+</code></pre>
+
+<h2 id="youtube-playlist">YouTube Playlist:</h2>
+
+<p><a href="https://www.youtube.com/playlist?list=PLiULt7qySWt20wzP_o6aeUNaClIziR0TR">Link to YouTube Playlist</a></p>
+
+<h2 id="compiling">Compiling</h2>
+
+<p>You need:</p>
+
+<ul>
+<li>SFML 2.1+ development headers and library</li>
+<li>C++11 compliant compiler</li>
+<li>CMake 3.11+</li>
+<li>GLEW</li>
+</ul>
+
+<p>Once you have the dependencies, run cmake on the source directory, if the dependencies aren&rsquo;t in a standard path, you may have to specify their paths.
+e.g., on Linux/OS X/FreeBSD:</p>
+
+<pre><code>$ git clone https://github.com/amhndu/Fly
+$ cd Fly
+$ mkdir build/ &amp;&amp; cd build/
+$ cmake ..
+$ make -j4
+</code></pre>
+
+<p>On Windows, you might find <code>cmake-gui</code> useful, set the build and source directories, run configure. If dependencies weren&rsquo;t found, add their paths in the gui, then generate makefiles/Visual Studion solution to compile.</p>
+
+</article>
+<nav class="no-print post-nav">
+
+	<a class="prev-post" href="/projects/ryuuk/">
+		<img class="icon-text" src="/img/prev.svg"/>Ryuuk</a>
+
+
+	<a class="next-post" href="/projects/mediaplayer.py/">mediaplayer.py<img class="icon-text" src="/img/next.svg"/>
+	</a>
+
+</nav>
+
+
+<section id="related">
+  <h4>See Also</h4>
+  <ul>
+    
+  	<li><a href="/projects/gravity/">Gravity</a></li>
+  	
+  	<li><a href="/projects/tanks-game/">Mini Tanks</a></li>
+  	
+  	<li><a href="/projects/ryuuk/">Ryuuk</a></li>
+  	
+  </ul>
+</section>
+
+
+
+			<hr class="sep" />
+		</main>
+		<footer class="container no-print">
+			<div class="u-footer">
+				
+<a href="mailto:amhndu@gmail.com"><img class="icon-social" src="/img/email.svg" alt="Email Me!"/></a>
+
+
+<a href="https://github.com/amhndu/"><img class="icon-social" src="/img/github.svg" alt="Github"/></a>
+
+
+<a href="https://www.linkedin.com/in/amish-naidu/"><img class="icon-social" src="/img/linkedin.svg" alt="LinkedIn"/></a>
+
+<a href="/index.xml" target="_blank"><img class="icon-social" src="/img/feed.svg" alt="Feed"></a>
+
+				<p>
+					
+					
+					&copy; 2019 Amish K. Naidu
+					
+					
+				</p>
+				
+				<a href="#brand">
+					<img class="icon-text" src="/img/toup.svg" alt="To Up"/>
+					<span>Up</span>
+				</a>
+				
+			</div>
+		</footer>
+		
+	</body>
+</html>
+
