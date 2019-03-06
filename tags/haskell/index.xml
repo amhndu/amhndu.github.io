@@ -18,7 +18,8 @@
       
       <guid>/projects/life-hs/</guid>
       <description>A dead-simple simulator for Conway&amp;rsquo;s Game of Life in Haskell.
- Compiling:
+ Source: GitHub
+Compiling:
 $ ghc --make life.hs  Usage:
 ./life &amp;lt; seeds/PulsarSeed.txt  Or
 $ runhaskell life.hs &amp;lt; seeds/GliderSeed.txt  Seeds are space separeted matrices of 0 and 1 representing dead/alive cell. Note that it uses ANSI escape sequences so this may not work on Windows.</description>

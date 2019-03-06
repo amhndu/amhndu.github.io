@@ -4,9 +4,9 @@
 		<meta charset="utf-8"/>
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<meta name="generator" content="Hugo 0.54.0" />
-		<title>life.hs - Amish K. Naidu</title>
+		<title>TwoCars - Amish K. Naidu</title>
 
-		<meta name="description" content="A dead-simple Conway&#39;s Game of Life simulation written in Haskell.">
+		<meta name="description" content="A simple 2D endless runner where you simultaneously control two cars">
 
 
 		
@@ -63,52 +63,46 @@
 
 <article>
 	<header><hgroup id="brand">
-	<h1>life.hs</h1>
+	<h1>TwoCars</h1>
 	<h5>
 		
-		<time datetime="2017-01-12 00:00:00 &#43;0000 UTC">Jan 12, 2017</time>
+		<time datetime="2017-02-09 00:00:00 &#43;0000 UTC">Feb 09, 2017</time>
 		<span class="no-print">
-			-
-				
-				<a href="/tags/haskell">haskell</a>
-				<span>
+			<span>
 	</h5>
 	
 </hgroup>
 <hr class="sep" />
 </header>
-	<p>A dead-simple simulator for Conway&rsquo;s Game of Life in Haskell.</p>
+	
 
-<script id="asciicast-JhfMNFYTlr4SdtDFvOO2yFecv" src="https://asciinema.org/a/JhfMNFYTlr4SdtDFvOO2yFecv.js" async></script>
+<p>A clone of the 2 Cars game in C++14/SFML
+TwoCars is a simple 2D endless runner where you simultaneously control two cars while taking all the circles and
+avoiding all triangles to keep running.
+How much can you score ?</p>
 
-<p>Source: <a href="https://github.com/amhndu/life.hs">GitHub</a></p>
+<p>Keybindings: F/J to change lane of the left/right car</p>
 
-<p>Compiling:</p>
+<h2 id="source">Source</h2>
 
-<pre><code>$ ghc --make life.hs
-</code></pre>
+<p><a href="https://github.com/amhndu/TwoCars">GitHub</a></p>
 
-<p>Usage:</p>
+<h2 id="screenshots">Screenshots</h2>
 
-<pre><code>./life &lt; seeds/PulsarSeed.txt
-</code></pre>
+<p><img src="/screenshots/twocars.png" alt="Screenshot 1" /></p>
 
-<p>Or</p>
+<h2 id="video">Video</h2>
 
-<pre><code>$ runhaskell life.hs &lt; seeds/GliderSeed.txt
-</code></pre>
-
-<p>Seeds are space separeted matrices of 0 and 1 representing dead/alive cell.
-Note that it uses ANSI escape sequences so this may not work on Windows.</p>
+<p><a href="https://youtu.be/BSCoVgsL9Lg">Watch on YouTube</a></p>
 
 </article>
 <nav class="no-print post-nav">
 
-	<a class="prev-post" href="/projects/simplenes/">
-		<img class="icon-text" src="/img/prev.svg"/>SimpleNES</a>
+	<a class="prev-post" href="/projects/life-hs/">
+		<img class="icon-text" src="/img/prev.svg"/>life.hs</a>
 
 
-	<a class="next-post" href="/projects/twocars/">TwoCars<img class="icon-text" src="/img/next.svg"/>
+	<a class="next-post" href="/projects/ryuuk/">Ryuuk<img class="icon-text" src="/img/next.svg"/>
 	</a>
 
 </nav>

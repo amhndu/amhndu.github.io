@@ -76,12 +76,24 @@ Made sorting in playlist ignore &amp;ldquo;The&amp;rdquo; or any other configura
     </item>
     
     <item>
+      <title>Stackledge</title>
+      <link>/projects/stackledge/</link>
+      <pubDate>Thu, 30 Nov 2017 00:00:00 +0000</pubDate>
+      
+      <guid>/projects/stackledge/</guid>
+      <description>Stackledge A reddit clone.
+ Upvote/downvote based content aggregation Threaded comments User pages, indiviudal category and all categories pages Trending, Top, New sorting modes Feed paginated  Source GitHub
+Screenshots Deploying Set public_html/ as the public directory, import the schema and create new categories by inserting into the Category table</description>
+    </item>
+    
+    <item>
       <title>Fly</title>
       <link>/projects/fly/</link>
       <pubDate>Fri, 28 Jul 2017 00:00:00 +0000</pubDate>
       
       <guid>/projects/fly/</guid>
-      <description>Screenshots A simple flight simulator in C++11/OpenGL.
+      <description>Source GitHub
+Screenshots A simple flight simulator in C++11/OpenGL.
 Features a procedurally generated infinite terrain over which you can fly around. With explosions!
 Controls: WASD or Arrow keys to change the plane&amp;rsquo;s direction. Click anywhere on the screen and move the mouse to rotate the camera, and scroll to change zoom.
 Command line arguments: usage: Fly [options...] -h | --help Print this help text and exit -w X | wX Set window width to X (default: 1024) -H Y | HY Set window height to Y (default: 720) -s Z | sZ Set seed to Z (default: random seed) -f | --fullscreen Set fullscreen mode (default: false) --wireframe Render in wireframe mode (default: false) --plane-box Draw a bounding box around the plane (default: false)  YouTube Playlist: Link to YouTube Playlist</description>
@@ -95,7 +107,8 @@ Command line arguments: usage: Fly [options...] -h | --help Print this help text
       <guid>/projects/ryuuk/</guid>
       <description>Ryuuk is a concurrent web-server written in C++.
 Currently Ryuuk runs only in POSIX compliant environments only.
-Building nix
+Building GitHub
+nix
 $ git clone https://github.com/amhndu/ryuuk $ cd ryuuk $ mkdir build &amp;amp;&amp;amp; cd build $ cmake .. $ make -ji # where i = no. of cores you can spare  Windows
 Who uses windows anyway ?
 Currently not portable with windows. Contributions welcome.
@@ -116,6 +129,18 @@ The Why  You learn lesser known aspects of the language Job security. Write obfu
     </item>
     
     <item>
+      <title>TwoCars</title>
+      <link>/projects/twocars/</link>
+      <pubDate>Thu, 09 Feb 2017 00:00:00 +0000</pubDate>
+      
+      <guid>/projects/twocars/</guid>
+      <description>A clone of the 2 Cars game in C++14/SFML TwoCars is a simple 2D endless runner where you simultaneously control two cars while taking all the circles and avoiding all triangles to keep running. How much can you score ?
+Keybindings: F/J to change lane of the left/right car
+Source GitHub
+Screenshots Video Watch on YouTube</description>
+    </item>
+    
+    <item>
       <title>The file you can&#39;t read on Windows</title>
       <link>/blog/file-read-bug/</link>
       <pubDate>Sat, 04 Feb 2017 00:00:00 +0000</pubDate>
@@ -133,7 +158,8 @@ This bug had me really perpexled, for why the emulator breaks only under Windows
       
       <guid>/projects/life-hs/</guid>
       <description>A dead-simple simulator for Conway&amp;rsquo;s Game of Life in Haskell.
- Compiling:
+ Source: GitHub
+Compiling:
 $ ghc --make life.hs  Usage:
 ./life &amp;lt; seeds/PulsarSeed.txt  Or
 $ runhaskell life.hs &amp;lt; seeds/GliderSeed.txt  Seeds are space separeted matrices of 0 and 1 representing dead/alive cell. Note that it uses ANSI escape sequences so this may not work on Windows.</description>

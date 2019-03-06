@@ -4,9 +4,9 @@
 		<meta charset="utf-8"/>
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<meta name="generator" content="Hugo 0.54.0" />
-		<title>life.hs - Amish K. Naidu</title>
+		<title>Stackledge - Amish K. Naidu</title>
 
-		<meta name="description" content="A dead-simple Conway&#39;s Game of Life simulation written in Haskell.">
+		<meta name="description" content="A content-aggregator/reddit clone">
 
 
 		
@@ -63,52 +63,55 @@
 
 <article>
 	<header><hgroup id="brand">
-	<h1>life.hs</h1>
+	<h1>Stackledge</h1>
 	<h5>
 		
-		<time datetime="2017-01-12 00:00:00 &#43;0000 UTC">Jan 12, 2017</time>
+		<time datetime="2017-11-30 00:00:00 &#43;0000 UTC">Nov 30, 2017</time>
 		<span class="no-print">
-			-
-				
-				<a href="/tags/haskell">haskell</a>
-				<span>
+			<span>
 	</h5>
 	
 </hgroup>
 <hr class="sep" />
 </header>
-	<p>A dead-simple simulator for Conway&rsquo;s Game of Life in Haskell.</p>
+	
 
-<script id="asciicast-JhfMNFYTlr4SdtDFvOO2yFecv" src="https://asciinema.org/a/JhfMNFYTlr4SdtDFvOO2yFecv.js" async></script>
+<h1 id="stackledge">Stackledge</h1>
 
-<p>Source: <a href="https://github.com/amhndu/life.hs">GitHub</a></p>
+<p>A reddit clone.</p>
 
-<p>Compiling:</p>
+<ul>
+<li>Upvote/downvote based content aggregation</li>
+<li>Threaded comments</li>
+<li>User pages, indiviudal category and all categories pages</li>
+<li>Trending, Top, New sorting modes</li>
+<li>Feed paginated</li>
+</ul>
 
-<pre><code>$ ghc --make life.hs
-</code></pre>
+<h2 id="source">Source</h2>
 
-<p>Usage:</p>
+<p><a href="https://github.com/amhndu/stackledge">GitHub</a></p>
 
-<pre><code>./life &lt; seeds/PulsarSeed.txt
-</code></pre>
+<h2 id="screenshots">Screenshots</h2>
 
-<p>Or</p>
+<p><img src="/screenshots/stackledge1.png" alt="screenshot1" />
+<img src="/screenshots/stackledge2.png" alt="screenshot2" />
+<img src="/screenshots/stackledge3.png" alt="screenshot3" />
+<img src="/screenshots/stackledge4.png" alt="screenshot4" /></p>
 
-<pre><code>$ runhaskell life.hs &lt; seeds/GliderSeed.txt
-</code></pre>
+<h2 id="deploying">Deploying</h2>
 
-<p>Seeds are space separeted matrices of 0 and 1 representing dead/alive cell.
-Note that it uses ANSI escape sequences so this may not work on Windows.</p>
+<p>Set public_html/ as the public directory, import the schema and
+create new categories by inserting into the Category table</p>
 
 </article>
 <nav class="no-print post-nav">
 
-	<a class="prev-post" href="/projects/simplenes/">
-		<img class="icon-text" src="/img/prev.svg"/>SimpleNES</a>
+	<a class="prev-post" href="/projects/fly/">
+		<img class="icon-text" src="/img/prev.svg"/>Fly</a>
 
 
-	<a class="next-post" href="/projects/twocars/">TwoCars<img class="icon-text" src="/img/next.svg"/>
+	<a class="next-post" href="/projects/mediaplayer.py/">mediaplayer.py<img class="icon-text" src="/img/next.svg"/>
 	</a>
 
 </nav>
