@@ -36,7 +36,7 @@ button, input {
   width: 100%;
   max-width: 100rem;
   margin: 0 auto;
-  padding: 0 2rem;
+  padding: 0 5rem;
   box-sizing: border-box;
 }
 
@@ -130,6 +130,10 @@ p { margin-top: 0; }
 }
 #related h3 {
   text-align: left;
+}
+
+li h4 {
+  margin-bottom: 0.3rem;
 }
 
 
@@ -315,8 +319,8 @@ ol {
   margin-bottom: 2.5rem; }
 
 #brand {
-  margin-top: 1rem;
-  margin-bottom: 1.2rem;
+  margin-top: 2rem;
+  margin-bottom: 3rem;
 }
 
 /* #Utilities
@@ -367,6 +371,23 @@ article img {
   width: 3rem;
   height: 3rem;
 }
+
+.social .icon-social {
+  width: 3rem;
+  height: 3rem;
+  display: inline-block;
+  margin: 0 auto;
+}
+
+.social {
+  text-align: center;
+  margin: 0 auto;
+}
+
+h1, h5, .u-footer, .u-header {
+  text-align: center;
+}
+
 
 
 /* #Print
