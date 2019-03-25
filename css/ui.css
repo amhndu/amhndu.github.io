@@ -323,6 +323,13 @@ ol {
   margin-bottom: 3rem;
 }
 
+.list-sep {
+  width: 30%;
+  border: 1px solid rgba(0, 0, 0, 0.1); 
+  margin-top: 60px;
+  margin-bottom: 30px;
+}
+
 /* #Utilities
 –––––––––––––––––––––––––––––––––––––––––––––––––– */
 .u-header {
