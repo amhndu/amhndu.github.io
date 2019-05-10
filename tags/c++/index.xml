@@ -2,21 +2,21 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>c&#43;&#43; on Amish K. Naidu</title>
-    <link>amhndu.github.io/tags/c&#43;&#43;/</link>
+    <link>https://amhndu.github.io/tags/c&#43;&#43;/</link>
     <description>Recent content in c&#43;&#43; on Amish K. Naidu</description>
     <generator>Hugo -- gohugo.io</generator>
     <copyright>&amp;copy; 2019 Amish K. Naidu</copyright>
     <lastBuildDate>Fri, 28 Jul 2017 00:00:00 +0000</lastBuildDate>
     
-	<atom:link href="amhndu.github.io/tags/c++/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://amhndu.github.io/tags/c++/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>Fly</title>
-      <link>amhndu.github.io/projects/fly/</link>
+      <link>https://amhndu.github.io/projects/fly/</link>
       <pubDate>Fri, 28 Jul 2017 00:00:00 +0000</pubDate>
       
-      <guid>amhndu.github.io/projects/fly/</guid>
+      <guid>https://amhndu.github.io/projects/fly/</guid>
       <description>Source GitHub
 Screenshots A simple flight simulator in C++11/OpenGL.
 Features a procedurally generated infinite terrain over which you can fly around. With explosions!
@@ -26,10 +26,10 @@ Command line arguments: usage: Fly [options...] -h | --help Print this help text
     
     <item>
       <title>Ryuuk</title>
-      <link>amhndu.github.io/projects/ryuuk/</link>
+      <link>https://amhndu.github.io/projects/ryuuk/</link>
       <pubDate>Thu, 11 May 2017 00:00:00 +0000</pubDate>
       
-      <guid>amhndu.github.io/projects/ryuuk/</guid>
+      <guid>https://amhndu.github.io/projects/ryuuk/</guid>
       <description>Ryuuk is a concurrent web-server written in C++.
 Currently Ryuuk runs only in POSIX compliant environments only.
 Building GitHub
@@ -42,10 +42,10 @@ Why  Becuase why not ? We wanted to learn a thing or two about sockets &amp;amp;
     
     <item>
       <title>SimpleNES</title>
-      <link>amhndu.github.io/projects/simplenes/</link>
+      <link>https://amhndu.github.io/projects/simplenes/</link>
       <pubDate>Thu, 08 Dec 2016 00:00:00 +0000</pubDate>
       
-      <guid>amhndu.github.io/projects/simplenes/</guid>
+      <guid>https://amhndu.github.io/projects/simplenes/</guid>
       <description>An NES emulator written in C++ for nothing but fun.
 Roughly 40-50% of games should work (ie. games that use either no mapper or mappers 1, 2 or 3).
 Examples of games that have been tested to run (but NOT limited to):
@@ -55,10 +55,10 @@ Examples of games that have been tested to run (but NOT limited to):
     
     <item>
       <title>Prattle</title>
-      <link>amhndu.github.io/projects/prattle/</link>
+      <link>https://amhndu.github.io/projects/prattle/</link>
       <pubDate>Fri, 04 Nov 2016 00:00:00 +0000</pubDate>
       
-      <guid>amhndu.github.io/projects/prattle/</guid>
+      <guid>https://amhndu.github.io/projects/prattle/</guid>
       <description> Prattle is a simple chat program with a Client-Server architecture, a collaboration with Koushtav Chakrabarty.
 Programmed with C++11 with the SFML library for graphics and TGUI as the GUI framework.
 Screenshots For more information, view on GitHub </description>
@@ -66,19 +66,19 @@ Screenshots For more information, view on GitHub </description>
     
     <item>
       <title>Gravity</title>
-      <link>amhndu.github.io/projects/gravity/</link>
+      <link>https://amhndu.github.io/projects/gravity/</link>
       <pubDate>Wed, 17 Sep 2014 00:00:00 +0000</pubDate>
       
-      <guid>amhndu.github.io/projects/gravity/</guid>
+      <guid>https://amhndu.github.io/projects/gravity/</guid>
       <description>An Orbital survival game Gravity is a survial game set in space, you are in a space station orbiting Earth but things have gone awry and you have a situation with broken satellites, how long can you survie ? (Yes, the premise is very similar to that Hollywood movie of the same name). Programmed in C++11 with the SFML library for graphics. I made this is as my final project in school.</description>
     </item>
     
     <item>
       <title>Mini Tanks</title>
-      <link>amhndu.github.io/projects/tanks-game/</link>
+      <link>https://amhndu.github.io/projects/tanks-game/</link>
       <pubDate>Sat, 26 Apr 2014 00:00:00 +0000</pubDate>
       
-      <guid>amhndu.github.io/projects/tanks-game/</guid>
+      <guid>https://amhndu.github.io/projects/tanks-game/</guid>
       <description>A turn-based, artillery game where you destroy other tanks to win in a fully destructible, procedurally generated terrain. Supports multiplayer with upto 8 local players. This was inspired by Pocket Tanks and Scorched Earth. Programmed in C++11 with SFML used for graphics.
 Controls and Objective Use your mouse to click on the HUD or press R to set the Rotation of the turret, similarly set power by clicking the power bar (or by hovering the cursor above it and using your scroll wheel)</description>
     </item>

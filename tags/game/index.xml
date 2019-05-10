@@ -2,21 +2,21 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>game on Amish K. Naidu</title>
-    <link>amhndu.github.io/tags/game/</link>
+    <link>https://amhndu.github.io/tags/game/</link>
     <description>Recent content in game on Amish K. Naidu</description>
     <generator>Hugo -- gohugo.io</generator>
     <copyright>&amp;copy; 2019 Amish K. Naidu</copyright>
     <lastBuildDate>Fri, 28 Jul 2017 00:00:00 +0000</lastBuildDate>
     
-	<atom:link href="amhndu.github.io/tags/game/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://amhndu.github.io/tags/game/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>Fly</title>
-      <link>amhndu.github.io/projects/fly/</link>
+      <link>https://amhndu.github.io/projects/fly/</link>
       <pubDate>Fri, 28 Jul 2017 00:00:00 +0000</pubDate>
       
-      <guid>amhndu.github.io/projects/fly/</guid>
+      <guid>https://amhndu.github.io/projects/fly/</guid>
       <description>Source GitHub
 Screenshots A simple flight simulator in C++11/OpenGL.
 Features a procedurally generated infinite terrain over which you can fly around. With explosions!
@@ -26,19 +26,19 @@ Command line arguments: usage: Fly [options...] -h | --help Print this help text
     
     <item>
       <title>Gravity</title>
-      <link>amhndu.github.io/projects/gravity/</link>
+      <link>https://amhndu.github.io/projects/gravity/</link>
       <pubDate>Wed, 17 Sep 2014 00:00:00 +0000</pubDate>
       
-      <guid>amhndu.github.io/projects/gravity/</guid>
+      <guid>https://amhndu.github.io/projects/gravity/</guid>
       <description>An Orbital survival game Gravity is a survial game set in space, you are in a space station orbiting Earth but things have gone awry and you have a situation with broken satellites, how long can you survie ? (Yes, the premise is very similar to that Hollywood movie of the same name). Programmed in C++11 with the SFML library for graphics. I made this is as my final project in school.</description>
     </item>
     
     <item>
       <title>Mini Tanks</title>
-      <link>amhndu.github.io/projects/tanks-game/</link>
+      <link>https://amhndu.github.io/projects/tanks-game/</link>
       <pubDate>Sat, 26 Apr 2014 00:00:00 +0000</pubDate>
       
-      <guid>amhndu.github.io/projects/tanks-game/</guid>
+      <guid>https://amhndu.github.io/projects/tanks-game/</guid>
       <description>A turn-based, artillery game where you destroy other tanks to win in a fully destructible, procedurally generated terrain. Supports multiplayer with upto 8 local players. This was inspired by Pocket Tanks and Scorched Earth. Programmed in C++11 with SFML used for graphics.
 Controls and Objective Use your mouse to click on the HUD or press R to set the Rotation of the turret, similarly set power by clicking the power bar (or by hovering the cursor above it and using your scroll wheel)</description>
     </item>

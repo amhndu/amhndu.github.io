@@ -2,21 +2,21 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>haskell on Amish K. Naidu</title>
-    <link>amhndu.github.io/tags/haskell/</link>
+    <link>https://amhndu.github.io/tags/haskell/</link>
     <description>Recent content in haskell on Amish K. Naidu</description>
     <generator>Hugo -- gohugo.io</generator>
     <copyright>&amp;copy; 2019 Amish K. Naidu</copyright>
     <lastBuildDate>Thu, 12 Jan 2017 00:00:00 +0000</lastBuildDate>
     
-	<atom:link href="amhndu.github.io/tags/haskell/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://amhndu.github.io/tags/haskell/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>life.hs</title>
-      <link>amhndu.github.io/projects/life-hs/</link>
+      <link>https://amhndu.github.io/projects/life-hs/</link>
       <pubDate>Thu, 12 Jan 2017 00:00:00 +0000</pubDate>
       
-      <guid>amhndu.github.io/projects/life-hs/</guid>
+      <guid>https://amhndu.github.io/projects/life-hs/</guid>
       <description>A dead-simple simulator for Conway&amp;rsquo;s Game of Life in Haskell.
  Source: GitHub
 Compiling:
