@@ -2,21 +2,21 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Projects on Amish K. Naidu</title>
-    <link>/projects/</link>
+    <link>amhndu.github.io/projects/</link>
     <description>Recent content in Projects on Amish K. Naidu</description>
     <generator>Hugo -- gohugo.io</generator>
     <copyright>&amp;copy; 2019 Amish K. Naidu</copyright>
     <lastBuildDate>Sun, 27 Jan 2019 00:00:00 +0000</lastBuildDate>
     
-	<atom:link href="/projects/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="amhndu.github.io/projects/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>mediaplayer.py</title>
-      <link>/projects/mediaplayer.py/</link>
+      <link>amhndu.github.io/projects/mediaplayer.py/</link>
       <pubDate>Wed, 06 Mar 2019 01:05:36 +0530</pubDate>
       
-      <guid>/projects/mediaplayer.py/</guid>
+      <guid>amhndu.github.io/projects/mediaplayer.py/</guid>
       <description>I wrote this script some years ago to show currently playing music on conky. I also used this to bind some mediaplayer keys from Openbox to control playback and volume.
 Download it here: https://github.com/amhndu/conky-cards/blob/master/mediaplayer.py
 This is most likely in need of some re-write. Mostly because I&amp;rsquo;m a better programmer now compared to when I wrote it 4 years ago and the code is hard to look at currently.</description>
@@ -24,10 +24,10 @@ This is most likely in need of some re-write. Mostly because I&amp;rsquo;m a bet
     
     <item>
       <title>Stackledge</title>
-      <link>/projects/stackledge/</link>
+      <link>amhndu.github.io/projects/stackledge/</link>
       <pubDate>Thu, 30 Nov 2017 00:00:00 +0000</pubDate>
       
-      <guid>/projects/stackledge/</guid>
+      <guid>amhndu.github.io/projects/stackledge/</guid>
       <description>Stackledge A reddit clone.
  Upvote/downvote based content aggregation Threaded comments User pages, indiviudal category and all categories pages Trending, Top, New sorting modes Feed paginated  Source GitHub
 Screenshots Deploying Set public_html/ as the public directory, import the schema and create new categories by inserting into the Category table</description>
@@ -35,10 +35,10 @@ Screenshots Deploying Set public_html/ as the public directory, import the schem
     
     <item>
       <title>Fly</title>
-      <link>/projects/fly/</link>
+      <link>amhndu.github.io/projects/fly/</link>
       <pubDate>Fri, 28 Jul 2017 00:00:00 +0000</pubDate>
       
-      <guid>/projects/fly/</guid>
+      <guid>amhndu.github.io/projects/fly/</guid>
       <description>Source GitHub
 Screenshots A simple flight simulator in C++11/OpenGL.
 Features a procedurally generated infinite terrain over which you can fly around. With explosions!
@@ -48,10 +48,10 @@ Command line arguments: usage: Fly [options...] -h | --help Print this help text
     
     <item>
       <title>Ryuuk</title>
-      <link>/projects/ryuuk/</link>
+      <link>amhndu.github.io/projects/ryuuk/</link>
       <pubDate>Thu, 11 May 2017 00:00:00 +0000</pubDate>
       
-      <guid>/projects/ryuuk/</guid>
+      <guid>amhndu.github.io/projects/ryuuk/</guid>
       <description>Ryuuk is a concurrent web-server written in C++.
 Currently Ryuuk runs only in POSIX compliant environments only.
 Building GitHub
@@ -64,10 +64,10 @@ Why  Becuase why not ? We wanted to learn a thing or two about sockets &amp;amp;
     
     <item>
       <title>TwoCars</title>
-      <link>/projects/twocars/</link>
+      <link>amhndu.github.io/projects/twocars/</link>
       <pubDate>Thu, 09 Feb 2017 00:00:00 +0000</pubDate>
       
-      <guid>/projects/twocars/</guid>
+      <guid>amhndu.github.io/projects/twocars/</guid>
       <description>A clone of the 2 Cars game in C++14/SFML TwoCars is a simple 2D endless runner where you simultaneously control two cars while taking all the circles and avoiding all triangles to keep running. How much can you score ?
 Keybindings: F/J to change lane of the left/right car
 Source GitHub
@@ -76,10 +76,10 @@ Screenshots Video Watch on YouTube</description>
     
     <item>
       <title>life.hs</title>
-      <link>/projects/life-hs/</link>
+      <link>amhndu.github.io/projects/life-hs/</link>
       <pubDate>Thu, 12 Jan 2017 00:00:00 +0000</pubDate>
       
-      <guid>/projects/life-hs/</guid>
+      <guid>amhndu.github.io/projects/life-hs/</guid>
       <description>A dead-simple simulator for Conway&amp;rsquo;s Game of Life in Haskell.
  Source: GitHub
 Compiling:
@@ -90,10 +90,10 @@ $ runhaskell life.hs &amp;lt; seeds/GliderSeed.txt  Seeds are space separeted ma
     
     <item>
       <title>SimpleNES</title>
-      <link>/projects/simplenes/</link>
+      <link>amhndu.github.io/projects/simplenes/</link>
       <pubDate>Thu, 08 Dec 2016 00:00:00 +0000</pubDate>
       
-      <guid>/projects/simplenes/</guid>
+      <guid>amhndu.github.io/projects/simplenes/</guid>
       <description>An NES emulator written in C++ for nothing but fun.
 Roughly 40-50% of games should work (ie. games that use either no mapper or mappers 1, 2 or 3).
 Examples of games that have been tested to run (but NOT limited to):
@@ -103,10 +103,10 @@ Examples of games that have been tested to run (but NOT limited to):
     
     <item>
       <title>Prattle</title>
-      <link>/projects/prattle/</link>
+      <link>amhndu.github.io/projects/prattle/</link>
       <pubDate>Fri, 04 Nov 2016 00:00:00 +0000</pubDate>
       
-      <guid>/projects/prattle/</guid>
+      <guid>amhndu.github.io/projects/prattle/</guid>
       <description> Prattle is a simple chat program with a Client-Server architecture, a collaboration with Koushtav Chakrabarty.
 Programmed with C++11 with the SFML library for graphics and TGUI as the GUI framework.
 Screenshots For more information, view on GitHub </description>
@@ -114,28 +114,28 @@ Screenshots For more information, view on GitHub </description>
     
     <item>
       <title>xkcd-shuffle</title>
-      <link>/projects/xkcd-shuffle/</link>
+      <link>amhndu.github.io/projects/xkcd-shuffle/</link>
       <pubDate>Fri, 26 Jun 2015 00:00:00 +0000</pubDate>
       
-      <guid>/projects/xkcd-shuffle/</guid>
+      <guid>amhndu.github.io/projects/xkcd-shuffle/</guid>
       <description>var comic_data; var total_comics = null; var xcontainer, message_div; var comic_list; var current_index = 0; // Instead of shuffling `total_comics`, shuffle 2000 numbers, this way, // xkcd-shuffle will also show new comics when resumed later // Ya, I know, not very elegant or smart but that&#39;s the only way I could think of. // Given three comic updates per week, xkcd will only reach 2000 until 2018 // As of this writing it is 2015 so we are quite safe // 2018 update: bumped to 3000, keeping the comment var limit = 3000; var _seed; var jsonp_load_timer; var loading_message = &#34;</description>
     </item>
     
     <item>
       <title>Gravity</title>
-      <link>/projects/gravity/</link>
+      <link>amhndu.github.io/projects/gravity/</link>
       <pubDate>Wed, 17 Sep 2014 00:00:00 +0000</pubDate>
       
-      <guid>/projects/gravity/</guid>
+      <guid>amhndu.github.io/projects/gravity/</guid>
       <description>An Orbital survival game Gravity is a survial game set in space, you are in a space station orbiting Earth but things have gone awry and you have a situation with broken satellites, how long can you survie ? (Yes, the premise is very similar to that Hollywood movie of the same name). Programmed in C++11 with the SFML library for graphics. I made this is as my final project in school.</description>
     </item>
     
     <item>
       <title>Mini Tanks</title>
-      <link>/projects/tanks-game/</link>
+      <link>amhndu.github.io/projects/tanks-game/</link>
       <pubDate>Sat, 26 Apr 2014 00:00:00 +0000</pubDate>
       
-      <guid>/projects/tanks-game/</guid>
+      <guid>amhndu.github.io/projects/tanks-game/</guid>
       <description>A turn-based, artillery game where you destroy other tanks to win in a fully destructible, procedurally generated terrain. Supports multiplayer with upto 8 local players. This was inspired by Pocket Tanks and Scorched Earth. Programmed in C++11 with SFML used for graphics.
 Controls and Objective Use your mouse to click on the HUD or press R to set the Rotation of the turret, similarly set power by clicking the power bar (or by hovering the cursor above it and using your scroll wheel)</description>
     </item>

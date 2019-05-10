@@ -2,21 +2,21 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Amish K. Naidu</title>
-    <link>/</link>
+    <link>amhndu.github.io/</link>
     <description>Recent content on Amish K. Naidu</description>
     <generator>Hugo -- gohugo.io</generator>
     <copyright>&amp;copy; 2019 Amish K. Naidu</copyright>
     <lastBuildDate>Wed, 06 Mar 2019 01:05:36 +0530</lastBuildDate>
     
-	<atom:link href="/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="amhndu.github.io/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>mediaplayer.py</title>
-      <link>/projects/mediaplayer.py/</link>
+      <link>amhndu.github.io/projects/mediaplayer.py/</link>
       <pubDate>Wed, 06 Mar 2019 01:05:36 +0530</pubDate>
       
-      <guid>/projects/mediaplayer.py/</guid>
+      <guid>amhndu.github.io/projects/mediaplayer.py/</guid>
       <description>I wrote this script some years ago to show currently playing music on conky. I also used this to bind some mediaplayer keys from Openbox to control playback and volume.
 Download it here: https://github.com/amhndu/conky-cards/blob/master/mediaplayer.py
 This is most likely in need of some re-write. Mostly because I&amp;rsquo;m a better programmer now compared to when I wrote it 4 years ago and the code is hard to look at currently.</description>
@@ -24,10 +24,10 @@ This is most likely in need of some re-write. Mostly because I&amp;rsquo;m a bet
     
     <item>
       <title>Hugo</title>
-      <link>/blog/hugo/</link>
+      <link>amhndu.github.io/blog/hugo/</link>
       <pubDate>Wed, 06 Mar 2019 00:57:32 +0530</pubDate>
       
-      <guid>/blog/hugo/</guid>
+      <guid>amhndu.github.io/blog/hugo/</guid>
       <description>I finally have a new post after about two years!
 This is the customary blog post where I talk about moving to the new static site generator.
 Hugo.
@@ -36,10 +36,10 @@ This is way more flexible and easier to maintain than my previous setup, which w
     
     <item>
       <title>KDevelop</title>
-      <link>/projects/open-source/kdevelop/</link>
+      <link>amhndu.github.io/projects/open-source/kdevelop/</link>
       <pubDate>Sat, 02 Feb 2019 14:50:42 +0530</pubDate>
       
-      <guid>/projects/open-source/kdevelop/</guid>
+      <guid>amhndu.github.io/projects/open-source/kdevelop/</guid>
       <description>KDevelop is a cross-platform IDE that I primarily use for all my C++ IDE needs.
 Some notable contributions:
 Scratchpad plugin. A plugin that helps you keep a list of &amp;ldquo;scratches&amp;rdquo;, temporary code files that don&amp;rsquo;t belong to a project that you can run. Helps you experiment with code, or run small programs that don&amp;rsquo;t need a full project/build system.
@@ -48,10 +48,10 @@ Assistant to automatically generate header guard if they&amp;rsquo;re missing in
     
     <item>
       <title>Clementine</title>
-      <link>/projects/open-source/clementine/</link>
+      <link>amhndu.github.io/projects/open-source/clementine/</link>
       <pubDate>Sat, 02 Feb 2019 13:06:24 +0530</pubDate>
       
-      <guid>/projects/open-source/clementine/</guid>
+      <guid>amhndu.github.io/projects/open-source/clementine/</guid>
       <description>Clementine is a music player and library organizer made with Qt.
 I helped refactor away from deprecated Qt5 functions.
 Made sorting in playlist ignore &amp;ldquo;The&amp;rdquo; or any other configurable prefixes, which is a more natural way to order on album/artist names</description>
@@ -59,28 +59,28 @@ Made sorting in playlist ignore &amp;ldquo;The&amp;rdquo; or any other configura
     
     <item>
       <title>Conky</title>
-      <link>/projects/open-source/conky/</link>
+      <link>amhndu.github.io/projects/open-source/conky/</link>
       <pubDate>Sat, 02 Feb 2019 12:50:42 +0530</pubDate>
       
-      <guid>/projects/open-source/conky/</guid>
+      <guid>amhndu.github.io/projects/open-source/conky/</guid>
       <description>Conky let&amp;rsquo;s you display system information on your desektop using a configuration file. You can set different colors and fonts for the content, however setting the font involved repeating the font settings inline for each block of text that required it! I made a patch to allow creating font variables where you pre-define the settings and then conveniently reuse them.</description>
     </item>
     
     <item>
       <title>Hotbot</title>
-      <link>/projects/open-source/hotbot/</link>
+      <link>amhndu.github.io/projects/open-source/hotbot/</link>
       <pubDate>Sat, 02 Feb 2019 12:43:30 +0530</pubDate>
       
-      <guid>/projects/open-source/hotbot/</guid>
+      <guid>amhndu.github.io/projects/open-source/hotbot/</guid>
       <description>I&amp;rsquo;ve contributed to and help maintain HotBot, a discord bot written in Kotlin. It has many features, including fun commands, administration, channel management, an internal permissions system as well as some forms of anti-spam.</description>
     </item>
     
     <item>
       <title>Stackledge</title>
-      <link>/projects/stackledge/</link>
+      <link>amhndu.github.io/projects/stackledge/</link>
       <pubDate>Thu, 30 Nov 2017 00:00:00 +0000</pubDate>
       
-      <guid>/projects/stackledge/</guid>
+      <guid>amhndu.github.io/projects/stackledge/</guid>
       <description>Stackledge A reddit clone.
  Upvote/downvote based content aggregation Threaded comments User pages, indiviudal category and all categories pages Trending, Top, New sorting modes Feed paginated  Source GitHub
 Screenshots Deploying Set public_html/ as the public directory, import the schema and create new categories by inserting into the Category table</description>
@@ -88,10 +88,10 @@ Screenshots Deploying Set public_html/ as the public directory, import the schem
     
     <item>
       <title>Fly</title>
-      <link>/projects/fly/</link>
+      <link>amhndu.github.io/projects/fly/</link>
       <pubDate>Fri, 28 Jul 2017 00:00:00 +0000</pubDate>
       
-      <guid>/projects/fly/</guid>
+      <guid>amhndu.github.io/projects/fly/</guid>
       <description>Source GitHub
 Screenshots A simple flight simulator in C++11/OpenGL.
 Features a procedurally generated infinite terrain over which you can fly around. With explosions!
@@ -101,10 +101,10 @@ Command line arguments: usage: Fly [options...] -h | --help Print this help text
     
     <item>
       <title>Ryuuk</title>
-      <link>/projects/ryuuk/</link>
+      <link>amhndu.github.io/projects/ryuuk/</link>
       <pubDate>Thu, 11 May 2017 00:00:00 +0000</pubDate>
       
-      <guid>/projects/ryuuk/</guid>
+      <guid>amhndu.github.io/projects/ryuuk/</guid>
       <description>Ryuuk is a concurrent web-server written in C++.
 Currently Ryuuk runs only in POSIX compliant environments only.
 Building GitHub
@@ -117,10 +117,10 @@ Why  Becuase why not ? We wanted to learn a thing or two about sockets &amp;amp;
     
     <item>
       <title>Let&#39;s Make an Extremely Readable Birthday Melody, the IOCCC Way</title>
-      <link>/blog/obfuscate/</link>
+      <link>amhndu.github.io/blog/obfuscate/</link>
       <pubDate>Sun, 30 Apr 2017 00:00:00 +0000</pubDate>
       
-      <guid>/blog/obfuscate/</guid>
+      <guid>amhndu.github.io/blog/obfuscate/</guid>
       <description>Obfuscate: tr.v. -cated, -cating, -cates.
 1. i. To render obscure.
 ii. To darken. 2. To confuse: his emotions obfuscated his judgment. [Lat. obfuscare, to darken : ob(intensive) + Lat. fuscare, to darken &amp;lt; fuscus, dark.] -obfuscation n. obfuscatory adj
@@ -130,10 +130,10 @@ The Why  You learn lesser known aspects of the language Job security. Write obfu
     
     <item>
       <title>TwoCars</title>
-      <link>/projects/twocars/</link>
+      <link>amhndu.github.io/projects/twocars/</link>
       <pubDate>Thu, 09 Feb 2017 00:00:00 +0000</pubDate>
       
-      <guid>/projects/twocars/</guid>
+      <guid>amhndu.github.io/projects/twocars/</guid>
       <description>A clone of the 2 Cars game in C++14/SFML TwoCars is a simple 2D endless runner where you simultaneously control two cars while taking all the circles and avoiding all triangles to keep running. How much can you score ?
 Keybindings: F/J to change lane of the left/right car
 Source GitHub
@@ -142,10 +142,10 @@ Screenshots Video Watch on YouTube</description>
     
     <item>
       <title>The file you can&#39;t read on Windows</title>
-      <link>/blog/file-read-bug/</link>
+      <link>amhndu.github.io/blog/file-read-bug/</link>
       <pubDate>Sat, 04 Feb 2017 00:00:00 +0000</pubDate>
       
-      <guid>/blog/file-read-bug/</guid>
+      <guid>amhndu.github.io/blog/file-read-bug/</guid>
       <description>I stumbled on this bug with my NES emulator where the ROMs won&amp;rsquo;t open under Windows but had worked without a hitch on Linux and macOS.
 I had been developing on Linux and occasionally it tested on macOS. So it wasn&amp;rsquo;t until quite late into the development that I found that the emulator can&amp;rsquo;t open any ROM files on Windows.
 This bug had me really perpexled, for why the emulator breaks only under Windows.</description>
@@ -153,10 +153,10 @@ This bug had me really perpexled, for why the emulator breaks only under Windows
     
     <item>
       <title>life.hs</title>
-      <link>/projects/life-hs/</link>
+      <link>amhndu.github.io/projects/life-hs/</link>
       <pubDate>Thu, 12 Jan 2017 00:00:00 +0000</pubDate>
       
-      <guid>/projects/life-hs/</guid>
+      <guid>amhndu.github.io/projects/life-hs/</guid>
       <description>A dead-simple simulator for Conway&amp;rsquo;s Game of Life in Haskell.
  Source: GitHub
 Compiling:
@@ -167,10 +167,10 @@ $ runhaskell life.hs &amp;lt; seeds/GliderSeed.txt  Seeds are space separeted ma
     
     <item>
       <title>SimpleNES</title>
-      <link>/projects/simplenes/</link>
+      <link>amhndu.github.io/projects/simplenes/</link>
       <pubDate>Thu, 08 Dec 2016 00:00:00 +0000</pubDate>
       
-      <guid>/projects/simplenes/</guid>
+      <guid>amhndu.github.io/projects/simplenes/</guid>
       <description>An NES emulator written in C++ for nothing but fun.
 Roughly 40-50% of games should work (ie. games that use either no mapper or mappers 1, 2 or 3).
 Examples of games that have been tested to run (but NOT limited to):
@@ -180,10 +180,10 @@ Examples of games that have been tested to run (but NOT limited to):
     
     <item>
       <title>Prattle</title>
-      <link>/projects/prattle/</link>
+      <link>amhndu.github.io/projects/prattle/</link>
       <pubDate>Fri, 04 Nov 2016 00:00:00 +0000</pubDate>
       
-      <guid>/projects/prattle/</guid>
+      <guid>amhndu.github.io/projects/prattle/</guid>
       <description> Prattle is a simple chat program with a Client-Server architecture, a collaboration with Koushtav Chakrabarty.
 Programmed with C++11 with the SFML library for graphics and TGUI as the GUI framework.
 Screenshots For more information, view on GitHub </description>
@@ -191,38 +191,38 @@ Screenshots For more information, view on GitHub </description>
     
     <item>
       <title>xkcd-shuffle</title>
-      <link>/projects/xkcd-shuffle/</link>
+      <link>amhndu.github.io/projects/xkcd-shuffle/</link>
       <pubDate>Fri, 26 Jun 2015 00:00:00 +0000</pubDate>
       
-      <guid>/projects/xkcd-shuffle/</guid>
+      <guid>amhndu.github.io/projects/xkcd-shuffle/</guid>
       <description>var comic_data; var total_comics = null; var xcontainer, message_div; var comic_list; var current_index = 0; // Instead of shuffling `total_comics`, shuffle 2000 numbers, this way, // xkcd-shuffle will also show new comics when resumed later // Ya, I know, not very elegant or smart but that&#39;s the only way I could think of. // Given three comic updates per week, xkcd will only reach 2000 until 2018 // As of this writing it is 2015 so we are quite safe // 2018 update: bumped to 3000, keeping the comment var limit = 3000; var _seed; var jsonp_load_timer; var loading_message = &#34;</description>
     </item>
     
     <item>
       <title>Connect and control your media player with python and dbus using MPRIS</title>
-      <link>/blog/dbus/</link>
+      <link>amhndu.github.io/blog/dbus/</link>
       <pubDate>Mon, 15 Jun 2015 00:00:00 +0000</pubDate>
       
-      <guid>/blog/dbus/</guid>
+      <guid>amhndu.github.io/blog/dbus/</guid>
       <description>In this guide we&amp;rsquo;ll be using Python 3 although you may be able to apply this to Python 2.4 and above with minor adjustments. Since D-Bus is only used by Linux and BSD distributions, needless to say, this will only work with *nix systems
 We&amp;rsquo;ll connect to a media player which implements the Media Player Remote Interfacing Specification or MPRIS for short. Most popular players like Audacious, Amarok, Clementine, VLC etc will work.</description>
     </item>
     
     <item>
       <title>Gravity</title>
-      <link>/projects/gravity/</link>
+      <link>amhndu.github.io/projects/gravity/</link>
       <pubDate>Wed, 17 Sep 2014 00:00:00 +0000</pubDate>
       
-      <guid>/projects/gravity/</guid>
+      <guid>amhndu.github.io/projects/gravity/</guid>
       <description>An Orbital survival game Gravity is a survial game set in space, you are in a space station orbiting Earth but things have gone awry and you have a situation with broken satellites, how long can you survie ? (Yes, the premise is very similar to that Hollywood movie of the same name). Programmed in C++11 with the SFML library for graphics. I made this is as my final project in school.</description>
     </item>
     
     <item>
       <title>Mini Tanks</title>
-      <link>/projects/tanks-game/</link>
+      <link>amhndu.github.io/projects/tanks-game/</link>
       <pubDate>Sat, 26 Apr 2014 00:00:00 +0000</pubDate>
       
-      <guid>/projects/tanks-game/</guid>
+      <guid>amhndu.github.io/projects/tanks-game/</guid>
       <description>A turn-based, artillery game where you destroy other tanks to win in a fully destructible, procedurally generated terrain. Supports multiplayer with upto 8 local players. This was inspired by Pocket Tanks and Scorched Earth. Programmed in C++11 with SFML used for graphics.
 Controls and Objective Use your mouse to click on the HUD or press R to set the Rotation of the turret, similarly set power by clicking the power bar (or by hovering the cursor above it and using your scroll wheel)</description>
     </item>
