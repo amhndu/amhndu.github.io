@@ -2,21 +2,21 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Open Source on Amish K. Naidu</title>
-    <link>https://amhndu.github.io/projects/open-source/</link>
+    <link>https://amish.naidu.dev/projects/open-source/</link>
     <description>Recent content in Open Source on Amish K. Naidu</description>
     <generator>Hugo -- gohugo.io</generator>
     <copyright>&amp;copy; 2019 Amish K. Naidu</copyright>
     <lastBuildDate>Sat, 02 Feb 2019 14:50:42 +0530</lastBuildDate>
     
-	<atom:link href="https://amhndu.github.io/projects/open-source/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://amish.naidu.dev/projects/open-source/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>KDevelop</title>
-      <link>https://amhndu.github.io/projects/open-source/kdevelop/</link>
+      <link>https://amish.naidu.dev/projects/open-source/kdevelop/</link>
       <pubDate>Sat, 02 Feb 2019 14:50:42 +0530</pubDate>
       
-      <guid>https://amhndu.github.io/projects/open-source/kdevelop/</guid>
+      <guid>https://amish.naidu.dev/projects/open-source/kdevelop/</guid>
       <description>KDevelop is a cross-platform IDE that I primarily use for all my C++ IDE needs.
 Some notable contributions:
 Scratchpad plugin. A plugin that helps you keep a list of &amp;ldquo;scratches&amp;rdquo;, temporary code files that don&amp;rsquo;t belong to a project that you can run. Helps you experiment with code, or run small programs that don&amp;rsquo;t need a full project/build system.
@@ -25,10 +25,10 @@ Assistant to automatically generate header guard if they&amp;rsquo;re missing in
     
     <item>
       <title>Clementine</title>
-      <link>https://amhndu.github.io/projects/open-source/clementine/</link>
+      <link>https://amish.naidu.dev/projects/open-source/clementine/</link>
       <pubDate>Sat, 02 Feb 2019 13:06:24 +0530</pubDate>
       
-      <guid>https://amhndu.github.io/projects/open-source/clementine/</guid>
+      <guid>https://amish.naidu.dev/projects/open-source/clementine/</guid>
       <description>Clementine is a music player and library organizer made with Qt.
 I helped refactor away from deprecated Qt5 functions.
 Made sorting in playlist ignore &amp;ldquo;The&amp;rdquo; or any other configurable prefixes, which is a more natural way to order on album/artist names</description>
@@ -36,19 +36,19 @@ Made sorting in playlist ignore &amp;ldquo;The&amp;rdquo; or any other configura
     
     <item>
       <title>Conky</title>
-      <link>https://amhndu.github.io/projects/open-source/conky/</link>
+      <link>https://amish.naidu.dev/projects/open-source/conky/</link>
       <pubDate>Sat, 02 Feb 2019 12:50:42 +0530</pubDate>
       
-      <guid>https://amhndu.github.io/projects/open-source/conky/</guid>
+      <guid>https://amish.naidu.dev/projects/open-source/conky/</guid>
       <description>Conky let&amp;rsquo;s you display system information on your desektop using a configuration file. You can set different colors and fonts for the content, however setting the font involved repeating the font settings inline for each block of text that required it! I made a patch to allow creating font variables where you pre-define the settings and then conveniently reuse them.</description>
     </item>
     
     <item>
       <title>Hotbot</title>
-      <link>https://amhndu.github.io/projects/open-source/hotbot/</link>
+      <link>https://amish.naidu.dev/projects/open-source/hotbot/</link>
       <pubDate>Sat, 02 Feb 2019 12:43:30 +0530</pubDate>
       
-      <guid>https://amhndu.github.io/projects/open-source/hotbot/</guid>
+      <guid>https://amish.naidu.dev/projects/open-source/hotbot/</guid>
       <description>I&amp;rsquo;ve contributed to and help maintain HotBot, a discord bot written in Kotlin. It has many features, including fun commands, administration, channel management, an internal permissions system as well as some forms of anti-spam.</description>
     </item>
     

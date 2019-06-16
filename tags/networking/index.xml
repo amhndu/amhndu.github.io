@@ -2,21 +2,21 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>networking on Amish K. Naidu</title>
-    <link>https://amhndu.github.io/tags/networking/</link>
+    <link>https://amish.naidu.dev/tags/networking/</link>
     <description>Recent content in networking on Amish K. Naidu</description>
     <generator>Hugo -- gohugo.io</generator>
     <copyright>&amp;copy; 2019 Amish K. Naidu</copyright>
     <lastBuildDate>Thu, 11 May 2017 00:00:00 +0000</lastBuildDate>
     
-	<atom:link href="https://amhndu.github.io/tags/networking/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://amish.naidu.dev/tags/networking/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>Ryuuk</title>
-      <link>https://amhndu.github.io/projects/ryuuk/</link>
+      <link>https://amish.naidu.dev/projects/ryuuk/</link>
       <pubDate>Thu, 11 May 2017 00:00:00 +0000</pubDate>
       
-      <guid>https://amhndu.github.io/projects/ryuuk/</guid>
+      <guid>https://amish.naidu.dev/projects/ryuuk/</guid>
       <description>Ryuuk is a concurrent web-server written in C++.
 Currently Ryuuk runs only in POSIX compliant environments only.
 Building GitHub
@@ -29,10 +29,10 @@ Why  Becuase why not ? We wanted to learn a thing or two about sockets &amp;amp;
     
     <item>
       <title>Prattle</title>
-      <link>https://amhndu.github.io/projects/prattle/</link>
+      <link>https://amish.naidu.dev/projects/prattle/</link>
       <pubDate>Fri, 04 Nov 2016 00:00:00 +0000</pubDate>
       
-      <guid>https://amhndu.github.io/projects/prattle/</guid>
+      <guid>https://amish.naidu.dev/projects/prattle/</guid>
       <description> Prattle is a simple chat program with a Client-Server architecture, a collaboration with Koushtav Chakrabarty.
 Programmed with C++11 with the SFML library for graphics and TGUI as the GUI framework.
 Screenshots For more information, view on GitHub </description>
