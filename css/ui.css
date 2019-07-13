@@ -36,7 +36,7 @@ button, input {
   width: 100%;
   max-width: 100rem;
   margin: 0 auto;
-  padding: 0 5rem;
+  padding: 0 1.5rem;
   box-sizing: border-box;
 }
 
@@ -291,7 +291,7 @@ blockquote cite a {
 .bar li {
   display: inline;
   font-size: 1.8rem;
-  margin-right: 1rem;
+  margin-right: 1.5rem;
   margin-left: 0;
 }
 @media (min-width: 40rem) {
