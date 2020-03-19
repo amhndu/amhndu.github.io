@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Blog on Amish K. Naidu</title>
@@ -30,9 +30,8 @@ This is way more flexible and easier to maintain than my previous setup, which w
       
       <guid>https://amish.naidu.dev/blog/obfuscate/</guid>
       <description>Obfuscate: tr.v. -cated, -cating, -cates.
-1. i. To render obscure.
-ii. To darken. 2. To confuse: his emotions obfuscated his judgment. [Lat. obfuscare, to darken : ob(intensive) + Lat. fuscare, to darken &amp;lt; fuscus, dark.] -obfuscation n. obfuscatory adj
-(taken from IOCCC)
+ i. To render obscure.
+ii. To darken. To confuse: his emotions obfuscated his judgment. [Lat. obfuscare, to darken : ob(intensive) + Lat. fuscare, to darken &amp;lt; fuscus, dark.] -obfuscation n. obfuscatory adj  (taken from IOCCC)
 The Why  You learn lesser known aspects of the language Job security. Write obfuscated code and make sure no one else can maintain it but you! It&amp;rsquo;s fun.</description>
     </item>
     

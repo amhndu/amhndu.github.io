@@ -3,7 +3,7 @@
 	<head>
 		<meta charset="utf-8"/>
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-		<meta name="generator" content="Hugo 0.55.6" />
+		<meta name="generator" content="Hugo 0.66.0" />
 		<title>Hugo - Amish K. Naidu</title>
 
 		<meta name="description" content="I finally have a new post after about two years!
@@ -50,6 +50,19 @@ This is way more flexible and easier to maintain than my previous setup, which w
 		border-top: 2px solid #8661C1; }
 </style>
 
+		<script>
+			(function (f, a, t, h, o, m) {
+				a[h] = a[h] || function () {
+					(a[h].q = a[h].q || []).push(arguments)
+				};
+				o = f.createElement('script'),
+					m = f.getElementsByTagName('script')[0];
+				o.async = 1; o.src = t; o.id = 'fathom-script';
+				m.parentNode.insertBefore(o, m)
+			})(document, window, '//fathom-amh.herokuapp.com/tracker.js', 'fathom');
+			fathom('set', 'siteId', 'LEKWV');
+			fathom('trackPageview');
+		</script>
 	</head>
 
 <body>
@@ -80,39 +93,25 @@ This is way more flexible and easier to maintain than my previous setup, which w
 </hgroup><hr class="sep" />
 
 </header>
-	
-
-<p>I finally have a new post after about two years!</p>
-
+	<p>I finally have a new post after about two years!</p>
 <p>This is the customary blog post where I talk about moving to the new static site generator.</p>
-
 <p>Hugo.</p>
-
 <p>This is way more flexible and easier to maintain than my previous setup, which was a hand-crafted website written
-using vanilla HTML and CSS. After keeping it for about 4 years I realized it was time to move on. It was a bit of a pain to add anything using raw HTML. A static site generator coupled with markdown for writing content was the obvious solution!<br />
+using vanilla HTML and CSS. After keeping it for about 4 years I realized it was time to move on. It was a bit of a pain to add anything using raw HTML. A static site generator coupled with markdown for writing content was the obvious solution!<br>
 Deciding which static site generator to choose was not an obvious choice however. I chose Hugo because it supports markdown, is written in Go and is simple and lightweight.</p>
-
 <p>But even then, it took me many weeks to completely move over to Hugo, with it requiring moving things to the new format,
 obsessively tweaking everything and adding some content all the while being preoccupied with school and related preoccupations.
 I ended up editing the <a href="https://github.com/yursan9/manis-hugo-theme">Manis</a>, a minimalistic but elegant theme to fit my needs.</p>
-
 <p>Another thing I should mention is that <a href="/projects/xkcd-shuffle">xkcd-shuffle</a> now works again!  I had to rely on a Yahoo! API previously to wrap the xkcd endpoint with jsonp, as the xkcd API has neither jsonp nor does it have CORS headers, making it impossible to directly use it from within the browser. Unfortunately, YQL, the Yahoo! service I had used was discontinued. Fortunately, <a href="https://github.com/mrmartineau/xkcd-api">someone</a> created a CORS enabled API for xkcd.
 I don&rsquo;t know if anybody even uses xkcd-shuffle but hey it works now.</p>
-
 <p>The last point also made me wonder if I should setup some form of a non intrusive tracking to get some very minimum of statistics about traffic on this site. I used to have Google Analytics at the very beginning, and although it was sometimes fun to look at, I took it down on account of principle. Given that I myself use a brwoser extension to block it on other places, it also made no sense to keep it on my site.</p>
-
 <h2 id="screenshots-of-the-previous-site">Screenshots of the previous site</h2>
-
 <p>For posterity, here are some screenshots of the old site:</p>
-
-<p><img src="/hugo/old-index.png" alt="old index image" />
-<p style="text-align:center">Old home page</p></p>
-
-<p><img src="/hugo/old-projects.png" alt="old projects image" />
-<p style="text-align:center">Old projects page</p></p>
-
+<p><img src="/hugo/old-index.png" alt="old index image"></p>
+<!-- raw HTML omitted -->
+<p><img src="/hugo/old-projects.png" alt="old projects image"></p>
+<!-- raw HTML omitted -->
 <p>That header image is basically a screenshot of xxd output of a screenshot of some code in my <a href="/projects/simplenes">SimpleNES</a> project.</p>
-
 <p>Now here&rsquo;s to hoping that this change would make me keep the site more updated and write more!</p>
 
 </article>

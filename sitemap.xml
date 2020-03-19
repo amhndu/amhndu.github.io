@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
@@ -53,38 +53,33 @@
   </url>
   
   <url>
+    <loc>https://amish.naidu.dev/tags/c&#43;&#43;/</loc>
+    <lastmod>2017-07-28T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://amish.naidu.dev/projects/fly/</loc>
+    <lastmod>2017-07-28T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://amish.naidu.dev/tags/game/</loc>
+    <lastmod>2017-07-28T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://amish.naidu.dev/tags/opengl/</loc>
+    <lastmod>2017-07-28T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://amish.naidu.dev/tags/sfml/</loc>
     <lastmod>2017-07-28T00:00:00+00:00</lastmod>
   </url>
   
   <url>
     <loc>https://amish.naidu.dev/tags/</loc>
     <lastmod>2017-07-28T00:00:00+00:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://amish.naidu.dev/tags/c&#43;&#43;/</loc>
-    <lastmod>2017-07-28T00:00:00+00:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://amish.naidu.dev/tags/game/</loc>
-    <lastmod>2017-07-28T00:00:00+00:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://amish.naidu.dev/tags/opengl/</loc>
-    <lastmod>2017-07-28T00:00:00+00:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://amish.naidu.dev/tags/sfml/</loc>
-    <lastmod>2017-07-28T00:00:00+00:00</lastmod>
-    <priority>0</priority>
   </url>
   
   <url>
@@ -93,14 +88,13 @@
   </url>
   
   <url>
-    <loc>https://amish.naidu.dev/projects/ryuuk/</loc>
+    <loc>https://amish.naidu.dev/tags/networking/</loc>
     <lastmod>2017-05-11T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>https://amish.naidu.dev/tags/networking/</loc>
+    <loc>https://amish.naidu.dev/projects/ryuuk/</loc>
     <lastmod>2017-05-11T00:00:00+00:00</lastmod>
-    <priority>0</priority>
   </url>
   
   <url>
@@ -121,7 +115,6 @@
   <url>
     <loc>https://amish.naidu.dev/tags/haskell/</loc>
     <lastmod>2017-01-12T00:00:00+00:00</lastmod>
-    <priority>0</priority>
   </url>
   
   <url>
@@ -130,14 +123,13 @@
   </url>
   
   <url>
-    <loc>https://amish.naidu.dev/projects/simplenes/</loc>
+    <loc>https://amish.naidu.dev/tags/emulator/</loc>
     <lastmod>2016-12-08T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>https://amish.naidu.dev/tags/emulator/</loc>
+    <loc>https://amish.naidu.dev/projects/simplenes/</loc>
     <lastmod>2016-12-08T00:00:00+00:00</lastmod>
-    <priority>0</priority>
   </url>
   
   <url>

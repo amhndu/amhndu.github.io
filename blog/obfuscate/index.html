@@ -3,13 +3,12 @@
 	<head>
 		<meta charset="utf-8"/>
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-		<meta name="generator" content="Hugo 0.55.6" />
+		<meta name="generator" content="Hugo 0.66.0" />
 		<title>Let&#39;s Make an Extremely Readable Birthday Melody, the IOCCC Way - Amish K. Naidu</title>
 
 		<meta name="description" content="Obfuscate: tr.v. -cated, -cating, -cates.
-1. i. To render obscure.
-ii. To darken. 2. To confuse: his emotions obfuscated his judgment. [Lat. obfuscare, to darken : ob(intensive) &#43; Lat. fuscare, to darken &lt; fuscus, dark.] -obfuscation n. obfuscatory adj
-(taken from IOCCC)
+ i. To render obscure.
+ii. To darken. To confuse: his emotions obfuscated his judgment. [Lat. obfuscare, to darken : ob(intensive) &#43; Lat. fuscare, to darken &lt; fuscus, dark.] -obfuscation n. obfuscatory adj  (taken from IOCCC)
 The Why  You learn lesser known aspects of the language Job security. Write obfuscated code and make sure no one else can maintain it but you! It&rsquo;s fun.">
 
 
@@ -51,6 +50,19 @@ The Why  You learn lesser known aspects of the language Job security. Write obfu
 		border-top: 2px solid #8661C1; }
 </style>
 
+		<script>
+			(function (f, a, t, h, o, m) {
+				a[h] = a[h] || function () {
+					(a[h].q = a[h].q || []).push(arguments)
+				};
+				o = f.createElement('script'),
+					m = f.getElementsByTagName('script')[0];
+				o.async = 1; o.src = t; o.id = 'fathom-script';
+				m.parentNode.insertBefore(o, m)
+			})(document, window, '//fathom-amh.herokuapp.com/tracker.js', 'fathom');
+			fathom('set', 'siteId', 'LEKWV');
+			fathom('trackPageview');
+		</script>
 	</head>
 
 <body>
@@ -81,33 +93,25 @@ The Why  You learn lesser known aspects of the language Job security. Write obfu
 </hgroup><hr class="sep" />
 
 </header>
-	
-
-<p><strong>Obfuscate:</strong> tr.v. -cated, -cating, -cates.<br />
-1.  i.  To render obscure.<br />
-    ii.  To darken.
-2.  To confuse: his emotions obfuscated his judgment.
-    [Lat. obfuscare, to darken : ob(intensive) + Lat. fuscare,
-    to darken &lt; fuscus, dark.] -obfuscation n. obfuscatory adj</p>
-
+	<p><strong>Obfuscate:</strong> tr.v. -cated, -cating, -cates.</p>
+<ol>
+<li>i.  To render obscure.<br>
+ii.  To darken.</li>
+<li>To confuse: his emotions obfuscated his judgment.
+[Lat. obfuscare, to darken : ob(intensive) + Lat. fuscare,
+to darken &lt; fuscus, dark.] -obfuscation n. obfuscatory adj</li>
+</ol>
 <p>(taken from <a href="http://www.ioccc.org/">IOCCC</a>)</p>
-
 <h3 id="the-why">The Why</h3>
-
 <ol>
 <li>You learn lesser known aspects of the language</li>
 <li>Job security. Write obfuscated code and make sure no one else can maintain it but you!</li>
 <li>It&rsquo;s fun. &lsquo;nuff said.</li>
 </ol>
-
 <h3 id="the-plan">The Plan</h3>
-
 <p>We&rsquo;ll be making a small C program which generates <a href="https://en.wikipedia.org/wiki/Sampling_(signal_processing)">samples</a> of a song (we&rsquo;ll stick with the &lsquo;Happy Birthday&rsquo; song), whose output will then be piped to aplay. Most standard Linux distributions come with aplay, bundled along with ALSA (default on most Linux distributions). To follow along on macOS or Windows, you might try using <a href="http://sox.sourceforge.net/">sox</a>.</p>
-
 <p>We&rsquo;ll start with a non-obfuscated version, and obfuscate it, step-by-step.</p>
-
 <h3 id="the-code">The Code</h3>
-
 <p>Here&rsquo;s the base we&rsquo;ll be obfuscating. Although it&rsquo;s commented, understanding the sample generation isn&rsquo;t very important as long as you see the big picture.</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;math.h&gt;</span><span style="color:#75715e">
 </span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;stdio.h&gt;</span><span style="color:#75715e">
@@ -143,51 +147,37 @@ The Why  You learn lesser known aspects of the language Job security. Write obfu
     }
     <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>;
 }
-</code></pre></div>
-<p>Run this (on Linux):</p>
-
+</code></pre></div><p>Run this (on Linux):</p>
 <pre><code>gcc unobfuscated.c -w -lm &amp;&amp; ./a.out | aplay -f U8 -r 8000
 </code></pre>
-
 <p>If you&rsquo;re using sox:</p>
-
 <pre><code>gcc unobfuscated.c -w -lm &amp;&amp; ./a.out | play -c 1 -b 8 -e unsigned -traw -r 8k -
 </code></pre>
-
 <p>You should be able to hear a nice little &ldquo;Happy Birthday To You&rdquo; melody.</p>
-
 <h3 id="the-obfuscation">The Obfuscation</h3>
-
 <p>First, let&rsquo;s substitute those space-wasting variables with <a href="https://en.wikipedia.org/wiki/Magic_number_(programming)">magic numbers</a>. Then, we can just remove the include for stdio, it&rsquo;s still valid code. The compiler will assume the implicit definition for printf with return type int. And during linking, the actual printf can just fit in here! However, we can&rsquo;t do this with math.h, as the sin() function returns a double, which will cause a linker error.
 In C, all global variables or functions without a given type are implicitly assumed to be int (or in case of functions, return type is int as remarked above).</p>
-
 <p>This let&rsquo;s us do</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp">    _[]<span style="color:#f92672">=</span>{<span style="color:#ae81ff">0</span>,<span style="color:#ae81ff">392</span>,<span style="color:#ae81ff">440</span>,<span style="color:#ae81ff">493</span>,<span style="color:#ae81ff">523</span>,<span style="color:#ae81ff">587</span>,<span style="color:#ae81ff">659</span>,<span style="color:#ae81ff">698</span>,<span style="color:#ae81ff">783</span>},i,j;
     main()
     ...
-</code></pre></div>
-<p>Another added benifit of glabal variables is that they are automatically initialized to 0. I also renamed the frequencies array to _. This greatly <em>improves</em> readability.</p>
-
+</code></pre></div><p>Another added benifit of glabal variables is that they are automatically initialized to 0. I also renamed the frequencies array to _. This greatly <em>improves</em> readability.</p>
 <p>Here&rsquo;s our inner loop:</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">for</span> (i <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; i <span style="color:#f92672">&lt;</span> <span style="color:#ae81ff">3200</span>; <span style="color:#f92672">++</span>i)
 {
     <span style="color:#66d9ef">char</span> sample <span style="color:#f92672">=</span>  <span style="color:#ae81ff">127</span> <span style="color:#f92672">+</span> amplitude <span style="color:#f92672">*</span> sin(<span style="color:#ae81ff">9.81e-4</span> <span style="color:#f92672">*</span> i) <span style="color:#f92672">*</span> sin((<span style="color:#ae81ff">7.85e-4</span> <span style="color:#f92672">*</span> i <span style="color:#f92672">*</span> _[song[j] <span style="color:#f92672">-</span> <span style="color:#e6db74">&#39;@&#39;</span>]);
     printf(<span style="color:#e6db74">&#34;%c&#34;</span>, sample);
 }
-</code></pre></div>
-<p>We&rsquo;ll use another small C quirk.</p>
-
+</code></pre></div><p>We&rsquo;ll use another small C quirk.</p>
 <p><code>A[i]</code> is equivalent to <code>i[A]</code> where A can be any array-type or a pointer.
 The array subscript is just syntactic sugar for pointer arithmatic. <code>A[i]</code> is essentially converted to <code>*(A + i)</code>.
 Note that if you swap A and i in this form, it doesn&rsquo;t really make a difference. Instead of A here, we can put our song, which is a string.
 The string will decay to a pointer to the first element and we&rsquo;ll subsequently get the corresponding note. Also, we see that @ has an ASCII value of 64, a power of 2.
 Observe that the minuend is always between 64 and 64 + 8 (eight is the total number of frequencies we can play). Instead of subtracting by 64, we can simply mask off the four lower bits to get the index. So,</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">int</span> frequency <span style="color:#f92672">=</span> frequencies[song[j] <span style="color:#f92672">-</span> <span style="color:#e6db74">&#39;@&#39;</span>];
-</code></pre></div>
-<p>becomes</p>
+</code></pre></div><p>becomes</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp">_[j[<span style="color:#e6db74">&#34;AABADC@AABAED@AAHFDCB@HHGDED&#34;</span>]<span style="color:#f92672">&amp;</span><span style="color:#ae81ff">15</span>
-</code></pre></div>
-<p>For the next obfuscation step, let&rsquo;s look at the program flow</p>
+</code></pre></div><p>For the next obfuscation step, let&rsquo;s look at the program flow</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp">main()
 {
     <span style="color:#66d9ef">for</span> (j <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; j <span style="color:#f92672">&lt;</span> <span style="color:#ae81ff">28</span>; <span style="color:#f92672">++</span>j)
@@ -199,8 +189,7 @@ Observe that the minuend is always between 64 and 64 + 8 (eight is the total num
     }
     <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>;
 }
-</code></pre></div>
-<p>We can instead just use one loop and whenever we hit the end condition for i, we reset i and increment j. Something like:</p>
+</code></pre></div><p>We can instead just use one loop and whenever we hit the end condition for i, we reset i and increment j. Something like:</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp">main()
 {
     <span style="color:#66d9ef">for</span> (; j <span style="color:#f92672">&lt;</span> <span style="color:#ae81ff">28</span>; <span style="color:#f92672">++</span>i)
@@ -213,8 +202,7 @@ Observe that the minuend is always between 64 and 64 + 8 (eight is the total num
         }
     }
 }
-</code></pre></div>
-<p>To make our code more <em>readable</em>, let&rsquo;s just use recursion. On main.</p>
+</code></pre></div><p>To make our code more <em>readable</em>, let&rsquo;s just use recursion. On main.</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;math.h&gt;</span><span style="color:#75715e">
 </span><span style="color:#75715e"></span>_[]<span style="color:#f92672">=</span>{<span style="color:#ae81ff">0</span>,<span style="color:#ae81ff">392</span>,<span style="color:#ae81ff">440</span>,<span style="color:#ae81ff">493</span>,<span style="color:#ae81ff">523</span>,<span style="color:#ae81ff">587</span>,<span style="color:#ae81ff">659</span>,<span style="color:#ae81ff">698</span>,<span style="color:#ae81ff">783</span>},i,j;
 main()
@@ -234,28 +222,23 @@ main()
     <span style="color:#66d9ef">else</span>
         <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>;
 }
-</code></pre></div>
-<p>Those if blocks are quite verbose. Let&rsquo;s replace them with something more fun.
+
+</code></pre></div><p>Those if blocks are quite verbose. Let&rsquo;s replace them with something more fun.
 Real programmers use <a href="https://softwareengineering.stackexchange.com/a/201899">short circuit evaluation</a>,
 not the ternary conditional operators or measerly if blocks. Here&rsquo;s quick revision on short circuit evaluation:</p>
-
 <ol>
 <li><code>a &amp;&amp; b</code> &ndash;&gt; b will only be evaluated if a is true. If a is false, we know the expression will be false anyway.</li>
 <li><code>a || b</code> &ndash;&gt; b will only be evaluated if a is false. If a is true, the expression will be true regardless of b.</li>
 </ol>
-
 <p>Talking about fun things reminds of the less-used <a href="https://stackoverflow.com/a/52558">comma operator</a>.
 It lets us do (expression1, expression2), which will evaluate to expression2.
 How else can you code more <em>readable</em> than doing many things in one line ?</p>
-
 <p>Another useful operator is the xor operator. It has some useful properties that we&rsquo;ll be using. For any integers <em>a, b</em>, the following hold:</p>
-
 <ol>
 <li><code>a ^ a</code> == 0</li>
 <li>Thus, <code>a != b</code> is equivalent to a ^ b (testing equality)</li>
 <li><code>a ^= a</code> will zero a number. (In fact, this is a very common optimization, used by compilers and assembly programmers alike)</li>
 </ol>
-
 <p>Putting it all together:</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;math.h&gt;</span><span style="color:#75715e">
 </span><span style="color:#75715e"></span>_[]<span style="color:#f92672">=</span>{<span style="color:#ae81ff">0</span>,<span style="color:#ae81ff">392</span>,<span style="color:#ae81ff">440</span>,<span style="color:#ae81ff">493</span>,<span style="color:#ae81ff">523</span>,<span style="color:#ae81ff">587</span>,<span style="color:#ae81ff">659</span>,<span style="color:#ae81ff">698</span>,<span style="color:#ae81ff">783</span>},i,j;
@@ -267,16 +250,11 @@ main()
     i<span style="color:#f92672">++^</span><span style="color:#ae81ff">3200</span> <span style="color:#f92672">||</span> (i<span style="color:#f92672">^=</span>i,<span style="color:#f92672">++</span>j);
     <span style="color:#66d9ef">return</span> (j<span style="color:#f92672">^</span><span style="color:#ae81ff">28</span>) <span style="color:#f92672">&amp;&amp;</span> main();
 }
-</code></pre></div>
-<p>Now this looks like some obfuscation! But we&rsquo;re not done yet.</p>
-
+</code></pre></div><p>Now this looks like some obfuscation! But we&rsquo;re not done yet.</p>
 <p>Instead of printf, we can use <a href="https://linux.die.net/man/2/write">write(2)</a>. If you were following on Windows, then I&rsquo;m sorry you won&rsquo;t be able to follow this step.</p>
-
 <p>The printf line becomes:</p>
-
 <pre><code>write(STDIN, &amp;__, 1);
 </code></pre>
-
 <p>Now we can strip all whitespace and make some minor tweaks to get this final version (run this the same way we ran the first unobfuscated version):</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;math.h&gt;</span><span style="color:#75715e">
 </span><span style="color:#75715e"></span>_[]<span style="color:#f92672">=</span>{<span style="color:#ae81ff">0</span>,<span style="color:#ae81ff">392</span>,<span style="color:#ae81ff">440</span>,<span style="color:#ae81ff">493</span>,<span style="color:#ae81ff">523</span>,<span style="color:#ae81ff">587</span>,<span style="color:#ae81ff">659</span>,<span style="color:#ae81ff">698</span>,<span style="color:#ae81ff">783</span>},i,j;
@@ -284,17 +262,14 @@ main(){<span style="color:#66d9ef">char</span> __<span style="color:#f92672">=</
 ((<span style="color:#ae81ff">7.85e-4</span><span style="color:#f92672">*</span>j<span style="color:#f92672">*</span>_[i[<span style="color:#e6db74">&#34;AABADC@AABAED@AAHFDCB@HHGD\
 </span><span style="color:#e6db74">ED&#34;</span>]<span style="color:#f92672">&amp;</span><span style="color:#ae81ff">017</span>]));write(__LINE__<span style="color:#f92672">&gt;&gt;</span><span style="color:#ae81ff">0x2</span>,<span style="color:#f92672">&amp;</span>__,<span style="color:#f92672">~*</span>_<span style="color:#f92672">&amp;</span><span style="color:#ae81ff">1</span>);(
 j<span style="color:#f92672">++^</span><span style="color:#ae81ff">3200</span>)<span style="color:#f92672">||</span>(j<span style="color:#f92672">^=</span>j,<span style="color:#f92672">++</span>i);<span style="color:#66d9ef">return</span>(i<span style="color:#f92672">^</span><span style="color:#ae81ff">28</span>)<span style="color:#f92672">&amp;&amp;</span>main();}
-</code></pre></div>
-<p>The following are the tweaks (most are to justify the text, some increase the line-width, some decrease):</p>
-
+</code></pre></div><p>The following are the tweaks (most are to justify the text, some increase the line-width, some decrease):</p>
 <ol>
 <li>Replaced 128 with <code>(1 &lt;&lt; 7)</code>. See <a href="https://en.wikipedia.org/wiki/Bitwise_operation#Bit_shifts">Bit shifts</a>.</li>
 <li>Replaced 15 with 017. Literals starting with a zero (not followed by an x) are in octal.</li>
 <li>STDIN&rsquo;s fd is 1. The write call is in line 5, thus <code>__LINE__ &gt;&gt; 2</code> evaluates to 5. As evident from the name, the macro <code>__LINE__</code> expands to the line number.</li>
-<li>For write()&rsquo;s third arguemnt, we use the incantation <code>~*_&amp;1</code>
+<li>For write()&lsquo;s third arguemnt, we use the incantation <code>~*_&amp;1</code>
 First, <code>_</code> is the frequencies array, decayed to the base pointer. We dereference it, thus we get the first element, which is 0. Then we bitwise-negate it (~), we get a whole bunch of 1s which we finally bitwise-and with 1 which just yields 1. This all works out thanks to the <a href="http://www.difranco.net/compsci/C_Operator_Precedence_Table.htm">C precedence rules</a>.</li>
 </ol>
-
 <p>And there you have it! Wish your loved one a very happy birthday, the IOCCC way ;)</p>
 
 </article>

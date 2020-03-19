@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Projects on Amish K. Naidu</title>
@@ -43,7 +43,7 @@ Screenshots Deploying Set public_html/ as the public directory, import the schem
 Screenshots A simple flight simulator in C++11/OpenGL.
 Features a procedurally generated infinite terrain over which you can fly around. With explosions!
 Controls: WASD or Arrow keys to change the plane&amp;rsquo;s direction. Click anywhere on the screen and move the mouse to rotate the camera, and scroll to change zoom.
-Command line arguments: usage: Fly [options...] -h | --help Print this help text and exit -w X | wX Set window width to X (default: 1024) -H Y | HY Set window height to Y (default: 720) -s Z | sZ Set seed to Z (default: random seed) -f | --fullscreen Set fullscreen mode (default: false) --wireframe Render in wireframe mode (default: false) --plane-box Draw a bounding box around the plane (default: false)  YouTube Playlist: Link to YouTube Playlist</description>
+Command line arguments: usage: Fly [options...] -h | --help Print this help text and exit -w X | wX Set window width to X (default: 1024) -H Y | HY Set window height to Y (default: 720) -s Z | sZ Set seed to Z (default: random seed) -f | --fullscreen Set fullscreen mode (default: false) --wireframe Render in wireframe mode (default: false) --plane-box Draw a bounding box around the plane (default: false) YouTube Playlist: Link to YouTube Playlist</description>
     </item>
     
     <item>
@@ -56,10 +56,10 @@ Command line arguments: usage: Fly [options...] -h | --help Print this help text
 Currently Ryuuk runs only in POSIX compliant environments only.
 Building GitHub
 nix
-$ git clone https://github.com/amhndu/ryuuk $ cd ryuuk $ mkdir build &amp;amp;&amp;amp; cd build $ cmake .. $ make -ji # where i = no. of cores you can spare  Windows
+$ git clone https://github.com/amhndu/ryuuk $ cd ryuuk $ mkdir build &amp;amp;&amp;amp; cd build $ cmake .. $ make -ji # where i = no. of cores you can spare Windows
 Who uses windows anyway ?
 Currently not portable with windows. Contributions welcome.
-Why  Becuase why not ? We wanted to learn a thing or two about sockets &amp;amp; HTTP  Keikaku Short term * Basic HTTP 1.</description>
+Why  Becuase why not ? We wanted to learn a thing or two about sockets &amp;amp; HTTP  Keikaku Short term ~~* Basic HTTP 1.</description>
     </item>
     
     <item>
@@ -81,11 +81,11 @@ Screenshots Video Watch on YouTube</description>
       
       <guid>https://amish.naidu.dev/projects/life-hs/</guid>
       <description>A dead-simple simulator for Conway&amp;rsquo;s Game of Life in Haskell.
- Source: GitHub
+Source: GitHub
 Compiling:
-$ ghc --make life.hs  Usage:
-./life &amp;lt; seeds/PulsarSeed.txt  Or
-$ runhaskell life.hs &amp;lt; seeds/GliderSeed.txt  Seeds are space separeted matrices of 0 and 1 representing dead/alive cell. Note that it uses ANSI escape sequences so this may not work on Windows.</description>
+$ ghc --make life.hs Usage:
+./life &amp;lt; seeds/PulsarSeed.txt Or
+$ runhaskell life.hs &amp;lt; seeds/GliderSeed.txt Seeds are space separeted matrices of 0 and 1 representing dead/alive cell. Note that it uses ANSI escape sequences so this may not work on Windows.</description>
     </item>
     
     <item>
@@ -107,7 +107,7 @@ Examples of games that have been tested to run (but NOT limited to):
       <pubDate>Fri, 04 Nov 2016 00:00:00 +0000</pubDate>
       
       <guid>https://amish.naidu.dev/projects/prattle/</guid>
-      <description> Prattle is a simple chat program with a Client-Server architecture, a collaboration with Koushtav Chakrabarty.
+      <description>Prattle is a simple chat program with a Client-Server architecture, a collaboration with Koushtav Chakrabarty.
 Programmed with C++11 with the SFML library for graphics and TGUI as the GUI framework.
 Screenshots For more information, view on GitHub </description>
     </item>

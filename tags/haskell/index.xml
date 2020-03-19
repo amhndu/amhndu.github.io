@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>haskell on Amish K. Naidu</title>
@@ -18,11 +18,11 @@
       
       <guid>https://amish.naidu.dev/projects/life-hs/</guid>
       <description>A dead-simple simulator for Conway&amp;rsquo;s Game of Life in Haskell.
- Source: GitHub
+Source: GitHub
 Compiling:
-$ ghc --make life.hs  Usage:
-./life &amp;lt; seeds/PulsarSeed.txt  Or
-$ runhaskell life.hs &amp;lt; seeds/GliderSeed.txt  Seeds are space separeted matrices of 0 and 1 representing dead/alive cell. Note that it uses ANSI escape sequences so this may not work on Windows.</description>
+$ ghc --make life.hs Usage:
+./life &amp;lt; seeds/PulsarSeed.txt Or
+$ runhaskell life.hs &amp;lt; seeds/GliderSeed.txt Seeds are space separeted matrices of 0 and 1 representing dead/alive cell. Note that it uses ANSI escape sequences so this may not work on Windows.</description>
     </item>
     
   </channel>

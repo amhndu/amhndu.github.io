@@ -3,7 +3,7 @@
 	<head>
 		<meta charset="utf-8"/>
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-		<meta name="generator" content="Hugo 0.55.6" />
+		<meta name="generator" content="Hugo 0.66.0" />
 		<title>Connect and control your media player with python and dbus using MPRIS - Amish K. Naidu</title>
 
 		<meta name="description" content="In this guide we&rsquo;ll be using Python 3 although you may be able to apply this to Python 2.4 and above with minor adjustments. Since D-Bus is only used by Linux and BSD distributions, needless to say, this will only work with *nix systems
@@ -48,6 +48,19 @@ We&rsquo;ll connect to a media player which implements the Media Player Remote I
 		border-top: 2px solid #8661C1; }
 </style>
 
+		<script>
+			(function (f, a, t, h, o, m) {
+				a[h] = a[h] || function () {
+					(a[h].q = a[h].q || []).push(arguments)
+				};
+				o = f.createElement('script'),
+					m = f.getElementsByTagName('script')[0];
+				o.async = 1; o.src = t; o.id = 'fathom-script';
+				m.parentNode.insertBefore(o, m)
+			})(document, window, '//fathom-amh.herokuapp.com/tracker.js', 'fathom');
+			fathom('set', 'siteId', 'LEKWV');
+			fathom('trackPageview');
+		</script>
 	</head>
 
 <body>
@@ -78,70 +91,50 @@ We&rsquo;ll connect to a media player which implements the Media Player Remote I
 </hgroup><hr class="sep" />
 
 </header>
-	
-
-<p>In this guide we&rsquo;ll be using Python 3 although you may be able to apply this to Python 2.4 and above with minor adjustments. Since D-Bus is only used by Linux and BSD distributions, needless to say, this will only work with *nix systems</p>
-
+	<p>In this guide we&rsquo;ll be using Python 3 although you may be able to apply this to Python 2.4 and above with minor adjustments. Since D-Bus is only used by Linux and BSD distributions, needless to say, this will only work with *nix systems</p>
 <p>We&rsquo;ll connect to a media player which implements the <strong>Media Player Remote Interfacing Specification</strong> or MPRIS for short. Most popular players like Audacious, Amarok, Clementine, VLC etc will work.
 This can be useful for purposes like priting metadata of the current track on <a href="../Projects/conky-cards.html">conky</a> and controling the player with widgets. For a particular example, Clementine, for some reason would not bind the media keys on my keyboard for global shortcuts, so with the help of a python script I made the keybindings directly with the window manager and my script.</p>
-
 <p>This guide follows the python documentation convention for code.
 <code>&gt;&gt;&gt;</code> imples the python interpreter prompt, &hellip; imples a multiline prompt continuing from the previous command and a line with neither of the prompts implies output, therefore, if you are copy-pasting code, you will have to copy a line at a time. Also, you should be versed in python terminology and should have some basic knowledge of Python.
 Let&rsquo;s get started, launch a terminal with the python interpreter and put on some music!</p>
-
 <h3 id="d-bus-basics">D-Bus Basics</h3>
-
 <p>DBus is a message bus system which allows <em>Inter-process communication</em> i.e it allows different processes to talk to each other and even different instances of the same application.
 The <em>dbus daemon</em> runs in the background allowing applications to connect to this <em>daemon</em> using the <em>libdbus</em> library and it&rsquo;s wrappers for different languages and frameworks.
 Communication is done using a <strong>bus</strong>, each application is granted a unique name like <em>:1-45</em> or <em>:2-16</em>) when it connects to the bus. The application may request a familiar bus name (based on the <a href="https://en.wikipedia.org/wiki/Reverse_domain_name_notation">Reversed domain name</a> convention) e.g. <em>org.freedesktop.PowerManagement, com.Skype.API and org.mpris.MediaPlayer2.clementine</em>
 Each application or service can have multiple <strong>object paths</strong> representing a unique object within the application, they look like filesystem paths e.g. <em>/org/mpris/MediaPlayer2</em>
 <strong>Interfaces</strong> act like namespaces, within which <strong>Methods</strong> and <strong>Signals</strong> are defined.
 Therefore, to make a method call you need:</p>
-
 <ul>
 <li>Bus name</li>
 <li>Object path</li>
 <li>Interface name</li>
 </ul>
-
 <p>Some applications may also have <strong>Properties</strong>, these properties could be set or retrieved through the <em>org.freedesktop.DBus.Properties</em> interface. More on this later.
 There are mainly two two buses, the <strong>Session Bus</strong> and the <strong>System Bus</strong> The system bus is a session independent bus which is used by system services such as <em>udev</em> or <em>NetworkManager</em> whereas a session bus is unique for the current user session. It is used by desktop applications and it is this bus we will be interested in for this guide.</p>
-
 <h3 id="connecting-to-the-d-bus-daemon-with-python">Connecting to the D-Bus daemon with Python</h3>
-
 <pre><code>&gt;&gt;&gt; import dbus
 &gt;&gt;&gt; bus = dbus.SessionBus()
 </code></pre>
-
 <p>In the first line, we import the dbus module and in the second line we make an object of the class <strong>SessionBus</strong>.
 This class will make us a connection with the session bus granting us a unique name which can be retrieved with the get_unique_name() method. Try this</p>
-
 <pre><code>&gt;&gt;&gt; bus.get_unique_name()
 ':1.113'
 </code></pre>
-
 <p>Your unique name will vary.
 We can also request a name with the method request_name() following the reverse domain convention.</p>
-
 <pre><code>&gt;&gt;&gt; bus.request_name('io.github.amhndu.test')
 </code></pre>
-
 <p>A return value of 1 implies that you have succesfully acquired the name.
 This class also allows us to list all the services/applications registered with the session bus:</p>
-
 <pre><code>&gt;&gt;&gt; for service in bus.list_names():
 ...     print(service)
 </code></pre>
-
 <p>In the list you&rsquo;ll also see the name we requested above.
 You can even expose your python application with an API on dbus with this module but it is beyond this article&rsquo;s scope.
 Note: D-bus, unlike python, is strongly typed and the python dbus library has wrapper classes for datatypes to faciliate interfacing dbus methods and python, thus the methods in the dbus module return these wrapper classes which can be implicitly converted to python native data types.</p>
-
 <h3 id="connecting-to-the-player">Connecting to the player</h3>
-
 <p>The <a href="#mpris-spec">MPRIS 2.0</a> spec defines that the player must request a name prefixed with <em>org.mpris.MediaPlayer2</em>. Therefore a player can have a name of form <em>org.mpris.MediaPlayer2.clementine</em> where the name ends the the name of the player.
 To find out all the services of this form we can use regex to filter it out:</p>
-
 <pre><code>&gt;&gt;&gt; import re
 &gt;&gt;&gt; for service in bus.list_names():
 ...     if re.match('org.mpris.MediaPlayer2.', service):
@@ -150,117 +143,86 @@ To find out all the services of this form we can use regex to filter it out:</p>
 org.mpris.MediaPlayer2.clementine
 org.mpris.MediaPlayer2.vlc
 </code></pre>
-
 <p>As you can see in output, I had two players &ndash;vlc and clementine&ndash; opened.
 Once you&rsquo;ve found the service name of your player, we can get an object:</p>
-
 <pre><code>&gt;&gt;&gt; player = dbus.SessionBus().get_object('org.mpris.MediaPlayer2.clementine', '/org/mpris/MediaPlayer2')
 </code></pre>
-
 <p>The first argument to get_object() is the service name, while the second is the object path. The object path we&rsquo;ve used is defined by <a href="#mpris-spec">MPRIS</a>.
 Try printing these attributes of player &ndash; bus_name and requested_bus_name</p>
-
 <h3 id="making-method-calls">Making method calls</h3>
-
 <p>To make method calls, we call the method name directly on the object, giving it the associated interface name.
 With <a href="#mpris-spec">MPRIS</a>, the interface <em>org.mpris.MediaPlayer2.Player</em> defines methods like Next(), therefore to switch the track to the next in playlist, we call player.Next() and set the dbus_interface keyword argument as the interface</p>
-
 <pre><code>&gt;&gt;&gt; player.Next(dbus_interface='org.mpris.MediaPlayer2.Player')
 </code></pre>
-
 <p>You should notice the track change.
 Similarly we can call Previous(), Play(), Pause() or PlayPause()
 But specifying the interface on each call is inconvenient, we can instead get an interface object once and rid ourselves of specifying it each time.</p>
-
 <pre><code>&gt;&gt;&gt; interface = dbus.Interface(player, dbus_interface='org.mpris.MediaPlayer2.Player')
 &gt;&gt;&gt; interface.Next()
 &gt;&gt;&gt; interface.Previous()
 &gt;&gt;&gt; interface.Pause()
 &gt;&gt;&gt; interface.PlayPause() #Play if paused, pause if playing
 </code></pre>
-
 <p>Very straightforward, isn&rsquo;t it ?</p>
-
 <h3 id="properties">Properties</h3>
-
 <p>We&rsquo;ll have to use the <em>org.freedesktop.DBus.Properties</em> interface to get the property.
 This interface has three methods &ndash; Get(), Set(), GetAll() with which you can get or set the property in an interface.
 Therefore to get a property in <em>org.mpris.MediaPlayer2.Player</em> interface, we call Get() in <em>org.freedesktop.DBus.Properties</em> with the name of the interface and our property to retrieve it and Set() to set it.
 In python:</p>
-
 <pre><code>&gt;&gt;&gt; volume = player.Get('org.mpris.MediaPlayer2.Player', 'Volume',
 ...             dbus_interface='org.freedesktop.DBus.Properties')
 &gt;&gt;&gt; print(volume)
 </code></pre>
-
 <p>We can of course make an interface object to faciliate making frequent calls.</p>
-
 <pre><code>&gt;&gt;&gt; property_interface = dbus.Interface(player, dbus_interface='org.freedesktop.DBus.Properties')
 &gt;&gt;&gt; volume = property_interface.Get('org.mpris.MediaPlayer2.Player', 'Volume')
 &gt;&gt;&gt; print(volume)
 0.9
 &gt;&gt;&gt; property_interface.Set('org.mpris.MediaPlayer2.Player', 'Volume', volume-0.2)
 </code></pre>
-
 <p>Here, we make an interface object, retrieve the volume (which is a value between 0.0 to 1.0) and in the last line, change the volume.
 The GetAll() method can be used print all the properties defined in an interface. e.g.</p>
-
 <pre><code>&gt;&gt;&gt; for property, value in property_interface.GetAll('org.mpris.MediaPlayer2.Player').items():
 ...     print(property, ':', value)
 </code></pre>
-
 <p>You can see all the properties defined along with the <em>Metadata</em> dictionary.</p>
-
 <pre><code>### Metadata
 </code></pre>
-
 <p>A dictionary with <em>Metadata</em> of the current track playing can be obtained as below.</p>
-
 <pre><code>&gt;&gt;&gt; metadata = player.Get('org.mpris.MediaPlayer2.Player', 'Metadata',
 ...             dbus_interface='org.freedesktop.DBus.Properties')
 </code></pre>
-
 <p>The peculiar thing about this dictionary is the naming system of the attributes. This is an example of it&rsquo;s contents:</p>
-
 <pre><code>&gt;&gt;&gt; for attr, value in metadata.items():
 ...     print(attr, '\t', value)
 ...
-xesam:contentCreated     2015-01-16T16:23:06
-xesam:album      Radioactive
-xesam:title      Radioactive
-mpris:trackid    /org/mpris/MediaPlayer2/Track/165
-xesam:useCount   2
-mpris:artUrl     file:///tmp/clementine-art-yK1220.jpg
-xesam:url    file:///home/amish/Music/Imagine Dragons/imagine-dragons---radioactive.mp3
-mpris:length     185000000
-xesam:trackNumber    1
-xesam:autoRating     38
-xesam:artist     dbus.Array([dbus.String('Imagine Dragons')], signature=dbus.Signature('s'), variant_level=1)
-xesam:genre      dbus.Array([dbus.String('Blues')], signature=dbus.Signature('s'), variant_level=1)
-bitrate      256
-xesam:lastUsed   2015-06-09T13:27:53
+xesam:contentCreated 	 2015-01-16T16:23:06
+xesam:album 	 Radioactive
+xesam:title 	 Radioactive
+mpris:trackid 	 /org/mpris/MediaPlayer2/Track/165
+xesam:useCount 	 2
+mpris:artUrl 	 file:///tmp/clementine-art-yK1220.jpg
+xesam:url 	 file:///home/amish/Music/Imagine Dragons/imagine-dragons---radioactive.mp3
+mpris:length 	 185000000
+xesam:trackNumber 	 1
+xesam:autoRating 	 38
+xesam:artist 	 dbus.Array([dbus.String('Imagine Dragons')], signature=dbus.Signature('s'), variant_level=1)
+xesam:genre 	 dbus.Array([dbus.String('Blues')], signature=dbus.Signature('s'), variant_level=1)
+bitrate 	 256
+xesam:lastUsed 	 2015-06-09T13:27:53
 </code></pre>
-
 <p>The attribute name follows the <a href="http://www.freedesktop.org/wiki/Specifications/mpris-spec/metadata/">&ldquo;Xesam ontology&rdquo;</a>. Note that the <em>xesam:artist</em> and <em>xesam:genre</em> attributes above are <em>dbus arrays</em> which can used like python lists, these arrays will mostly have a singular item which can be accesed this way:</p>
-
 <pre><code>&gt;&gt;&gt; print('Artist :\t', metadata['artist'][0])
 Switchfoot
 </code></pre>
-
 <p>Note: Only the xesam:trackid is guaranteed to exist in the metadata dictionary, so, accessing attributes should be done with a check whether it exists.</p>
-
 <pre><code>&gt;&gt;&gt; print('Title :\t', metadata['xesam:title'] if 'xesam:title' in metadata else 'Unknown')
 </code></pre>
-
 <p>We used the ternary conditional operator to make it succint.
 For more information on metadata, see the <a href="http://www.freedesktop.org/wiki/Specifications/mpris-spec/metadata/">MPRIS v2 metadata guidelines</a></p>
-
 <h3 id="conclusion">Conclusion</h3>
-
 <p>Now, you should be able to make your own scripts or just use the interactive interpreter to control your media player. You can have a look at <a href="../Projects/source-code/mediaplayer.py">mediaplayer.py</a>, a python script I made which I use to print metadata in <a href="../Projects/conky-cards.html">conky</a> and make keybindings for clementine, which I was unable to do through clementine itself. For more information, see the D-Bus and MPRIS specifications in the references section below.</p>
-
 <h3 id="references">References</h3>
-
 <ol>
 <li>Carlson, Herzberg, <em>et al.</em> &ldquo;D-Bus Specification&rdquo;
 <a href="http://dbus.freedesktop.org/doc/dbus-specification.html">http://dbus.freedesktop.org/doc/dbus-specification.html</a></li>

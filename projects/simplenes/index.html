@@ -3,7 +3,7 @@
 	<head>
 		<meta charset="utf-8"/>
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-		<meta name="generator" content="Hugo 0.55.6" />
+		<meta name="generator" content="Hugo 0.66.0" />
 		<title>SimpleNES - Amish K. Naidu</title>
 
 		<meta name="description" content="SimpleNES is an NES emulator hacked together for nothing but fun and nostalgia. Play (some of) your favorite games from NES!">
@@ -47,6 +47,19 @@
 		border-top: 2px solid #8661C1; }
 </style>
 
+		<script>
+			(function (f, a, t, h, o, m) {
+				a[h] = a[h] || function () {
+					(a[h].q = a[h].q || []).push(arguments)
+				};
+				o = f.createElement('script'),
+					m = f.getElementsByTagName('script')[0];
+				o.async = 1; o.src = t; o.id = 'fathom-script';
+				m.parentNode.insertBefore(o, m)
+			})(document, window, '//fathom-amh.herokuapp.com/tracker.js', 'fathom');
+			fathom('set', 'siteId', 'LEKWV');
+			fathom('trackPageview');
+		</script>
 	</head>
 
 <body>
@@ -84,14 +97,10 @@
 </hgroup><hr class="sep" />
 
 </header>
-	
-
-<p>An NES emulator written in C++ for nothing but fun.<br />
-Roughly 40-50% of games should work (ie. games that use either no mapper or mappers 1, 2 or 3).<br />
+	<p>An NES emulator written in C++ for nothing but fun.<br>
+Roughly 40-50% of games should work (ie. games that use either no mapper or mappers 1, 2 or 3).<br>
 Examples of games that have been tested to run (but NOT limited to):</p>
-
 <p>(USA/Japan or World versions only i.e. NTSC compatible)</p>
-
 <ul>
 <li>Super Mario Bros.</li>
 <li>Contra/Projects</li>
@@ -108,83 +117,50 @@ Examples of games that have been tested to run (but NOT limited to):</p>
 <li>Tennis</li>
 <li>Excitebike</li>
 </ul>
-
-<p><a href="https://gist.github.com/amhndu/5b6da39ee06959d93dc706a0b165fb80">Here&rsquo;s</a> a big list of games that match the supported specs from SimpleNES.<br />
+<p><a href="https://gist.github.com/amhndu/5b6da39ee06959d93dc706a0b165fb80">Here&rsquo;s</a> a big list of games that match the supported specs from SimpleNES.<br>
 (Unlike the list above, these aren&rsquo;t tested. Some may or may not work)</p>
-
 <h2 id="source">Source</h2>
-
 <p><a href="https://github.com/amhndu/SimpleNES">GitHub</a></p>
-
 <h2 id="screenshots">Screenshots</h2>
-
-<p><img src="/screenshots/nes1.png" alt="Screenshot 1" />
-<img src="/screenshots/nes2.png" alt="Screenshot 2" />
-<img src="/screenshots/nes3.png" alt="Screenshot 3" />
-<img src="/screenshots/nes4.png" alt="Screenshot 4" />
-<img src="/screenshots/nes5.png" alt="Screenshot 5" />
-<img src="/screenshots/nes6.png" alt="Screenshot 6" /></p>
-
+<p><img src="/screenshots/nes1.png" alt="Screenshot 1">
+<img src="/screenshots/nes2.png" alt="Screenshot 2">
+<img src="/screenshots/nes3.png" alt="Screenshot 3">
+<img src="/screenshots/nes4.png" alt="Screenshot 4">
+<img src="/screenshots/nes5.png" alt="Screenshot 5">
+<img src="/screenshots/nes6.png" alt="Screenshot 6"></p>
 <h2 id="videos">Videos</h2>
-
 <p><a href="https://www.youtube.com/playlist?list=PLiULt7qySWt2VbHTkvIt9kYPMPcWt01qN">YouTube Playlist</a></p>
-
 <h2 id="download">Download</h2>
-
 <p>Executables:</p>
-
-<p><a href="https://www.dropbox.com/s/1gqhtbmvzo1ozsz/SimpleNES-win32.rar?dl=0">Windows 32-bit</a><br />
+<p><a href="https://www.dropbox.com/s/1gqhtbmvzo1ozsz/SimpleNES-win32.rar?dl=0">Windows 32-bit</a><br>
 <a href="https://www.dropbox.com/s/7eswcdektlkdz65/SimpleNES-linux64?dl=0">Linux 64-bit</a></p>
-
 <p>ROMs available <a href="http://www.emuparadise.me/Nintendo_Entertainment_System_ROMs/13">here</a> for testing.</p>
-
 <h2 id="compiling">Compiling</h2>
-
 <p>You need:</p>
-
 <ul>
 <li>SFML 2.0+ development headers and library</li>
 <li>C++11 compliant compiler</li>
 <li>CMake build system</li>
 </ul>
-
 <p>Compiling is straight forward with cmake, just run cmake on the project directory with CMAKE_BUILD_TYPE=Release
 and you&rsquo;ll get Makefile or equivalent for your platform, with which you can compile the emulator</p>
-
 <p>For e.g., on Linux/OS X/FreeBSD:</p>
-
 <pre><code>$ git clone https://github.com/amhndu/SimpleNES
 $ cd SimpleNES
 $ mkdir build/ &amp;&amp; cd build/
 $ cmake -DCMAKE_BUILD_TYPE=Release ..
 $ make -j4    #Replace 4 with however many cores you have to spare
-</code></pre>
-
-<h2 id="running">Running</h2>
-
+</code></pre><h2 id="running">Running</h2>
 <p>Just pass the path to a .nes image like</p>
-
 <pre><code>$ ./SimpleNES ~/Games/SuperMarioBros.nes
-</code></pre>
-
-<p>To set size of the window,</p>
-
+</code></pre><p>To set size of the window,</p>
 <pre><code>$ ./SimpleNES -w 600 ~/Games/Contra.nes
-</code></pre>
-
-<p>For supported command line options, try</p>
-
+</code></pre><p>For supported command line options, try</p>
 <pre><code>$ ./SimpleNES -h
-</code></pre>
-
-<h2 id="controller">Controller</h2>
-
+</code></pre><h2 id="controller">Controller</h2>
 <p>Keybindings can be configured with keybindings.conf</p>
-
 <p>Default keybindings:</p>
-
 <p><strong>Player 1</strong></p>
-
 <table>
 <thead>
 <tr>
@@ -192,52 +168,42 @@ $ make -j4    #Replace 4 with however many cores you have to spare
 <th>Mapped to</th>
 </tr>
 </thead>
-
 <tbody>
 <tr>
 <td>Start</td>
 <td>Return/Enter</td>
 </tr>
-
 <tr>
 <td>Select</td>
 <td>Right Shift</td>
 </tr>
-
 <tr>
 <td>A</td>
 <td>J</td>
 </tr>
-
 <tr>
 <td>B</td>
 <td>K</td>
 </tr>
-
 <tr>
 <td>Up</td>
 <td>W</td>
 </tr>
-
 <tr>
 <td>Down</td>
 <td>S</td>
 </tr>
-
 <tr>
 <td>Left</td>
 <td>A</td>
 </tr>
-
 <tr>
 <td>Right</td>
 <td>D</td>
 </tr>
 </tbody>
 </table>
-
 <p><strong>Player 2</strong></p>
-
 <table>
 <thead>
 <tr>
@@ -245,43 +211,35 @@ $ make -j4    #Replace 4 with however many cores you have to spare
 <th>Mapped to</th>
 </tr>
 </thead>
-
 <tbody>
 <tr>
 <td>Start</td>
 <td>Numpad9</td>
 </tr>
-
 <tr>
 <td>Select</td>
 <td>Numpad8</td>
 </tr>
-
 <tr>
 <td>A</td>
 <td>Numpad5</td>
 </tr>
-
 <tr>
 <td>B</td>
 <td>Numpad6</td>
 </tr>
-
 <tr>
 <td>Up</td>
 <td>Up</td>
 </tr>
-
 <tr>
 <td>Down</td>
 <td>Down</td>
 </tr>
-
 <tr>
 <td>Left</td>
 <td>Left</td>
 </tr>
-
 <tr>
 <td>Right</td>
 <td>Right</td>

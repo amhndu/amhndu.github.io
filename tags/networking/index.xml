@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>networking on Amish K. Naidu</title>
@@ -21,10 +21,10 @@
 Currently Ryuuk runs only in POSIX compliant environments only.
 Building GitHub
 nix
-$ git clone https://github.com/amhndu/ryuuk $ cd ryuuk $ mkdir build &amp;amp;&amp;amp; cd build $ cmake .. $ make -ji # where i = no. of cores you can spare  Windows
+$ git clone https://github.com/amhndu/ryuuk $ cd ryuuk $ mkdir build &amp;amp;&amp;amp; cd build $ cmake .. $ make -ji # where i = no. of cores you can spare Windows
 Who uses windows anyway ?
 Currently not portable with windows. Contributions welcome.
-Why  Becuase why not ? We wanted to learn a thing or two about sockets &amp;amp; HTTP  Keikaku Short term * Basic HTTP 1.</description>
+Why  Becuase why not ? We wanted to learn a thing or two about sockets &amp;amp; HTTP  Keikaku Short term ~~* Basic HTTP 1.</description>
     </item>
     
     <item>
@@ -33,7 +33,7 @@ Why  Becuase why not ? We wanted to learn a thing or two about sockets &amp;amp;
       <pubDate>Fri, 04 Nov 2016 00:00:00 +0000</pubDate>
       
       <guid>https://amish.naidu.dev/projects/prattle/</guid>
-      <description> Prattle is a simple chat program with a Client-Server architecture, a collaboration with Koushtav Chakrabarty.
+      <description>Prattle is a simple chat program with a Client-Server architecture, a collaboration with Koushtav Chakrabarty.
 Programmed with C++11 with the SFML library for graphics and TGUI as the GUI framework.
 Screenshots For more information, view on GitHub </description>
     </item>

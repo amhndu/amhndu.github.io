@@ -3,7 +3,7 @@
 	<head>
 		<meta charset="utf-8"/>
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-		<meta name="generator" content="Hugo 0.55.6" />
+		<meta name="generator" content="Hugo 0.66.0" />
 		<title>Ryuuk - Amish K. Naidu</title>
 
 		<meta name="description" content="Ryuuk is a simple concurrent webserver written in C&#43;&#43;17 and bsd sockects.">
@@ -47,6 +47,19 @@
 		border-top: 2px solid #8661C1; }
 </style>
 
+		<script>
+			(function (f, a, t, h, o, m) {
+				a[h] = a[h] || function () {
+					(a[h].q = a[h].q || []).push(arguments)
+				};
+				o = f.createElement('script'),
+					m = f.getElementsByTagName('script')[0];
+				o.async = 1; o.src = t; o.id = 'fathom-script';
+				m.parentNode.insertBefore(o, m)
+			})(document, window, '//fathom-amh.herokuapp.com/tracker.js', 'fathom');
+			fathom('set', 'siteId', 'LEKWV');
+			fathom('trackPageview');
+		</script>
 	</head>
 
 <body>
@@ -84,58 +97,39 @@
 </hgroup><hr class="sep" />
 
 </header>
-	
-
-<p>Ryuuk is a concurrent web-server written in C++.</p>
-
+	<p>Ryuuk is a concurrent web-server written in C++.</p>
 <p>Currently Ryuuk runs only in POSIX compliant environments only.</p>
-
 <h2 id="building">Building</h2>
-
 <p><a href="https://github.com/amhndu/ryuuk">GitHub</a></p>
-
 <p><strong>nix</strong></p>
-
 <pre><code>$ git clone https://github.com/amhndu/ryuuk
 $ cd ryuuk
 $ mkdir build &amp;&amp; cd build
 $ cmake ..
 $ make -ji # where i = no. of cores you can spare
-</code></pre>
-
-<p><strong>Windows</strong><br />
-<del>Who uses windows anyway ?</del><br />
+</code></pre><p><strong>Windows</strong><br>
+<del>Who uses windows anyway ?</del><br>
 Currently not portable with windows. Contributions welcome.</p>
-
 <h2 id="why">Why</h2>
-
 <ul>
 <li>Becuase why not ?</li>
 <li>We wanted to learn a thing or two about sockets &amp; HTTP</li>
 </ul>
-
 <h2 id="keikaku">Keikaku</h2>
-
 <h4 id="short-term">Short term</h4>
-
-<p><del>* Basic HTTP 1.1 GET requests</del><br />
-<del>* A Functional web server</del></p>
-
+<p>~~* Basic HTTP 1.1 GET requests~~<br>
+~~* A Functional web server~~</p>
 <h4 id="long-term">Long term</h4>
-
 <ul>
 <li>Most of HTTP/1.1</li>
 <li>World domination</li>
 </ul>
-
 <p>For a more detailed keikaku, please see the <a href="https://github.com/amhndu/ryuuk/blob/master/TODO.md">TODO</a></p>
-
 <h2 id="references">References</h2>
-
 <ul>
-<li><a href="https://tools.ietf.org/html/rfc723">https://tools.ietf.org/html/rfc723</a><0-7><br /></li>
-<li><a href="https://tools.ietf.org/html/rfc2616">https://tools.ietf.org/html/rfc2616</a><br /></li>
-<li><a href="http://www2005.org/cdrom/docs/p730.pdf">http://www2005.org/cdrom/docs/p730.pdf</a><br /></li>
+<li><a href="https://tools.ietf.org/html/rfc723">https://tools.ietf.org/html/rfc723</a>&lt;0-7&gt;</li>
+<li><a href="https://tools.ietf.org/html/rfc2616">https://tools.ietf.org/html/rfc2616</a></li>
+<li><a href="http://www2005.org/cdrom/docs/p730.pdf">http://www2005.org/cdrom/docs/p730.pdf</a></li>
 </ul>
 
 </article>
