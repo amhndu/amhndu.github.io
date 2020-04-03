@@ -90,6 +90,9 @@ Mostly because I&rsquo;m a better programmer now compared to when I wrote it 4 y
 		<img class="icon-text" src="/img/prev.svg"/>Stackledge</a>
 
 
+	<a class="next-post" href="https://amish.naidu.dev/projects/seiyuu/">SeiyuuList<img class="icon-text" src="/img/next.svg"/>
+	</a>
+
 </nav>
 
 
@@ -118,17 +121,21 @@ Mostly because I&rsquo;m a better programmer now compared to when I wrote it 4 y
 		</footer>
 		
 		<script>
-			(function (f, a, t, h, o, m) {
-				a[h] = a[h] || function () {
-					(a[h].q = a[h].q || []).push(arguments)
-				};
-				o = f.createElement('script'),
-					m = f.getElementsByTagName('script')[0];
-				o.async = 1; o.src = t; o.id = 'fathom-script';
-				m.parentNode.insertBefore(o, m)
-			})(document, window, '//fathom-amh.herokuapp.com/tracker.js', 'fathom');
-			fathom('set', 'siteId', 'LEKWV');
-			fathom('trackPageview');
+			if (!location.host.includes('localhost')) {
+				(function (f, a, t, h, o, m) {
+					a[h] = a[h] || function () {
+						(a[h].q = a[h].q || []).push(arguments)
+					};
+					o = f.createElement('script'),
+						m = f.getElementsByTagName('script')[0];
+					o.async = 1; o.src = t; o.id = 'fathom-script';
+					m.parentNode.insertBefore(o, m)
+				})(document, window, '//fathom-amh.herokuapp.com/tracker.js', 'fathom');
+				fathom('set', 'siteId', 'LEKWV');
+				fathom('trackPageview');
+			} else {
+				console.log("Disabling fathom tracking while development");
+			}
 		</script>
 	</body>
 </html>

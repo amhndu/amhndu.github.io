@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>seiyuu on Amish K. Naidu</title>
+    <link>https://amish.naidu.dev/tags/seiyuu/</link>
+    <description>Recent content in seiyuu on Amish K. Naidu</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <copyright>&amp;copy; 2019 Amish K. Naidu</copyright>
+    <lastBuildDate>Sun, 22 Mar 2020 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://amish.naidu.dev/tags/seiyuu/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>SeiyuuList</title>
+      <link>https://amish.naidu.dev/projects/seiyuu/</link>
+      <pubDate>Sun, 22 Mar 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://amish.naidu.dev/projects/seiyuu/</guid>
+      <description>A better seiyuu list.
+It lets you search anime voice actors and browse all of their character roles. Unlike the pages from anilist/MAL, this gives you more information on the anime alongside their roles, this allows you to sort the list by say the anime popularity or scores. This is particularly useful because popular voice actors tend to have many roles, so looking at their super long list can get you lost.</description>
+    </item>
+    
+  </channel>
+</rss>

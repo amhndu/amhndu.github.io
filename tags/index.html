@@ -105,6 +105,16 @@
 		</li>
 		
 		<li style="display: inline;">
+			<a href="/tags/react" style="">react</a>
+			<span>(1)</span>
+		</li>
+		
+		<li style="display: inline;">
+			<a href="/tags/seiyuu" style="">seiyuu</a>
+			<span>(1)</span>
+		</li>
+		
+		<li style="display: inline;">
 			<a href="/tags/sfml" style="">sfml</a>
 			<span>(6)</span>
 		</li>
@@ -134,17 +144,21 @@
 		</footer>
 		
 		<script>
-			(function (f, a, t, h, o, m) {
-				a[h] = a[h] || function () {
-					(a[h].q = a[h].q || []).push(arguments)
-				};
-				o = f.createElement('script'),
-					m = f.getElementsByTagName('script')[0];
-				o.async = 1; o.src = t; o.id = 'fathom-script';
-				m.parentNode.insertBefore(o, m)
-			})(document, window, '//fathom-amh.herokuapp.com/tracker.js', 'fathom');
-			fathom('set', 'siteId', 'LEKWV');
-			fathom('trackPageview');
+			if (!location.host.includes('localhost')) {
+				(function (f, a, t, h, o, m) {
+					a[h] = a[h] || function () {
+						(a[h].q = a[h].q || []).push(arguments)
+					};
+					o = f.createElement('script'),
+						m = f.getElementsByTagName('script')[0];
+					o.async = 1; o.src = t; o.id = 'fathom-script';
+					m.parentNode.insertBefore(o, m)
+				})(document, window, '//fathom-amh.herokuapp.com/tracker.js', 'fathom');
+				fathom('set', 'siteId', 'LEKWV');
+				fathom('trackPageview');
+			} else {
+				console.log("Disabling fathom tracking while development");
+			}
 		</script>
 	</body>
 </html>

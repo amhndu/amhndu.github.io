@@ -120,14 +120,14 @@ It has many features, including fun commands, administration, channel management
 	<ul class="no-bullet">
 	    
             <li>
-    <h4><a href="/projects/mediaplayer.py/">mediaplayer.py</a></h4>
-    <p>A script to control or extract info from media players</p>
+    <h4><a href="/projects/seiyuu/">SeiyuuList</a></h4>
+    <p>Search anime voice actors and browse all of their character roles. Unlike the pages from anilist/MAL, SeiyuuList gives you more information on the anime alongside the character, allowing you to sort the list however you want. Thus you won&#39;t get lost reading the super-long lists of popular seiyuus.</p>
 </li>
 
 	    
             <li>
-    <h4><a href="/projects/open-source/">Open Source</a></h4>
-    <p></p>
+    <h4><a href="/projects/mediaplayer.py/">mediaplayer.py</a></h4>
+    <p>A script to control or extract info from media players</p>
 </li>
 
 	    
@@ -216,17 +216,21 @@ It has many features, including fun commands, administration, channel management
 		</footer>
 		
 		<script>
-			(function (f, a, t, h, o, m) {
-				a[h] = a[h] || function () {
-					(a[h].q = a[h].q || []).push(arguments)
-				};
-				o = f.createElement('script'),
-					m = f.getElementsByTagName('script')[0];
-				o.async = 1; o.src = t; o.id = 'fathom-script';
-				m.parentNode.insertBefore(o, m)
-			})(document, window, '//fathom-amh.herokuapp.com/tracker.js', 'fathom');
-			fathom('set', 'siteId', 'LEKWV');
-			fathom('trackPageview');
+			if (!location.host.includes('localhost')) {
+				(function (f, a, t, h, o, m) {
+					a[h] = a[h] || function () {
+						(a[h].q = a[h].q || []).push(arguments)
+					};
+					o = f.createElement('script'),
+						m = f.getElementsByTagName('script')[0];
+					o.async = 1; o.src = t; o.id = 'fathom-script';
+					m.parentNode.insertBefore(o, m)
+				})(document, window, '//fathom-amh.herokuapp.com/tracker.js', 'fathom');
+				fathom('set', 'siteId', 'LEKWV');
+				fathom('trackPageview');
+			} else {
+				console.log("Disabling fathom tracking while development");
+			}
 		</script>
 	</body>
 </html>

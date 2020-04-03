@@ -6,10 +6,20 @@
     <description>Recent content on Amish K. Naidu</description>
     <generator>Hugo -- gohugo.io</generator>
     <copyright>&amp;copy; 2019 Amish K. Naidu</copyright>
-    <lastBuildDate>Wed, 06 Mar 2019 01:05:36 +0530</lastBuildDate>
+    <lastBuildDate>Sun, 22 Mar 2020 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://amish.naidu.dev/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>SeiyuuList</title>
+      <link>https://amish.naidu.dev/projects/seiyuu/</link>
+      <pubDate>Sun, 22 Mar 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://amish.naidu.dev/projects/seiyuu/</guid>
+      <description>A better seiyuu list.
+It lets you search anime voice actors and browse all of their character roles. Unlike the pages from anilist/MAL, this gives you more information on the anime alongside their roles, this allows you to sort the list by say the anime popularity or scores. This is particularly useful because popular voice actors tend to have many roles, so looking at their super long list can get you lost.</description>
+    </item>
     
     <item>
       <title>mediaplayer.py</title>
@@ -81,7 +91,7 @@ Made sorting in playlist ignore &amp;ldquo;The&amp;rdquo; or any other configura
       <pubDate>Thu, 30 Nov 2017 00:00:00 +0000</pubDate>
       
       <guid>https://amish.naidu.dev/projects/stackledge/</guid>
-      <description>Stackledge A reddit clone.
+      <description>A reddit clone.
  Upvote/downvote based content aggregation Threaded comments User pages, indiviudal category and all categories pages Trending, Top, New sorting modes Feed paginated  Source GitHub
 Screenshots Deploying Set public_html/ as the public directory, import the schema and create new categories by inserting into the Category table</description>
     </item>
