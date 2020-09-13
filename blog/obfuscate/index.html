@@ -3,7 +3,7 @@
 	<head>
 		<meta charset="utf-8"/>
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-		<meta name="generator" content="Hugo 0.70.0" />
+		<meta name="generator" content="Hugo 0.74.3" />
 		<title>Let&#39;s Make an Extremely Readable Birthday Melody, the IOCCC Way - Amish K. Naidu</title>
 
 		<meta name="description" content="Obfuscate: tr.v. -cated, -cating, -cates.
@@ -254,7 +254,7 @@ j<span style="color:#f92672">++^</span><span style="color:#ae81ff">3200</span>)<
 <li>Replaced 128 with <code>(1 &lt;&lt; 7)</code>. See <a href="https://en.wikipedia.org/wiki/Bitwise_operation#Bit_shifts">Bit shifts</a>.</li>
 <li>Replaced 15 with 017. Literals starting with a zero (not followed by an x) are in octal.</li>
 <li>STDIN&rsquo;s fd is 1. The write call is in line 5, thus <code>__LINE__ &gt;&gt; 2</code> evaluates to 5. As evident from the name, the macro <code>__LINE__</code> expands to the line number.</li>
-<li>For write()&lsquo;s third arguemnt, we use the incantation <code>~*_&amp;1</code>
+<li>For write()&rsquo;s third arguemnt, we use the incantation <code>~*_&amp;1</code>
 First, <code>_</code> is the frequencies array, decayed to the base pointer. We dereference it, thus we get the first element, which is 0. Then we bitwise-negate it (~), we get a whole bunch of 1s which we finally bitwise-and with 1 which just yields 1. This all works out thanks to the <a href="http://www.difranco.net/compsci/C_Operator_Precedence_Table.htm">C precedence rules</a>.</li>
 </ol>
 <p>And there you have it! Wish your loved one a very happy birthday, the IOCCC way ;)</p>
