@@ -5,10 +5,6 @@
     <link>https://amish.naidu.dev/about/</link>
     <description>Recent content in About on Amish K. Naidu</description>
     <generator>Hugo -- gohugo.io</generator>
-    <copyright>&amp;copy; 2019 Amish K. Naidu</copyright>
-    
-	<atom:link href="https://amish.naidu.dev/about/index.xml" rel="self" type="application/rss+xml" />
-    
-    
+    <copyright>&amp;copy; 2021 Amish K. Naidu</copyright><atom:link href="https://amish.naidu.dev/about/index.xml" rel="self" type="application/rss+xml" />
   </channel>
 </rss>

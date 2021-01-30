@@ -5,11 +5,43 @@
     <link>https://amish.naidu.dev/tags/</link>
     <description>Recent content in Tags on Amish K. Naidu</description>
     <generator>Hugo -- gohugo.io</generator>
-    <copyright>&amp;copy; 2019 Amish K. Naidu</copyright>
-    <lastBuildDate>Sun, 22 Mar 2020 00:00:00 +0000</lastBuildDate>
+    <copyright>&amp;copy; 2021 Amish K. Naidu</copyright>
+    <lastBuildDate>Sat, 30 Jan 2021 19:34:17 +0530</lastBuildDate><atom:link href="https://amish.naidu.dev/tags/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>deserialization</title>
+      <link>https://amish.naidu.dev/tags/deserialization/</link>
+      <pubDate>Sat, 30 Jan 2021 19:34:17 +0530</pubDate>
+      
+      <guid>https://amish.naidu.dev/tags/deserialization/</guid>
+      <description></description>
+    </item>
     
-	<atom:link href="https://amish.naidu.dev/tags/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>rust</title>
+      <link>https://amish.naidu.dev/tags/rust/</link>
+      <pubDate>Sat, 30 Jan 2021 19:34:17 +0530</pubDate>
+      
+      <guid>https://amish.naidu.dev/tags/rust/</guid>
+      <description></description>
+    </item>
     
+    <item>
+      <title>serde</title>
+      <link>https://amish.naidu.dev/tags/serde/</link>
+      <pubDate>Sat, 30 Jan 2021 19:34:17 +0530</pubDate>
+      
+      <guid>https://amish.naidu.dev/tags/serde/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>serialization</title>
+      <link>https://amish.naidu.dev/tags/serialization/</link>
+      <pubDate>Sat, 30 Jan 2021 19:34:17 +0530</pubDate>
+      
+      <guid>https://amish.naidu.dev/tags/serialization/</guid>
+      <description></description>
+    </item>
     
     <item>
       <title>react</title>

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>serialization on Amish K. Naidu</title>
+    <link>https://amish.naidu.dev/tags/serialization/</link>
+    <description>Recent content in serialization on Amish K. Naidu</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <copyright>&amp;copy; 2021 Amish K. Naidu</copyright>
+    <lastBuildDate>Sat, 30 Jan 2021 19:34:17 +0530</lastBuildDate><atom:link href="https://amish.naidu.dev/tags/serialization/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Learn this one weird trick to write custom serde deserializers!</title>
+      <link>https://amish.naidu.dev/blog/serde-deserialize/</link>
+      <pubDate>Sat, 30 Jan 2021 19:34:17 +0530</pubDate>
+      
+      <guid>https://amish.naidu.dev/blog/serde-deserialize/</guid>
+      <description>Serde is a great library for serializing/deserializing in Rust. It allows you to directly convert rust data structures using a few attributes. Most of the time, It Just Works TM and when it doesn&amp;rsquo;t, you can write your own serializers or deserializers!
+Except.. if you follow the official documentation, writing a visitor to implement a deserializer is very handful.
+We can do better! With this one weird trick. (I&amp;rsquo;m sorry about the title, I couldn&amp;rsquo;t think of a normal title)</description>
+    </item>
+    
+  </channel>
+</rss>

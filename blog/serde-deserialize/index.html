@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8"/>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta name="generator" content="Hugo 0.80.0" />
+		<title>Learn this one weird trick to write custom serde deserializers! - Amish K. Naidu</title>
+
+		<meta name="description" content="Serde is a great library for serializing/deserializing in Rust. It allows you to directly convert rust data structures using a few attributes. Most of the time, It Just Works TM and when it doesn&rsquo;t, you can write your own serializers or deserializers!
+Except.. if you follow the official documentation, writing a visitor to implement a deserializer is very handful.
+We can do better! With this one weird trick. (I&rsquo;m sorry about the title, I couldn&rsquo;t think of a normal title)">
+
+
+		
+		
+		
+		<link rel="stylesheet" href="/css/normalize.css"/>
+		<link rel="stylesheet" href="/css/ui.css"/>
+		<link rel="stylesheet" href="/css/syntax.css"/>
+		
+		
+		
+
+		<link  rel="stylesheet" href="https://fonts.googleapis.com/css?family=Fira+Mono|Lato|Raleway">
+
+		
+        
+          <meta name="google-site-verification" content="-NGNp__dGrBzLzPX58fes-_QfgVl3athbCA73hpr290" />
+        
+		<style>
+	a { color: #8661C1; }
+    button, input[type="submit"] {
+        background: #8661C1;
+        color: #fff;
+        border: 0px;
+    }
+	blockquote {
+		border-left-color: #8661C1;
+		border-right-color: #8661C1; }
+	.bar a:hover {
+		color: #8661C1;
+		text-decoration: none; }
+	.sep {
+		margin-top: 2rem;
+		margin-bottom: 1rem;
+		margin-left: auto;
+		margin-right: auto;
+		width: 100%;
+		border-top: 2px solid #8661C1; }
+</style>
+
+	</head>
+
+<body>
+<header class="container no-print">
+	<div class="u-header">
+		<nav class="bar">
+	<ul><li>
+			<a href="/">
+				<img class="icon-text" src="/img/prev.svg"/>
+			</a>
+		</li><li><a href="/about/">About</a></li><li><a href="/blog/">Blog</a></li><li><a href="/projects/">Projects</a></li></ul>
+</nav>
+
+	</div>
+</header>
+<main class="container">
+
+<article>
+	<header><hgroup id="brand">
+	<h1>Learn this one weird trick to write custom serde deserializers!</h1>
+	<h5>
+		
+		<time datetime="2021-01-30 19:34:17 &#43;0530 IST">Jan 30, 2021</time>
+		<span class="no-print">
+			-
+				
+				<a href="/tags/rust">rust</a>
+				
+				<a href="/tags/serde">serde</a>
+				
+				<a href="/tags/deserialization">deserialization</a>
+				
+				<a href="/tags/serialization">serialization</a>
+				<span>
+	</h5>
+	
+</hgroup><hr class="sep" />
+
+</header>
+	<p><a href="https://serde.rs/">Serde</a> is a great library for serializing/deserializing in <a href="https://www.rust-lang.org/">Rust</a>. It allows you to directly convert rust data structures using a few attributes.
+Most of the time, It Just Works TM and when it doesn&rsquo;t, you can write your own <a href="https://serde.rs/impl-serialize.html">serializers</a> or <a href="https://serde.rs/impl-deserialize.html">deserializers</a>!</p>
+<p>Except.. if you follow the official documentation, writing a visitor to implement a deserializer is very handful.</p>
+<p>We can do better! With this one weird trick. (I&rsquo;m sorry about the title, I couldn&rsquo;t think of a normal title)</p>
+<p>A lot of times you can just compose serde&rsquo;s existing deserializers much the same way it allows you to serialize.
+This is especially useful if you already have a conversion from another type.
+For the purpose of an example, let&rsquo;s try writing a serializer for <code>std::net::IpAddr</code> even</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-rs" data-lang="rs"><span style="color:#75715e">#[derive(Deserialize)]</span>
+<span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">Config</span> {
+    <span style="color:#75715e">#[serde(deserialize_with = </span><span style="color:#e6db74">&#34;parse_addr&#34;</span><span style="color:#75715e">)]</span>
+    host: <span style="color:#a6e22e">IpAddr</span>,
+    port: <span style="color:#66d9ef">u16</span>,
+}
+
+<span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">parse_addr</span><span style="color:#f92672">&lt;</span><span style="color:#a6e22e">&#39;de</span>, D<span style="color:#f92672">&gt;</span>(deserializer: <span style="color:#a6e22e">D</span>) -&gt; Result<span style="color:#f92672">&lt;</span>IpAddr, D::Error<span style="color:#f92672">&gt;</span>
+<span style="color:#66d9ef">where</span>
+    D: <span style="color:#a6e22e">Deserializer</span><span style="color:#f92672">&lt;</span><span style="color:#a6e22e">&#39;de</span><span style="color:#f92672">&gt;</span>,
+{
+    <span style="color:#66d9ef">let</span> addr_str <span style="color:#f92672">=</span> String::deserialize(deserializer)<span style="color:#f92672">?</span>;
+    addr_str.parse().map_err(de::Error::custom)
+}
+</code></pre></div><p>Try it on the <a href="https://play.rust-lang.org/?version=stable&amp;mode=debug&amp;edition=2018&amp;gist=4c4c21fe24ea0381b2d4d118cc56bdd0">playpen</a></p>
+<p>We can re-use the implementation for <code>String</code> here, you can analogously use any of the base types serde supports by default!</p>
+
+</article>
+<nav class="no-print post-nav">
+
+	<a class="prev-post" href="https://amish.naidu.dev/blog/hugo/">
+		<img class="icon-text" src="/img/prev.svg"/>Hugo</a>
+
+
+</nav>
+
+
+
+
+        
+			<hr class="sep" />
+        
+		</main>
+		<footer class="container no-print">
+			<div class="u-footer">
+				<p>
+					
+					
+					&copy; 2021 Amish K. Naidu
+					
+					
+				</p>
+				
+				<a href="#brand">
+					<img class="icon-text" src="/img/toup.svg" alt="To Up"/>
+					<span>Up</span>
+				</a>
+				
+			</div>
+		</footer>
+		
+		<script>
+			if (!location.host.includes('localhost')) {
+				(function (f, a, t, h, o, m) {
+					a[h] = a[h] || function () {
+						(a[h].q = a[h].q || []).push(arguments)
+					};
+					o = f.createElement('script'),
+						m = f.getElementsByTagName('script')[0];
+					o.async = 1; o.src = t; o.id = 'fathom-script';
+					m.parentNode.insertBefore(o, m)
+				})(document, window, '//fathom-amh.herokuapp.com/tracker.js', 'fathom');
+				fathom('set', 'siteId', 'LEKWV');
+				fathom('trackPageview');
+			} else {
+				console.log("Disabling fathom tracking while development");
+			}
+		</script>
+	</body>
+</html>
+

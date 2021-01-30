@@ -4,7 +4,37 @@
   
   <url>
     <loc>https://amish.naidu.dev/</loc>
-    <lastmod>2020-03-22T00:00:00+00:00</lastmod>
+    <lastmod>2021-01-30T19:34:17+05:30</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://amish.naidu.dev/tags/deserialization/</loc>
+    <lastmod>2021-01-30T19:34:17+05:30</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://amish.naidu.dev/blog/serde-deserialize/</loc>
+    <lastmod>2021-01-30T19:34:17+05:30</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://amish.naidu.dev/tags/rust/</loc>
+    <lastmod>2021-01-30T19:34:17+05:30</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://amish.naidu.dev/tags/serde/</loc>
+    <lastmod>2021-01-30T19:34:17+05:30</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://amish.naidu.dev/tags/serialization/</loc>
+    <lastmod>2021-01-30T19:34:17+05:30</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://amish.naidu.dev/tags/</loc>
+    <lastmod>2021-01-30T19:34:17+05:30</lastmod>
   </url>
   
   <url>
@@ -19,11 +49,6 @@
   
   <url>
     <loc>https://amish.naidu.dev/projects/seiyuu/</loc>
-    <lastmod>2020-03-22T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://amish.naidu.dev/tags/</loc>
     <lastmod>2020-03-22T00:00:00+00:00</lastmod>
   </url>
   

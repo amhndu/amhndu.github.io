@@ -5,12 +5,8 @@
     <link>https://amish.naidu.dev/projects/open-source/</link>
     <description>Recent content in Open Source on Amish K. Naidu</description>
     <generator>Hugo -- gohugo.io</generator>
-    <copyright>&amp;copy; 2019 Amish K. Naidu</copyright>
-    <lastBuildDate>Sat, 02 Feb 2019 14:50:42 +0530</lastBuildDate>
-    
-	<atom:link href="https://amish.naidu.dev/projects/open-source/index.xml" rel="self" type="application/rss+xml" />
-    
-    
+    <copyright>&amp;copy; 2021 Amish K. Naidu</copyright>
+    <lastBuildDate>Sat, 02 Feb 2019 14:50:42 +0530</lastBuildDate><atom:link href="https://amish.naidu.dev/projects/open-source/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>KDevelop</title>
       <link>https://amish.naidu.dev/projects/open-source/kdevelop/</link>
