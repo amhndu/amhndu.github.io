@@ -96,7 +96,7 @@ Most of the time, It Just Works TM and when it doesn&rsquo;t, you can write your
 <p>We can do better! With this one weird trick. (I&rsquo;m sorry about the title, I couldn&rsquo;t think of a normal title)</p>
 <p>A lot of times you can just compose serde&rsquo;s existing deserializers much the same way it allows you to serialize.
 This is especially useful if you already have a conversion from another type.
-For the purpose of an example, let&rsquo;s try writing a serializer for <code>std::net::IpAddr</code> even</p>
+For the purpose of an example, let&rsquo;s try writing a serializer for <code>std::net::IpAddr</code>, assume for a moment serde doesn&rsquo;t support it out of the box.</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-rs" data-lang="rs"><span style="color:#75715e">#[derive(Deserialize)]</span>
 <span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">Config</span> {
     <span style="color:#75715e">#[serde(deserialize_with = </span><span style="color:#e6db74">&#34;parse_addr&#34;</span><span style="color:#75715e">)]</span>
