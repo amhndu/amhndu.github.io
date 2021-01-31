@@ -13,9 +13,9 @@
       <pubDate>Sat, 30 Jan 2021 19:34:17 +0530</pubDate>
       
       <guid>https://amish.naidu.dev/blog/serde-deserialize/</guid>
-      <description>Serde is a great library for serializing/deserializing in Rust. It allows you to directly convert rust data structures using a few attributes. Most of the time, It Just Works TM and when it doesn&amp;rsquo;t, you can write your own serializers or deserializers!
-Except.. if you follow the official documentation, writing a visitor to implement a deserializer is very handful.
-We can do better! With this one weird trick. (I&amp;rsquo;m sorry about the title, I couldn&amp;rsquo;t think of a normal title)</description>
+      <description>Serde is a great library for serializing/deserializing in Rust. It allows you to directly convert rust data structures using a few attributes. Most of the time, It Just Works ™ and when it doesn&amp;rsquo;t, you can write your own serializers or deserializers!
+Let&amp;rsquo;s follow the official documentation and try writing a deserializer for the following struct:
+struct Config { host: IpAddr, port: u16, } All you need to do is annotate it with #[derive(Deserialize)] and it will just work out of the box.</description>
     </item>
     
     <item>

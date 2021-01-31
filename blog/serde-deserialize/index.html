@@ -6,9 +6,9 @@
 		<meta name="generator" content="Hugo 0.80.0" />
 		<title>Learn this one weird trick to write custom serde deserializers! - Amish K. Naidu</title>
 
-		<meta name="description" content="Serde is a great library for serializing/deserializing in Rust. It allows you to directly convert rust data structures using a few attributes. Most of the time, It Just Works TM and when it doesn&rsquo;t, you can write your own serializers or deserializers!
-Except.. if you follow the official documentation, writing a visitor to implement a deserializer is very handful.
-We can do better! With this one weird trick. (I&rsquo;m sorry about the title, I couldn&rsquo;t think of a normal title)">
+		<meta name="description" content="Serde is a great library for serializing/deserializing in Rust. It allows you to directly convert rust data structures using a few attributes. Most of the time, It Just Works ™ and when it doesn&rsquo;t, you can write your own serializers or deserializers!
+Let&rsquo;s follow the official documentation and try writing a deserializer for the following struct:
+struct Config { host: IpAddr, port: u16, } All you need to do is annotate it with #[derive(Deserialize)] and it will just work out of the box.">
 
 
 		
@@ -91,28 +91,49 @@ We can do better! With this one weird trick. (I&rsquo;m sorry about the title, I
 
 </header>
 	<p><a href="https://serde.rs/">Serde</a> is a great library for serializing/deserializing in <a href="https://www.rust-lang.org/">Rust</a>. It allows you to directly convert rust data structures using a few attributes.
-Most of the time, It Just Works TM and when it doesn&rsquo;t, you can write your own <a href="https://serde.rs/impl-serialize.html">serializers</a> or <a href="https://serde.rs/impl-deserialize.html">deserializers</a>!</p>
-<p>Except.. if you follow the official documentation, writing a visitor to implement a deserializer is very handful.</p>
-<p>We can do better! With this one weird trick. (I&rsquo;m sorry about the title, I couldn&rsquo;t think of a normal title)</p>
-<p>A lot of times you can just compose serde&rsquo;s existing deserializers much the same way it allows you to serialize.
-This is especially useful if you already have a conversion from another type.
-For the purpose of an example, let&rsquo;s try writing a serializer for <code>std::net::IpAddr</code>, assume for a moment serde doesn&rsquo;t support it out of the box.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-rs" data-lang="rs"><span style="color:#75715e">#[derive(Deserialize)]</span>
-<span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">Config</span> {
-    <span style="color:#75715e">#[serde(deserialize_with = </span><span style="color:#e6db74">&#34;parse_addr&#34;</span><span style="color:#75715e">)]</span>
+Most of the time, It Just Works ™ and when it doesn&rsquo;t, you can write your own <a href="https://serde.rs/impl-serialize.html">serializers</a> or <a href="https://serde.rs/impl-deserialize.html">deserializers</a>!</p>
+<p>Let&rsquo;s follow the official documentation and try writing a deserializer for the following struct:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-rs" data-lang="rs"><span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">Config</span> {
     host: <span style="color:#a6e22e">IpAddr</span>,
     port: <span style="color:#66d9ef">u16</span>,
+}
+</code></pre></div><p>All you need to do is annotate it with <code>#[derive(Deserialize)]</code> and it will just work out of the box.
+Note that serde already comes with a default implementation for <a href="https://doc.rust-lang.org/nightly/std/net/enum.IpAddr.html"><code>std::net::IpAddr</code></a>, but let&rsquo;s try implementing it ourselves for the purpose of an example.</p>
+<p>We will represent an <code>IpAddr</code> using a string, which allows us to use the <a href="https://doc.rust-lang.org/nightly/std/net/enum.IpAddr.html#impl-FromStr">built-in parser</a>.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-rs" data-lang="rs"><span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">AddrVisitor</span>;
+
+<span style="color:#66d9ef">impl</span><span style="color:#f92672">&lt;</span><span style="color:#a6e22e">&#39;de</span><span style="color:#f92672">&gt;</span> de::Visitor<span style="color:#f92672">&lt;</span><span style="color:#a6e22e">&#39;de</span><span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">for</span> AddrVisitor {
+    <span style="color:#66d9ef">type</span> <span style="color:#a6e22e">Value</span> <span style="color:#f92672">=</span> std::net::IpAddr;
+
+    <span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">expecting</span>(<span style="color:#f92672">&amp;</span>self, formatter: <span style="color:#66d9ef">&amp;</span><span style="color:#a6e22e">mut</span> std::fmt::Formatter) -&gt; <span style="color:#a6e22e">std</span>::fmt::Result {
+        formatter.write_str(<span style="color:#e6db74">&#34;a dotted-decimal IPv4 or RFC5952 IPv6 address&#34;</span>)
+    }
+
+    <span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">visit_str</span><span style="color:#f92672">&lt;</span>E: <span style="color:#a6e22e">de</span>::Error<span style="color:#f92672">&gt;</span>(self, s: <span style="color:#66d9ef">&amp;</span><span style="color:#66d9ef">str</span>) -&gt; Result<span style="color:#f92672">&lt;</span>Self::Value, E<span style="color:#f92672">&gt;</span> {
+        s.parse().map_err(de::Error::custom)
+    }
 }
 
 <span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">parse_addr</span><span style="color:#f92672">&lt;</span><span style="color:#a6e22e">&#39;de</span>, D<span style="color:#f92672">&gt;</span>(deserializer: <span style="color:#a6e22e">D</span>) -&gt; Result<span style="color:#f92672">&lt;</span>IpAddr, D::Error<span style="color:#f92672">&gt;</span>
 <span style="color:#66d9ef">where</span>
-    D: <span style="color:#a6e22e">Deserializer</span><span style="color:#f92672">&lt;</span><span style="color:#a6e22e">&#39;de</span><span style="color:#f92672">&gt;</span>,
+    D: <span style="color:#a6e22e">Deserializer</span><span style="color:#f92672">&lt;</span><span style="color:#a6e22e">&#39;de</span><span style="color:#f92672">&gt;</span>
 {
-    <span style="color:#66d9ef">let</span> addr_str <span style="color:#f92672">=</span> String::deserialize(deserializer)<span style="color:#f92672">?</span>;
-    addr_str.parse().map_err(de::Error::custom)
+    deserializer.deserialize_str(AddrVisitor)
+}
+</code></pre></div><p>Try it on the <a href="https://play.rust-lang.org/?version=stable&amp;mode=debug&amp;edition=2018&amp;gist=edd1204037816233ec7556d5d8137726">playpen</a></p>
+<p>It&rsquo;s&hellip; quite a handful. A visitor may make sense if you want to support different types, but a lot of the times you really just want to convert between one of the base types (string / integer) to our domain type, which makes the flexibility of a visitor quite an overkill.
+We can do better! With this one weird trick. (I&rsquo;m not proud of the title and I apologize, I couldn&rsquo;t resist)</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-rs" data-lang="rs"><span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">parse_addr</span><span style="color:#f92672">&lt;</span><span style="color:#a6e22e">&#39;de</span>, D<span style="color:#f92672">&gt;</span>(deserializer: <span style="color:#a6e22e">D</span>) -&gt; Result<span style="color:#f92672">&lt;</span>IpAddr, D::Error<span style="color:#f92672">&gt;</span>
+    <span style="color:#66d9ef">where</span> D: <span style="color:#a6e22e">Deserializer</span><span style="color:#f92672">&lt;</span><span style="color:#a6e22e">&#39;de</span><span style="color:#f92672">&gt;</span>
+{
+    <span style="color:#66d9ef">let</span> addr_str <span style="color:#f92672">=</span> String::deserialize(deserializer)<span style="color:#f92672">?</span>; <span style="color:#75715e">// &lt;-- this let&#39;s us skip the visitor!
+</span><span style="color:#75715e"></span>    addr_str.parse().map_err(de::Error::custom)
 }
 </code></pre></div><p>Try it on the <a href="https://play.rust-lang.org/?version=stable&amp;mode=debug&amp;edition=2018&amp;gist=4c4c21fe24ea0381b2d4d118cc56bdd0">playpen</a></p>
-<p>We can re-use the implementation for <code>String</code> here, you can analogously use any of the base types serde supports by default!</p>
+<p>We went from 20 lines of boilerplate to 5 lines.
+We can leverage the serde&rsquo;s existing deserializers to first get us the string, which we can readily convert to our type!
+You can analogously use any of the base types serde supports by default.</p>
+<p>Reading the serde docs didn&rsquo;t make it obvious to me, so I hope this will be useful to somebody and save some boilerplate.</p>
 
 </article>
 <nav class="no-print post-nav">
