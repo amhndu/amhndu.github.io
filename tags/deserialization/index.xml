@@ -8,14 +8,13 @@
     <copyright>&amp;copy; 2021 Amish K. Naidu</copyright>
     <lastBuildDate>Sat, 30 Jan 2021 19:34:17 +0530</lastBuildDate><atom:link href="https://amish.naidu.dev/tags/deserialization/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>Learn this one weird trick to write custom serde deserializers!</title>
+      <title>Writing custom serde deserializers, the easy way</title>
       <link>https://amish.naidu.dev/blog/serde-deserialize/</link>
       <pubDate>Sat, 30 Jan 2021 19:34:17 +0530</pubDate>
       
       <guid>https://amish.naidu.dev/blog/serde-deserialize/</guid>
       <description>Serde is a great library for serializing/deserializing in Rust. It allows you to directly convert rust data structures using a few attributes. Most of the time, It Just Works ™ and when it doesn&amp;rsquo;t, you can write your own serializers or deserializers!
-Let&amp;rsquo;s follow the official documentation and try writing a deserializer for the following struct:
-struct Config { host: IpAddr, port: u16, } All you need to do is annotate it with #[derive(Deserialize)] and it will just work out of the box.</description>
+Problem at hand: There exists a type which can be parsed from a string but serde has no built in support for it. For the purposes of an example, let&amp;rsquo;s say the type is std::net::IpAddr and forget that serde has support for it already.</description>
     </item>
     
   </channel>

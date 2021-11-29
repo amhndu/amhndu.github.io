@@ -8,9 +8,6 @@
     <loc>https://amish.naidu.dev/tags/deserialization/</loc>
     <lastmod>2021-01-30T19:34:17+05:30</lastmod>
   </url><url>
-    <loc>https://amish.naidu.dev/blog/serde-deserialize/</loc>
-    <lastmod>2021-01-30T19:34:17+05:30</lastmod>
-  </url><url>
     <loc>https://amish.naidu.dev/tags/rust/</loc>
     <lastmod>2021-01-30T19:34:17+05:30</lastmod>
   </url><url>
@@ -21,6 +18,9 @@
     <lastmod>2021-01-30T19:34:17+05:30</lastmod>
   </url><url>
     <loc>https://amish.naidu.dev/tags/</loc>
+    <lastmod>2021-01-30T19:34:17+05:30</lastmod>
+  </url><url>
+    <loc>https://amish.naidu.dev/blog/serde-deserialize/</loc>
     <lastmod>2021-01-30T19:34:17+05:30</lastmod>
   </url><url>
     <loc>https://amish.naidu.dev/tags/react/</loc>
