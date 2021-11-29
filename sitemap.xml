@@ -1,204 +1,124 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
-  
   <url>
     <loc>https://amish.naidu.dev/</loc>
     <lastmod>2021-01-30T19:34:17+05:30</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://amish.naidu.dev/tags/deserialization/</loc>
     <lastmod>2021-01-30T19:34:17+05:30</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://amish.naidu.dev/blog/serde-deserialize/</loc>
     <lastmod>2021-01-30T19:34:17+05:30</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://amish.naidu.dev/tags/rust/</loc>
     <lastmod>2021-01-30T19:34:17+05:30</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://amish.naidu.dev/tags/serde/</loc>
     <lastmod>2021-01-30T19:34:17+05:30</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://amish.naidu.dev/tags/serialization/</loc>
     <lastmod>2021-01-30T19:34:17+05:30</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://amish.naidu.dev/tags/</loc>
     <lastmod>2021-01-30T19:34:17+05:30</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://amish.naidu.dev/tags/react/</loc>
     <lastmod>2020-03-22T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://amish.naidu.dev/tags/seiyuu/</loc>
     <lastmod>2020-03-22T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://amish.naidu.dev/projects/seiyuu/</loc>
     <lastmod>2020-03-22T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://amish.naidu.dev/projects/mediaplayer.py/</loc>
     <lastmod>2019-03-06T01:05:36+05:30</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://amish.naidu.dev/blog/hugo/</loc>
     <lastmod>2019-03-06T00:57:32+05:30</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://amish.naidu.dev/projects/open-source/kdevelop/</loc>
     <lastmod>2019-02-02T14:50:42+05:30</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://amish.naidu.dev/projects/open-source/</loc>
     <lastmod>2019-02-02T14:50:42+05:30</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://amish.naidu.dev/projects/open-source/clementine/</loc>
     <lastmod>2019-02-02T13:06:24+05:30</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://amish.naidu.dev/projects/open-source/conky/</loc>
     <lastmod>2019-02-02T12:50:42+05:30</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://amish.naidu.dev/projects/open-source/hotbot/</loc>
     <lastmod>2019-02-02T12:43:30+05:30</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://amish.naidu.dev/projects/</loc>
     <lastmod>2019-01-27T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://amish.naidu.dev/projects/stackledge/</loc>
     <lastmod>2017-11-30T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://amish.naidu.dev/tags/c&#43;&#43;/</loc>
     <lastmod>2017-07-28T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://amish.naidu.dev/projects/fly/</loc>
     <lastmod>2017-07-28T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://amish.naidu.dev/tags/game/</loc>
     <lastmod>2017-07-28T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://amish.naidu.dev/tags/opengl/</loc>
     <lastmod>2017-07-28T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://amish.naidu.dev/tags/sfml/</loc>
     <lastmod>2017-07-28T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://amish.naidu.dev/blog/</loc>
     <lastmod>2017-07-02T08:14:51+07:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://amish.naidu.dev/tags/networking/</loc>
     <lastmod>2017-05-11T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://amish.naidu.dev/projects/ryuuk/</loc>
     <lastmod>2017-05-11T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://amish.naidu.dev/blog/obfuscate/</loc>
     <lastmod>2017-04-30T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://amish.naidu.dev/projects/twocars/</loc>
     <lastmod>2017-02-09T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://amish.naidu.dev/blog/file-read-bug/</loc>
     <lastmod>2017-02-04T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://amish.naidu.dev/tags/haskell/</loc>
     <lastmod>2017-01-12T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://amish.naidu.dev/projects/life-hs/</loc>
     <lastmod>2017-01-12T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://amish.naidu.dev/tags/emulator/</loc>
     <lastmod>2016-12-08T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://amish.naidu.dev/projects/simplenes/</loc>
     <lastmod>2016-12-08T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://amish.naidu.dev/projects/prattle/</loc>
     <lastmod>2016-11-04T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://amish.naidu.dev/projects/xkcd-shuffle/</loc>
     <lastmod>2015-06-26T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://amish.naidu.dev/blog/dbus/</loc>
     <lastmod>2015-06-15T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://amish.naidu.dev/projects/gravity/</loc>
     <lastmod>2014-09-17T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://amish.naidu.dev/projects/tanks-game/</loc>
     <lastmod>2014-04-26T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://amish.naidu.dev/about/</loc>
   </url>
-  
 </urlset>
