@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>rust on Amish K. Naidu</title>
+    <title>rust on Amish Kumar Naidu</title>
     <link>https://amish.naidu.dev/tags/rust/</link>
-    <description>Recent content in rust on Amish K. Naidu</description>
+    <description>Recent content in rust on Amish Kumar Naidu</description>
     <generator>Hugo -- gohugo.io</generator>
     <copyright>&amp;copy; 2021 Amish K. Naidu</copyright>
     <lastBuildDate>Sat, 30 Jan 2021 19:34:17 +0530</lastBuildDate><atom:link href="https://amish.naidu.dev/tags/rust/index.xml" rel="self" type="application/rss+xml" />
