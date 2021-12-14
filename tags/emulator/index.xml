@@ -13,7 +13,9 @@
       <pubDate>Thu, 08 Dec 2016 00:00:00 +0000</pubDate>
       
       <guid>https://amish.naidu.dev/projects/simplenes/</guid>
-      <description>An NES emulator written in C++ for nothing but fun. Roughly 40-50% of games should work (ie. games that use either no mapper or mappers 1, 2 or 3). Examples of games that have been tested to run (but NOT limited to):
+      <description>An NES emulator written in C++ for nothing but fun.
+Roughly 40-50% of games should work (ie. games that use either no mapper or mappers 1, 2 or 3).
+Examples of games that have been tested to run (but NOT limited to):
 (USA/Japan or World versions only i.e. NTSC compatible)
  Super Mario Bros. Contra/Projects Adventure Island Ninja Gaiden Wrecking Crew Megaman and Megaman 2 Mario Bros. Donky Kong and Donkey Kong Jr.</description>
     </item>
