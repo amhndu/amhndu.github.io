@@ -21,6 +21,17 @@ Command line arguments: usage: Fly [options...] -h | --help Print this help text
     </item>
     
     <item>
+      <title>SimpleNES</title>
+      <link>https://amish.naidu.dev/projects/simplenes/</link>
+      <pubDate>Thu, 08 Dec 2016 00:00:00 +0000</pubDate>
+      
+      <guid>https://amish.naidu.dev/projects/simplenes/</guid>
+      <description>An NES emulator written in C++ for nothing but fun. Roughly 40-50% of games should work (ie. games that use either no mapper or mappers 1, 2 or 3). Examples of games that have been tested to run (but NOT limited to):
+(USA/Japan or World versions only i.e. NTSC compatible)
+ Super Mario Bros. Contra/Projects Adventure Island Ninja Gaiden Wrecking Crew Megaman and Megaman 2 Mario Bros. Donky Kong and Donkey Kong Jr.</description>
+    </item>
+    
+    <item>
       <title>Ryuuk</title>
       <link>https://amish.naidu.dev/projects/ryuuk/</link>
       <pubDate>Thu, 11 May 2017 00:00:00 +0000</pubDate>
@@ -34,19 +45,6 @@ $ git clone https://github.com/amhndu/ryuuk $ cd ryuuk $ mkdir build &amp;amp;&a
 Who uses windows anyway ?
 Currently not portable with windows. Contributions welcome.
 Why  Becuase why not ? We wanted to learn a thing or two about sockets &amp;amp; HTTP  Keikaku Short term ~~* Basic HTTP 1.</description>
-    </item>
-    
-    <item>
-      <title>SimpleNES</title>
-      <link>https://amish.naidu.dev/projects/simplenes/</link>
-      <pubDate>Thu, 08 Dec 2016 00:00:00 +0000</pubDate>
-      
-      <guid>https://amish.naidu.dev/projects/simplenes/</guid>
-      <description>An NES emulator written in C++ for nothing but fun.
-Roughly 40-50% of games should work (ie. games that use either no mapper or mappers 1, 2 or 3).
-Examples of games that have been tested to run (but NOT limited to):
-(USA/Japan or World versions only i.e. NTSC compatible)
- Super Mario Bros. Contra/Projects Adventure Island Ninja Gaiden Wrecking Crew Megaman and Megaman 2 Mario Bros. Donky Kong and Donkey Kong Jr.</description>
     </item>
     
     <item>

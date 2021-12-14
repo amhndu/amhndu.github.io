@@ -8,6 +8,30 @@
     <copyright>&amp;copy; 2021 Amish K. Naidu</copyright>
     <lastBuildDate>Sun, 27 Jan 2019 00:00:00 +0000</lastBuildDate><atom:link href="https://amish.naidu.dev/projects/index.xml" rel="self" type="application/rss+xml" />
     <item>
+      <title>Fly</title>
+      <link>https://amish.naidu.dev/projects/fly/</link>
+      <pubDate>Fri, 28 Jul 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://amish.naidu.dev/projects/fly/</guid>
+      <description>Source GitHub
+Screenshots A simple flight simulator in C++11/OpenGL.
+Features a procedurally generated infinite terrain over which you can fly around. With explosions!
+Controls: WASD or Arrow keys to change the plane&amp;rsquo;s direction. Click anywhere on the screen and move the mouse to rotate the camera, and scroll to change zoom.
+Command line arguments: usage: Fly [options...] -h | --help Print this help text and exit -w X | wX Set window width to X (default: 1024) -H Y | HY Set window height to Y (default: 720) -s Z | sZ Set seed to Z (default: random seed) -f | --fullscreen Set fullscreen mode (default: false) --wireframe Render in wireframe mode (default: false) --plane-box Draw a bounding box around the plane (default: false) YouTube Playlist: Link to YouTube Playlist</description>
+    </item>
+    
+    <item>
+      <title>SimpleNES</title>
+      <link>https://amish.naidu.dev/projects/simplenes/</link>
+      <pubDate>Thu, 08 Dec 2016 00:00:00 +0000</pubDate>
+      
+      <guid>https://amish.naidu.dev/projects/simplenes/</guid>
+      <description>An NES emulator written in C++ for nothing but fun. Roughly 40-50% of games should work (ie. games that use either no mapper or mappers 1, 2 or 3). Examples of games that have been tested to run (but NOT limited to):
+(USA/Japan or World versions only i.e. NTSC compatible)
+ Super Mario Bros. Contra/Projects Adventure Island Ninja Gaiden Wrecking Crew Megaman and Megaman 2 Mario Bros. Donky Kong and Donkey Kong Jr.</description>
+    </item>
+    
+    <item>
       <title>SeiyuuList</title>
       <link>https://amish.naidu.dev/projects/seiyuu/</link>
       <pubDate>Sun, 22 Mar 2020 00:00:00 +0000</pubDate>
@@ -15,17 +39,6 @@
       <guid>https://amish.naidu.dev/projects/seiyuu/</guid>
       <description>A better seiyuu list.
 It lets you search anime voice actors and browse all of their character roles. Unlike the pages from anilist/MAL, this gives you more information on the anime alongside their roles, this allows you to sort the list by say the anime popularity or scores. This is particularly useful because popular voice actors tend to have many roles, so looking at their super long list can get you lost.</description>
-    </item>
-    
-    <item>
-      <title>mediaplayer.py</title>
-      <link>https://amish.naidu.dev/projects/mediaplayer.py/</link>
-      <pubDate>Wed, 06 Mar 2019 01:05:36 +0530</pubDate>
-      
-      <guid>https://amish.naidu.dev/projects/mediaplayer.py/</guid>
-      <description>I wrote this script some years ago to show currently playing music on conky. I also used this to bind some mediaplayer keys from Openbox to control playback and volume.
-Download it here: https://github.com/amhndu/conky-cards/blob/master/mediaplayer.py
-This is most likely in need of some re-write. Mostly because I&amp;rsquo;m a better programmer now compared to when I wrote it 4 years ago and the code is hard to look at currently.</description>
     </item>
     
     <item>
@@ -37,19 +50,6 @@ This is most likely in need of some re-write. Mostly because I&amp;rsquo;m a bet
       <description>A reddit clone.
  Upvote/downvote based content aggregation Threaded comments User pages, indiviudal category and all categories pages Trending, Top, New sorting modes Feed paginated  Source GitHub
 Screenshots Deploying Set public_html/ as the public directory, import the schema and create new categories by inserting into the Category table</description>
-    </item>
-    
-    <item>
-      <title>Fly</title>
-      <link>https://amish.naidu.dev/projects/fly/</link>
-      <pubDate>Fri, 28 Jul 2017 00:00:00 +0000</pubDate>
-      
-      <guid>https://amish.naidu.dev/projects/fly/</guid>
-      <description>Source GitHub
-Screenshots A simple flight simulator in C++11/OpenGL.
-Features a procedurally generated infinite terrain over which you can fly around. With explosions!
-Controls: WASD or Arrow keys to change the plane&amp;rsquo;s direction. Click anywhere on the screen and move the mouse to rotate the camera, and scroll to change zoom.
-Command line arguments: usage: Fly [options...] -h | --help Print this help text and exit -w X | wX Set window width to X (default: 1024) -H Y | HY Set window height to Y (default: 720) -s Z | sZ Set seed to Z (default: random seed) -f | --fullscreen Set fullscreen mode (default: false) --wireframe Render in wireframe mode (default: false) --plane-box Draw a bounding box around the plane (default: false) YouTube Playlist: Link to YouTube Playlist</description>
     </item>
     
     <item>
@@ -95,19 +95,6 @@ $ runhaskell life.hs &amp;lt; seeds/GliderSeed.txt Seeds are space separeted mat
     </item>
     
     <item>
-      <title>SimpleNES</title>
-      <link>https://amish.naidu.dev/projects/simplenes/</link>
-      <pubDate>Thu, 08 Dec 2016 00:00:00 +0000</pubDate>
-      
-      <guid>https://amish.naidu.dev/projects/simplenes/</guid>
-      <description>An NES emulator written in C++ for nothing but fun.
-Roughly 40-50% of games should work (ie. games that use either no mapper or mappers 1, 2 or 3).
-Examples of games that have been tested to run (but NOT limited to):
-(USA/Japan or World versions only i.e. NTSC compatible)
- Super Mario Bros. Contra/Projects Adventure Island Ninja Gaiden Wrecking Crew Megaman and Megaman 2 Mario Bros. Donky Kong and Donkey Kong Jr.</description>
-    </item>
-    
-    <item>
       <title>Prattle</title>
       <link>https://amish.naidu.dev/projects/prattle/</link>
       <pubDate>Fri, 04 Nov 2016 00:00:00 +0000</pubDate>
@@ -125,6 +112,17 @@ Screenshots For more information, view on GitHub </description>
       
       <guid>https://amish.naidu.dev/projects/xkcd-shuffle/</guid>
       <description>var comic_data; var total_comics = null; var xcontainer, message_div; var comic_list; var current_index = 0; // Instead of shuffling `total_comics`, shuffle 2000 numbers, this way, // xkcd-shuffle will also show new comics when resumed later // Ya, I know, not very elegant or smart but that&#39;s the only way I could think of. // Given three comic updates per week, xkcd will only reach 2000 until 2018 // As of this writing it is 2015 so we are quite safe // 2018 update: bumped to 3000, keeping the comment var limit = 3000; var _seed; var jsonp_load_timer; var loading_message = &#34;</description>
+    </item>
+    
+    <item>
+      <title>mediaplayer.py</title>
+      <link>https://amish.naidu.dev/projects/mediaplayer.py/</link>
+      <pubDate>Thu, 11 Jun 2015 00:00:00 +0000</pubDate>
+      
+      <guid>https://amish.naidu.dev/projects/mediaplayer.py/</guid>
+      <description>I wrote this script some years ago to show currently playing music on conky. I also used this to bind some mediaplayer keys from Openbox to control playback and volume.
+Download it here: https://github.com/amhndu/conky-cards/blob/master/mediaplayer.py
+This is most likely in need of some re-write. Mostly because I&amp;rsquo;m a better programmer now compared to when I wrote it 4 years ago and the code is hard to look at currently.</description>
     </item>
     
     <item>
