@@ -3,7 +3,7 @@
 	<head>
 		<meta charset="utf-8"/>
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-		<meta name="generator" content="Hugo 0.82.1" />
+		<meta name="generator" content="Hugo 0.94.2" />
 		<title>Fly - Amish Kumar Naidu</title>
 
 		<meta name="description" content="A flight simulator in OpenGL 3.2 and Modern C&#43;&#43;, with an infinite procedurally generated terrain and explosions!">
@@ -100,7 +100,7 @@ With <em>explosions</em>!</p>
 <p>WASD or Arrow keys to change the plane&rsquo;s direction.
 Click anywhere on the screen and move the mouse to rotate the camera, and scroll to change zoom.</p>
 <h2 id="command-line-arguments">Command line arguments:</h2>
-<pre><code>usage: Fly [options...]
+<pre tabindex="0"><code>usage: Fly [options...]
 
 -h   | --help        Print this help text and exit
 -w X | wX            Set window width to X (default: 1024)
@@ -121,7 +121,7 @@ Click anywhere on the screen and move the mouse to rotate the camera, and scroll
 </ul>
 <p>Once you have the dependencies, run cmake on the source directory, if the dependencies aren&rsquo;t in a standard path, you may have to specify their paths.
 e.g., on Linux/OS X/FreeBSD:</p>
-<pre><code>$ git clone https://github.com/amhndu/Fly
+<pre tabindex="0"><code>$ git clone https://github.com/amhndu/Fly
 $ cd Fly
 $ mkdir build/ &amp;&amp; cd build/
 $ cmake ..
@@ -175,23 +175,6 @@ $ make -j4
 			</div>
 		</footer>
 		
-		<script>
-			if (!location.host.includes('localhost')) {
-				(function (f, a, t, h, o, m) {
-					a[h] = a[h] || function () {
-						(a[h].q = a[h].q || []).push(arguments)
-					};
-					o = f.createElement('script'),
-						m = f.getElementsByTagName('script')[0];
-					o.async = 1; o.src = t; o.id = 'fathom-script';
-					m.parentNode.insertBefore(o, m)
-				})(document, window, '//fathom-amh.herokuapp.com/tracker.js', 'fathom');
-				fathom('set', 'siteId', 'LEKWV');
-				fathom('trackPageview');
-			} else {
-				console.log("Disabling fathom tracking while development");
-			}
-		</script>
 	</body>
 </html>
 

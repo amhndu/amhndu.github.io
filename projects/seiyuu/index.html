@@ -3,7 +3,7 @@
 	<head>
 		<meta charset="utf-8"/>
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-		<meta name="generator" content="Hugo 0.82.1" />
+		<meta name="generator" content="Hugo 0.94.2" />
 		<title>SeiyuuList - Amish Kumar Naidu</title>
 
 		<meta name="description" content="A frontend for anilist that allows you to search anime voice actors and browse all of their character roles. Made in React. Unlike the pages from anilist/MAL, this gives you more information on the anime alongside the character, allowing you to sort the list however you want. Thus you won&#39;t get lost reading the super-long lists of popular seiyuus.">
@@ -92,10 +92,10 @@ This is particularly useful because popular voice actors tend to have many roles
 <h2 id="source">Source</h2>
 <p><a href="https://github.com/amhndu/seiyuu">GitHub</a></p>
 <h2 id="run">Run</h2>
-<pre><code>npm i
+<pre tabindex="0"><code>npm i
 npm start
 </code></pre><h2 id="deploy">Deploy</h2>
-<pre><code>npm run build
+<pre tabindex="0"><code>npm run build
 </code></pre><p>Then host <code>/build/</code><br>
 Should also remove tracking code from layout.js if deployed on non-localhost</p>
 
@@ -136,23 +136,6 @@ Should also remove tracking code from layout.js if deployed on non-localhost</p>
 			</div>
 		</footer>
 		
-		<script>
-			if (!location.host.includes('localhost')) {
-				(function (f, a, t, h, o, m) {
-					a[h] = a[h] || function () {
-						(a[h].q = a[h].q || []).push(arguments)
-					};
-					o = f.createElement('script'),
-						m = f.getElementsByTagName('script')[0];
-					o.async = 1; o.src = t; o.id = 'fathom-script';
-					m.parentNode.insertBefore(o, m)
-				})(document, window, '//fathom-amh.herokuapp.com/tracker.js', 'fathom');
-				fathom('set', 'siteId', 'LEKWV');
-				fathom('trackPageview');
-			} else {
-				console.log("Disabling fathom tracking while development");
-			}
-		</script>
 	</body>
 </html>
 

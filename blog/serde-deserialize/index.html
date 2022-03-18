@@ -3,7 +3,7 @@
 	<head>
 		<meta charset="utf-8"/>
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-		<meta name="generator" content="Hugo 0.82.1" />
+		<meta name="generator" content="Hugo 0.94.2" />
 		<title>Writing custom serde deserializers, the easy way - Amish Kumar Naidu</title>
 
 		<meta name="description" content="Serde is a great library for serializing/deserializing in Rust. It allows you to directly convert rust data structures using a few attributes. Most of the time, It Just Works ™ and when it doesn&rsquo;t, you can write your own serializers or deserializers!
@@ -95,41 +95,41 @@ Most of the time, It Just Works ™ and when it doesn&rsquo;t, you can write you
 For the purposes of an example, let&rsquo;s say the type is <code>std::net::IpAddr</code> and <em>forget</em> that serde has support for it already.
 This avoids us the distraction of creating a new type and parser.</p>
 <p>Before jumping to the &ldquo;easy&rdquo; way, let&rsquo;s first follow the official documentation and try writing a deserializer. for the following struct:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-rs" data-lang="rs"><span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">Config</span> {
-    host: <span style="color:#a6e22e">IpAddr</span>,
-    port: <span style="color:#66d9ef">u16</span>,
-}
-</code></pre></div><p>To use the <a href="https://doc.rust-lang.org/nightly/std/net/enum.IpAddr.html#impl-FromStr">built-in parser</a>, we need to build a <a href="https://en.wikipedia.org/wiki/Visitor_pattern">visitor</a> that convers a string to our type.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-rs" data-lang="rs"><span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">AddrVisitor</span>;
-
-<span style="color:#66d9ef">impl</span><span style="color:#f92672">&lt;</span><span style="color:#a6e22e">&#39;de</span><span style="color:#f92672">&gt;</span> de::Visitor<span style="color:#f92672">&lt;</span><span style="color:#a6e22e">&#39;de</span><span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">for</span> AddrVisitor {
-    <span style="color:#66d9ef">type</span> <span style="color:#a6e22e">Value</span> <span style="color:#f92672">=</span> std::net::IpAddr;
-
-    <span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">expecting</span>(<span style="color:#f92672">&amp;</span>self, formatter: <span style="color:#66d9ef">&amp;</span><span style="color:#a6e22e">mut</span> std::fmt::Formatter) -&gt; <span style="color:#a6e22e">std</span>::fmt::Result {
-        formatter.write_str(<span style="color:#e6db74">&#34;a dotted-decimal IPv4 or RFC5952 IPv6 address&#34;</span>)
-    }
-
-    <span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">visit_str</span><span style="color:#f92672">&lt;</span>E: <span style="color:#a6e22e">de</span>::Error<span style="color:#f92672">&gt;</span>(self, s: <span style="color:#66d9ef">&amp;</span><span style="color:#66d9ef">str</span>) -&gt; Result<span style="color:#f92672">&lt;</span>Self::Value, E<span style="color:#f92672">&gt;</span> {
-        s.parse().map_err(de::Error::custom)
-    }
-}
-
-<span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">parse_addr</span><span style="color:#f92672">&lt;</span><span style="color:#a6e22e">&#39;de</span>, D<span style="color:#f92672">&gt;</span>(deserializer: <span style="color:#a6e22e">D</span>) -&gt; Result<span style="color:#f92672">&lt;</span>IpAddr, D::Error<span style="color:#f92672">&gt;</span>
-<span style="color:#66d9ef">where</span>
-    D: <span style="color:#a6e22e">Deserializer</span><span style="color:#f92672">&lt;</span><span style="color:#a6e22e">&#39;de</span><span style="color:#f92672">&gt;</span>
-{
-    deserializer.deserialize_str(AddrVisitor)
-}
-</code></pre></div><p>Try it on the <a href="https://play.rust-lang.org/?version=stable&amp;mode=debug&amp;edition=2018&amp;gist=edd1204037816233ec7556d5d8137726">playpen</a></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-rs" data-lang="rs"><span style="display:flex;"><span><span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">Config</span> {
+</span></span><span style="display:flex;"><span>    host: <span style="color:#a6e22e">IpAddr</span>,
+</span></span><span style="display:flex;"><span>    port: <span style="color:#66d9ef">u16</span>,
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>To use the <a href="https://doc.rust-lang.org/nightly/std/net/enum.IpAddr.html#impl-FromStr">built-in parser</a>, we need to build a <a href="https://en.wikipedia.org/wiki/Visitor_pattern">visitor</a> that convers a string to our type.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-rs" data-lang="rs"><span style="display:flex;"><span><span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">AddrVisitor</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">impl</span><span style="color:#f92672">&lt;&#39;</span><span style="color:#a6e22e">de</span><span style="color:#f92672">&gt;</span> de::Visitor<span style="color:#f92672">&lt;&#39;</span><span style="color:#a6e22e">de</span><span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">for</span> AddrVisitor {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">type</span> <span style="color:#a6e22e">Value</span> <span style="color:#f92672">=</span> std::net::IpAddr;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">expecting</span>(<span style="color:#f92672">&amp;</span>self, formatter: <span style="color:#66d9ef">&amp;</span><span style="color:#a6e22e">mut</span> std::fmt::Formatter) -&gt; <span style="color:#a6e22e">std</span>::fmt::Result {
+</span></span><span style="display:flex;"><span>        formatter.write_str(<span style="color:#e6db74">&#34;a dotted-decimal IPv4 or RFC5952 IPv6 address&#34;</span>)
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">visit_str</span><span style="color:#f92672">&lt;</span>E: <span style="color:#a6e22e">de</span>::Error<span style="color:#f92672">&gt;</span>(self, s: <span style="color:#66d9ef">&amp;</span><span style="color:#66d9ef">str</span>) -&gt; Result<span style="color:#f92672">&lt;</span>Self::Value, E<span style="color:#f92672">&gt;</span> {
+</span></span><span style="display:flex;"><span>        s.parse().map_err(de::Error::custom)
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">parse_addr</span><span style="color:#f92672">&lt;&#39;</span><span style="color:#a6e22e">de</span>, D<span style="color:#f92672">&gt;</span>(deserializer: <span style="color:#a6e22e">D</span>) -&gt; Result<span style="color:#f92672">&lt;</span>IpAddr, D::Error<span style="color:#f92672">&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">where</span>
+</span></span><span style="display:flex;"><span>    D: <span style="color:#a6e22e">Deserializer</span><span style="color:#f92672">&lt;&#39;</span><span style="color:#a6e22e">de</span><span style="color:#f92672">&gt;</span>
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    deserializer.deserialize_str(AddrVisitor)
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>Try it on the <a href="https://play.rust-lang.org/?version=stable&amp;mode=debug&amp;edition=2018&amp;gist=edd1204037816233ec7556d5d8137726">playpen</a></p>
 <p>It&rsquo;s&hellip; quite a handful. A visitor may make sense if you want to support different types, but a lot of the times you really just want to convert between one of the base types (string / integer) to our domain type, which makes the flexibility of a visitor quite an overkill.</p>
 <p>We can easily get rid of all this boilerplate with the following pattern:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-rs" data-lang="rs"><span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">parse_addr</span><span style="color:#f92672">&lt;</span><span style="color:#a6e22e">&#39;de</span>, D<span style="color:#f92672">&gt;</span>(deserializer: <span style="color:#a6e22e">D</span>) -&gt; Result<span style="color:#f92672">&lt;</span>IpAddr, D::Error<span style="color:#f92672">&gt;</span>
-    <span style="color:#66d9ef">where</span> D: <span style="color:#a6e22e">Deserializer</span><span style="color:#f92672">&lt;</span><span style="color:#a6e22e">&#39;de</span><span style="color:#f92672">&gt;</span>
-{
-    <span style="color:#66d9ef">let</span> addr_str <span style="color:#f92672">=</span> String::deserialize(deserializer)<span style="color:#f92672">?</span>; <span style="color:#75715e">// &lt;-- this let&#39;s us skip the visitor!
-</span><span style="color:#75715e"></span>    addr_str.parse().map_err(de::Error::custom)
-}
-</code></pre></div><p>Try it on the <a href="https://play.rust-lang.org/?version=stable&amp;mode=debug&amp;edition=2018&amp;gist=4c4c21fe24ea0381b2d4d118cc56bdd0">playpen</a></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-rs" data-lang="rs"><span style="display:flex;"><span><span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">parse_addr</span><span style="color:#f92672">&lt;&#39;</span><span style="color:#a6e22e">de</span>, D<span style="color:#f92672">&gt;</span>(deserializer: <span style="color:#a6e22e">D</span>) -&gt; Result<span style="color:#f92672">&lt;</span>IpAddr, D::Error<span style="color:#f92672">&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">where</span> D: <span style="color:#a6e22e">Deserializer</span><span style="color:#f92672">&lt;&#39;</span><span style="color:#a6e22e">de</span><span style="color:#f92672">&gt;</span>
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">let</span> addr_str <span style="color:#f92672">=</span> String::deserialize(deserializer)<span style="color:#f92672">?</span>; <span style="color:#75715e">// &lt;-- this let&#39;s us skip the visitor!
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    addr_str.parse().map_err(de::Error::custom)
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>Try it on the <a href="https://play.rust-lang.org/?version=stable&amp;mode=debug&amp;edition=2018&amp;gist=4c4c21fe24ea0381b2d4d118cc56bdd0">playpen</a></p>
 <p>We went from 20 lines of boilerplate to 5 lines!
 We leverage serde&rsquo;s existing string deserializer to first get the string, which can be readily <code>parse</code>d!
 You can analogously use any of the base types serde supports and convert to the relevant domain type.</p>
@@ -169,23 +169,6 @@ You can analogously use any of the base types serde supports and convert to the 
 			</div>
 		</footer>
 		
-		<script>
-			if (!location.host.includes('localhost')) {
-				(function (f, a, t, h, o, m) {
-					a[h] = a[h] || function () {
-						(a[h].q = a[h].q || []).push(arguments)
-					};
-					o = f.createElement('script'),
-						m = f.getElementsByTagName('script')[0];
-					o.async = 1; o.src = t; o.id = 'fathom-script';
-					m.parentNode.insertBefore(o, m)
-				})(document, window, '//fathom-amh.herokuapp.com/tracker.js', 'fathom');
-				fathom('set', 'siteId', 'LEKWV');
-				fathom('trackPageview');
-			} else {
-				console.log("Disabling fathom tracking while development");
-			}
-		</script>
 	</body>
 </html>
 

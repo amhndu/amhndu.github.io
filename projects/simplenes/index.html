@@ -3,7 +3,7 @@
 	<head>
 		<meta charset="utf-8"/>
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-		<meta name="generator" content="Hugo 0.82.1" />
+		<meta name="generator" content="Hugo 0.94.2" />
 		<title>SimpleNES - Amish Kumar Naidu</title>
 
 		<meta name="description" content="SimpleNES is an NES emulator hacked together for nothing but fun and nostalgia. Play (some of) your favorite games from NES!">
@@ -134,18 +134,18 @@ Examples of games that have been tested to run (but NOT limited to):</p>
 <p>Compiling is straight forward with cmake, just run cmake on the project directory with CMAKE_BUILD_TYPE=Release
 and you&rsquo;ll get Makefile or equivalent for your platform, with which you can compile the emulator</p>
 <p>For e.g., on Linux/OS X/FreeBSD:</p>
-<pre><code>$ git clone https://github.com/amhndu/SimpleNES
+<pre tabindex="0"><code>$ git clone https://github.com/amhndu/SimpleNES
 $ cd SimpleNES
 $ mkdir build/ &amp;&amp; cd build/
 $ cmake -DCMAKE_BUILD_TYPE=Release ..
 $ make -j4    #Replace 4 with however many cores you have to spare
 </code></pre><h2 id="running">Running</h2>
 <p>Just pass the path to a .nes image like</p>
-<pre><code>$ ./SimpleNES ~/Games/SuperMarioBros.nes
+<pre tabindex="0"><code>$ ./SimpleNES ~/Games/SuperMarioBros.nes
 </code></pre><p>To set size of the window,</p>
-<pre><code>$ ./SimpleNES -w 600 ~/Games/Contra.nes
+<pre tabindex="0"><code>$ ./SimpleNES -w 600 ~/Games/Contra.nes
 </code></pre><p>For supported command line options, try</p>
-<pre><code>$ ./SimpleNES -h
+<pre tabindex="0"><code>$ ./SimpleNES -h
 </code></pre><h2 id="controller">Controller</h2>
 <p>Keybindings can be configured with keybindings.conf</p>
 <p>Default keybindings:</p>
@@ -286,23 +286,6 @@ $ make -j4    #Replace 4 with however many cores you have to spare
 			</div>
 		</footer>
 		
-		<script>
-			if (!location.host.includes('localhost')) {
-				(function (f, a, t, h, o, m) {
-					a[h] = a[h] || function () {
-						(a[h].q = a[h].q || []).push(arguments)
-					};
-					o = f.createElement('script'),
-						m = f.getElementsByTagName('script')[0];
-					o.async = 1; o.src = t; o.id = 'fathom-script';
-					m.parentNode.insertBefore(o, m)
-				})(document, window, '//fathom-amh.herokuapp.com/tracker.js', 'fathom');
-				fathom('set', 'siteId', 'LEKWV');
-				fathom('trackPageview');
-			} else {
-				console.log("Disabling fathom tracking while development");
-			}
-		</script>
 	</body>
 </html>
 

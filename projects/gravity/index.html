@@ -3,7 +3,7 @@
 	<head>
 		<meta charset="utf-8"/>
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-		<meta name="generator" content="Hugo 0.82.1" />
+		<meta name="generator" content="Hugo 0.94.2" />
 		<title>Gravity - Amish Kumar Naidu</title>
 
 		<meta name="description" content="A survial game set in space, you are in a space station orbiting Earth but things have gone wrong and you have a situation with broken satellites. How long can you survive?">
@@ -102,12 +102,12 @@ Programmed in C++11 with the <a href="http://sfml-dev.org">SFML</a> library for 
 <h2 id="compiling">Compiling</h2>
 <p>You need a C++11 compliant compiler and <a href="http://sfml-dev.org">SFML 2.0+</a> to compile <em>Gravity</em>. After you&rsquo;ve downloaded the source and dependencies, you can use <a href="http://cmake.org">cmake</a> to compile <em>Gravity</em>.
 On any Linux distribution, these are the typical steps :</p>
-<pre><code>$ git clone https://github.com/amhndu/gravity
+<pre tabindex="0"><code>$ git clone https://github.com/amhndu/gravity
 $ cd gravity
 $ cmake .
 $ make
 </code></pre><p>If you don&rsquo;t have cmake and don&rsquo;t wish to install it either, then you can simply compile Gravity by compiling all the cpp files and then linking them with SFML using your IDE/compiler. e.g. With g++, you can enter this command :</p>
-<pre><code>$ g++ -o gravity *.cpp -std=c++11 -lsfml-graphics -lsfml-window -lsfml-system
+<pre tabindex="0"><code>$ g++ -o gravity *.cpp -std=c++11 -lsfml-graphics -lsfml-window -lsfml-system
 </code></pre><p>Note : To compile on windows, you also need to link the sfml-main component.</p>
 <h2 id="license">License</h2>
 <p>The following images have been taken from <a href="https://web.archive.org/web/20150717114053/http://www.allworkallplay.org/blog/orbital-debris-making-an-html5-game-with-phaser/">here</a></p>
@@ -166,23 +166,6 @@ $ make
 			</div>
 		</footer>
 		
-		<script>
-			if (!location.host.includes('localhost')) {
-				(function (f, a, t, h, o, m) {
-					a[h] = a[h] || function () {
-						(a[h].q = a[h].q || []).push(arguments)
-					};
-					o = f.createElement('script'),
-						m = f.getElementsByTagName('script')[0];
-					o.async = 1; o.src = t; o.id = 'fathom-script';
-					m.parentNode.insertBefore(o, m)
-				})(document, window, '//fathom-amh.herokuapp.com/tracker.js', 'fathom');
-				fathom('set', 'siteId', 'LEKWV');
-				fathom('trackPageview');
-			} else {
-				console.log("Disabling fathom tracking while development");
-			}
-		</script>
 	</body>
 </html>
 

@@ -3,7 +3,7 @@
 	<head>
 		<meta charset="utf-8"/>
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-		<meta name="generator" content="Hugo 0.82.1" />
+		<meta name="generator" content="Hugo 0.94.2" />
 		<title>life.hs - Amish Kumar Naidu</title>
 
 		<meta name="description" content="A dead-simple Conway&#39;s Game of Life simulation written in Haskell.">
@@ -86,11 +86,11 @@
 <!-- raw HTML omitted -->
 <p>Source: <a href="https://github.com/amhndu/life.hs">GitHub</a></p>
 <p>Compiling:</p>
-<pre><code>$ ghc --make life.hs
+<pre tabindex="0"><code>$ ghc --make life.hs
 </code></pre><p>Usage:</p>
-<pre><code>./life &lt; seeds/PulsarSeed.txt
+<pre tabindex="0"><code>./life &lt; seeds/PulsarSeed.txt
 </code></pre><p>Or</p>
-<pre><code>$ runhaskell life.hs &lt; seeds/GliderSeed.txt
+<pre tabindex="0"><code>$ runhaskell life.hs &lt; seeds/GliderSeed.txt
 </code></pre><p>Seeds are space separeted matrices of 0 and 1 representing dead/alive cell.
 Note that it uses ANSI escape sequences so this may not work on Windows.</p>
 
@@ -131,23 +131,6 @@ Note that it uses ANSI escape sequences so this may not work on Windows.</p>
 			</div>
 		</footer>
 		
-		<script>
-			if (!location.host.includes('localhost')) {
-				(function (f, a, t, h, o, m) {
-					a[h] = a[h] || function () {
-						(a[h].q = a[h].q || []).push(arguments)
-					};
-					o = f.createElement('script'),
-						m = f.getElementsByTagName('script')[0];
-					o.async = 1; o.src = t; o.id = 'fathom-script';
-					m.parentNode.insertBefore(o, m)
-				})(document, window, '//fathom-amh.herokuapp.com/tracker.js', 'fathom');
-				fathom('set', 'siteId', 'LEKWV');
-				fathom('trackPageview');
-			} else {
-				console.log("Disabling fathom tracking while development");
-			}
-		</script>
 	</body>
 </html>
 
