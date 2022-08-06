@@ -5,7 +5,7 @@
     <link>https://amish.naidu.dev/projects/</link>
     <description>Recent content in Projects on Amish Kumar Naidu</description>
     <generator>Hugo -- gohugo.io</generator>
-    <copyright>&amp;copy; 2021 Amish K. Naidu</copyright>
+    <copyright>&amp;copy; 2022 Amish K. Naidu</copyright>
     <lastBuildDate>Sun, 27 Jan 2019 00:00:00 +0000</lastBuildDate><atom:link href="https://amish.naidu.dev/projects/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Fly</title>
@@ -30,7 +30,7 @@ Command line arguments: usage: Fly [options...] -h | --help Print this help text
 Roughly 40-50% of games should work (ie. games that use either no mapper or mappers 1, 2 or 3).
 Examples of games that have been tested to run (but NOT limited to):
 (USA/Japan or World versions only i.e. NTSC compatible)
- Super Mario Bros. Contra/Projects Adventure Island Ninja Gaiden Wrecking Crew Megaman and Megaman 2 Mario Bros. Donky Kong and Donkey Kong Jr.</description>
+Super Mario Bros. Contra/Projects Adventure Island Ninja Gaiden Wrecking Crew Megaman and Megaman 2 Mario Bros. Donky Kong and Donkey Kong Jr.</description>
     </item>
     
     <item>
@@ -50,7 +50,7 @@ It lets you search anime voice actors and browse all of their character roles. U
       
       <guid>https://amish.naidu.dev/projects/stackledge/</guid>
       <description>A reddit clone.
- Upvote/downvote based content aggregation Threaded comments User pages, indiviudal category and all categories pages Trending, Top, New sorting modes Feed paginated  Source GitHub
+Upvote/downvote based content aggregation Threaded comments User pages, indiviudal category and all categories pages Trending, Top, New sorting modes Feed paginated Source GitHub
 Screenshots Deploying Set public_html/ as the public directory, import the schema and create new categories by inserting into the Category table</description>
     </item>
     
@@ -67,7 +67,7 @@ nix
 $ git clone https://github.com/amhndu/ryuuk $ cd ryuuk $ mkdir build &amp;amp;&amp;amp; cd build $ cmake .. $ make -ji # where i = no. of cores you can spare Windows
 Who uses windows anyway ?
 Currently not portable with windows. Contributions welcome.
-Why  Becuase why not ? We wanted to learn a thing or two about sockets &amp;amp; HTTP  Keikaku Short term * Basic HTTP 1.</description>
+Why Becuase why not ? We wanted to learn a thing or two about sockets &amp;amp; HTTP Keikaku Short term * Basic HTTP 1.</description>
     </item>
     
     <item>
@@ -102,7 +102,8 @@ $ runhaskell life.hs &amp;lt; seeds/GliderSeed.txt Seeds are space separeted mat
       <pubDate>Fri, 04 Nov 2016 00:00:00 +0000</pubDate>
       
       <guid>https://amish.naidu.dev/projects/prattle/</guid>
-      <description>Prattle is a simple chat program with a Client-Server architecture, a collaboration with Koushtav Chakrabarty.
+      <description>
+Prattle is a simple chat program with a Client-Server architecture, a collaboration with Koushtav Chakrabarty.
 Programmed with C++11 with the SFML library for graphics and TGUI as the GUI framework.
 Screenshots For more information, view on GitHub </description>
     </item>
@@ -113,7 +114,9 @@ Screenshots For more information, view on GitHub </description>
       <pubDate>Fri, 26 Jun 2015 00:00:00 +0000</pubDate>
       
       <guid>https://amish.naidu.dev/projects/xkcd-shuffle/</guid>
-      <description>var comic_data; var total_comics = null; var xcontainer, message_div; var comic_list; var current_index = 0; // Instead of shuffling `total_comics`, shuffle 2000 numbers, this way, // xkcd-shuffle will also show new comics when resumed later // Ya, I know, not very elegant or smart but that&#39;s the only way I could think of. // Given three comic updates per week, xkcd will only reach 2000 until 2018 // As of this writing it is 2015 so we are quite safe // 2018 update: bumped to 3000, keeping the comment var limit = 3000; var _seed; var jsonp_load_timer; var loading_message = &#34;</description>
+      <description>xkcd-shuffle aims to fix the xkcd random button, it lets you browse xkcd in a random order, without presenting the same comic multiple times (and with no biases). The order (and the current comic) is preserved between sessions so that you can continue where you left.
+You can also copy the URL of the link &#39;Direct link with Seed&#39; below the comic to continue anywhere.
+Tip: You can easily browse with &#34;</description>
     </item>
     
     <item>

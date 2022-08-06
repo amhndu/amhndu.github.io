@@ -5,7 +5,7 @@
     <link>https://amish.naidu.dev/blog/</link>
     <description>Recent content in Blog on Amish Kumar Naidu</description>
     <generator>Hugo -- gohugo.io</generator>
-    <copyright>&amp;copy; 2021 Amish K. Naidu</copyright>
+    <copyright>&amp;copy; 2022 Amish K. Naidu</copyright>
     <lastBuildDate>Sun, 02 Jul 2017 08:14:51 +0700</lastBuildDate><atom:link href="https://amish.naidu.dev/blog/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Writing custom serde deserializers, the easy way</title>
@@ -36,9 +36,9 @@ This is way more flexible and easier to maintain than my previous setup, which w
       
       <guid>https://amish.naidu.dev/blog/obfuscate/</guid>
       <description>Obfuscate: tr.v. -cated, -cating, -cates.
- i. To render obscure.
-ii. To darken. To confuse: his emotions obfuscated his judgment. [Lat. obfuscare, to darken : ob(intensive) + Lat. fuscare, to darken &amp;lt; fuscus, dark.] -obfuscation n. obfuscatory adj  (taken from IOCCC)
-The Why  You learn lesser known aspects of the language Job security. Write obfuscated code and make sure no one else can maintain it but you! It&amp;rsquo;s fun.</description>
+i. To render obscure.
+ii. To darken. To confuse: his emotions obfuscated his judgment. [Lat. obfuscare, to darken : ob(intensive) + Lat. fuscare, to darken &amp;lt; fuscus, dark.] -obfuscation n. obfuscatory adj (taken from IOCCC)
+The Why You learn lesser known aspects of the language Job security. Write obfuscated code and make sure no one else can maintain it but you! It&amp;rsquo;s fun. &amp;rsquo;nuff said. The Plan We&amp;rsquo;ll be making a small C program which generates samples of a song (we&amp;rsquo;ll stick with the &amp;lsquo;Happy Birthday&amp;rsquo; song), whose output will then be piped to aplay.</description>
     </item>
     
     <item>

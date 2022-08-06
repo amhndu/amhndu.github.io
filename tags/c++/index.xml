@@ -5,7 +5,7 @@
     <link>https://amish.naidu.dev/tags/c&#43;&#43;/</link>
     <description>Recent content in c&#43;&#43; on Amish Kumar Naidu</description>
     <generator>Hugo -- gohugo.io</generator>
-    <copyright>&amp;copy; 2021 Amish K. Naidu</copyright>
+    <copyright>&amp;copy; 2022 Amish K. Naidu</copyright>
     <lastBuildDate>Fri, 28 Jul 2017 00:00:00 +0000</lastBuildDate><atom:link href="https://amish.naidu.dev/tags/c++/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Fly</title>
@@ -30,7 +30,7 @@ Command line arguments: usage: Fly [options...] -h | --help Print this help text
 Roughly 40-50% of games should work (ie. games that use either no mapper or mappers 1, 2 or 3).
 Examples of games that have been tested to run (but NOT limited to):
 (USA/Japan or World versions only i.e. NTSC compatible)
- Super Mario Bros. Contra/Projects Adventure Island Ninja Gaiden Wrecking Crew Megaman and Megaman 2 Mario Bros. Donky Kong and Donkey Kong Jr.</description>
+Super Mario Bros. Contra/Projects Adventure Island Ninja Gaiden Wrecking Crew Megaman and Megaman 2 Mario Bros. Donky Kong and Donkey Kong Jr.</description>
     </item>
     
     <item>
@@ -46,7 +46,7 @@ nix
 $ git clone https://github.com/amhndu/ryuuk $ cd ryuuk $ mkdir build &amp;amp;&amp;amp; cd build $ cmake .. $ make -ji # where i = no. of cores you can spare Windows
 Who uses windows anyway ?
 Currently not portable with windows. Contributions welcome.
-Why  Becuase why not ? We wanted to learn a thing or two about sockets &amp;amp; HTTP  Keikaku Short term * Basic HTTP 1.</description>
+Why Becuase why not ? We wanted to learn a thing or two about sockets &amp;amp; HTTP Keikaku Short term * Basic HTTP 1.</description>
     </item>
     
     <item>
@@ -55,7 +55,8 @@ Why  Becuase why not ? We wanted to learn a thing or two about sockets &amp;amp;
       <pubDate>Fri, 04 Nov 2016 00:00:00 +0000</pubDate>
       
       <guid>https://amish.naidu.dev/projects/prattle/</guid>
-      <description>Prattle is a simple chat program with a Client-Server architecture, a collaboration with Koushtav Chakrabarty.
+      <description>
+Prattle is a simple chat program with a Client-Server architecture, a collaboration with Koushtav Chakrabarty.
 Programmed with C++11 with the SFML library for graphics and TGUI as the GUI framework.
 Screenshots For more information, view on GitHub </description>
     </item>

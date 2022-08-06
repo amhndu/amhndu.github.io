@@ -5,7 +5,7 @@
     <link>https://amish.naidu.dev/tags/serde/</link>
     <description>Recent content in serde on Amish Kumar Naidu</description>
     <generator>Hugo -- gohugo.io</generator>
-    <copyright>&amp;copy; 2021 Amish K. Naidu</copyright>
+    <copyright>&amp;copy; 2022 Amish K. Naidu</copyright>
     <lastBuildDate>Sat, 30 Jan 2021 19:34:17 +0530</lastBuildDate><atom:link href="https://amish.naidu.dev/tags/serde/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Writing custom serde deserializers, the easy way</title>
