@@ -3,7 +3,7 @@
 	<head>
 		<meta charset="utf-8"/>
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-		<meta name="generator" content="Hugo 0.101.0" />
+		<meta name="generator" content="Hugo 0.110.0">
 		<title>The file you can&#39;t read on Windows - Amish Kumar Naidu</title>
 
 		<meta name="description" content="I stumbled on this bug with my NES emulator where the ROMs won&rsquo;t open under Windows but had worked without a hitch on Linux and macOS.
@@ -86,18 +86,18 @@ I had been developing on Linux and occasionally it tested on macOS. So it wasn&r
 This bug had me really perpexled, for why the emulator breaks only under Windows.<br>
 My immediate reaction was of course to suspect Microsoft, as the old saying goes “Whenever anything goes wrong, always blame Microsoft.”<br>
 Below is the relavant part of the code:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#66d9ef">bool</span> Cartridge<span style="color:#f92672">::</span>loadFromFile(std<span style="color:#f92672">::</span>string path)
-</span></span><span style="display:flex;"><span>{
-</span></span><span style="display:flex;"><span>    std<span style="color:#f92672">::</span>ifstream romFile (path);
-</span></span><span style="display:flex;"><span>    ...
-</span></span><span style="display:flex;"><span>    std<span style="color:#f92672">::</span>vector header(<span style="color:#ae81ff">0x10</span>);
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> (<span style="color:#f92672">!</span>romFile.read(<span style="color:#66d9ef">reinterpret_cast</span>(<span style="color:#f92672">&amp;</span>header[<span style="color:#ae81ff">0</span>]), <span style="color:#ae81ff">0x10</span>))
-</span></span><span style="display:flex;"><span>    {
-</span></span><span style="display:flex;"><span>        LOG(Error) <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;Reading iNES header failed.&#34;</span> <span style="color:#f92672">&lt;&lt;</span> std<span style="color:#f92672">::</span>endl;
-</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> false;
-</span></span><span style="display:flex;"><span>    }
-</span></span><span style="display:flex;"><span>    ...
-</span></span><span style="display:flex;"><span>} 
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="kt">bool</span> <span class="n">Cartridge</span><span class="o">::</span><span class="n">loadFromFile</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">path</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">std</span><span class="o">::</span><span class="n">ifstream</span> <span class="n">romFile</span> <span class="p">(</span><span class="n">path</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">...</span>
+</span></span><span class="line"><span class="cl">    <span class="n">std</span><span class="o">::</span><span class="n">vector</span> <span class="n">header</span><span class="p">(</span><span class="mh">0x10</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">romFile</span><span class="p">.</span><span class="n">read</span><span class="p">(</span><span class="k">reinterpret_cast</span><span class="p">(</span><span class="o">&amp;</span><span class="n">header</span><span class="p">[</span><span class="mi">0</span><span class="p">]),</span> <span class="mh">0x10</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">LOG</span><span class="p">(</span><span class="n">Error</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="s">&#34;Reading iNES header failed.&#34;</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="nb">false</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">...</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span> 
 </span></span></code></pre></div><p>No matter what ROM you tried, the above function always failed and returned early as above.
 However, if you try to open any other binary file (which is not an NES ROM) with the template I used above, it would at least go past this early check, thus I realized the key has to be the iNES file format itself.<br>
 So I looked up at the hexdump</p>
@@ -111,7 +111,7 @@ So I looked up at the hexdump</p>
 </code></pre><p>Do you spot something ?</p>
 <p>So after some futile attempts, I tried a hunch and much to the bewilderment of me and the friend who was helping me debug this on Windows, it worked!</p>
 <p>The patch:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span>std<span style="color:#f92672">::</span>ifstream romFile (path, std<span style="color:#f92672">::</span>ios_base<span style="color:#f92672">::</span>binary <span style="color:#f92672">|</span> std<span style="color:#f92672">::</span>ios_base<span style="color:#f92672">::</span>in);
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="n">std</span><span class="o">::</span><span class="n">ifstream</span> <span class="n">romFile</span> <span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">std</span><span class="o">::</span><span class="n">ios_base</span><span class="o">::</span><span class="n">binary</span> <span class="o">|</span> <span class="n">std</span><span class="o">::</span><span class="n">ios_base</span><span class="o">::</span><span class="n">in</span><span class="p">);</span>
 </span></span></code></pre></div><p>Yup, that&rsquo;s all it was, all I lacked was the binary flag.<br>
 But, this didn&rsquo;t explain why this only happened with Windows nor why I had never encountered this issue while working on other binary files before.<br>
 After some searching found something interesting on <a href="http://en.cppreference.com/w/cpp/io/c#Binary_and_text_modes">cppreference</a>, quoting the important parts:<br>

@@ -3,7 +3,7 @@
 	<head>
 		<meta charset="utf-8"/>
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-		<meta name="generator" content="Hugo 0.101.0" />
+		<meta name="generator" content="Hugo 0.110.0">
 		<title>Let&#39;s Make an Extremely Readable Birthday Melody, the IOCCC Way - Amish Kumar Naidu</title>
 
 		<meta name="description" content="Obfuscate: tr.v. -cated, -cating, -cates.
@@ -102,40 +102,40 @@ to darken &lt; fuscus, dark.] -obfuscation n. obfuscatory adj</li>
 <p>We&rsquo;ll start with a non-obfuscated version, and obfuscate it, step-by-step.</p>
 <h3 id="the-code">The Code</h3>
 <p>Here&rsquo;s the base we&rsquo;ll be obfuscating. Although it&rsquo;s commented, understanding the sample generation isn&rsquo;t very important as long as you see the big picture.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;math.h&gt;</span><span style="color:#75715e">
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;stdio.h&gt;</span><span style="color:#75715e">
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>()
-</span></span><span style="display:flex;"><span>{
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> frequencies[]<span style="color:#f92672">=</span>{<span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">392</span>, <span style="color:#ae81ff">440</span>, <span style="color:#ae81ff">493</span>, <span style="color:#ae81ff">523</span>, <span style="color:#ae81ff">587</span>, <span style="color:#ae81ff">659</span>, <span style="color:#ae81ff">698</span>, <span style="color:#ae81ff">783</span>}, i, j;
-</span></span><span style="display:flex;"><span>    <span style="color:#75715e">/* The Song.
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e">    * @ maps to zero frequency, it comes right before A in ASCII, this makes mapping these notes to the frequency index trivial.
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e">    */</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">char</span> song[] <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;AABADC@AABAED@AAHFDCB@HHGDED&#34;</span>;
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">double</span> sample_rate <span style="color:#f92672">=</span> <span style="color:#ae81ff">8000</span>,
-</span></span><span style="display:flex;"><span>        amplitude <span style="color:#f92672">=</span> <span style="color:#ae81ff">128</span>,
-</span></span><span style="display:flex;"><span>        duration  <span style="color:#f92672">=</span> <span style="color:#ae81ff">400</span>;   <span style="color:#75715e">// in ms
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> (j <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; j <span style="color:#f92672">&lt;</span> <span style="color:#66d9ef">sizeof</span>(song)<span style="color:#f92672">/</span><span style="color:#66d9ef">sizeof</span>(song[<span style="color:#ae81ff">0</span>]); <span style="color:#f92672">++</span>j)      <span style="color:#75715e">// For each note in the song
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    {
-</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">for</span> (i <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; i <span style="color:#f92672">&lt;</span> sample_rate <span style="color:#f92672">*</span> duration <span style="color:#f92672">/</span> <span style="color:#ae81ff">1000</span>; <span style="color:#f92672">++</span>i) <span style="color:#75715e">// Print a sample
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        {
-</span></span><span style="display:flex;"><span>            <span style="color:#75715e">// Fade in/out sinusoidally
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>            <span style="color:#66d9ef">double</span> amp <span style="color:#f92672">=</span> amplitude <span style="color:#f92672">*</span> sin(M_PI <span style="color:#f92672">*</span> (i <span style="color:#f92672">/</span> (sample_rate <span style="color:#f92672">*</span> duration <span style="color:#f92672">/</span> <span style="color:#ae81ff">1000.0</span>)));
-</span></span><span style="display:flex;"><span>            <span style="color:#75715e">/*
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e">            * i samples   =&gt;  (i / sample_rate) seconds
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e">            * 1 second    =&gt;  note_frequency wavelengths
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e">            * Thus, (i / sample_rate) seconds =&gt;
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e">            *       wavelengths = ((note_frequency * i) / sample_rate)
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e">            * And, sample = sin ( 2 * PI * wavelengths)
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e">            */</span>
-</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">int</span> frequency <span style="color:#f92672">=</span> frequencies[song[j] <span style="color:#f92672">-</span> <span style="color:#e6db74">&#39;@&#39;</span>];
-</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">char</span> sample <span style="color:#f92672">=</span>  <span style="color:#ae81ff">127</span> <span style="color:#f92672">+</span> amp <span style="color:#f92672">*</span> sin((<span style="color:#ae81ff">2.0</span> <span style="color:#f92672">*</span> M_PI <span style="color:#f92672">*</span> i <span style="color:#f92672">*</span> frequency) <span style="color:#f92672">/</span> sample_rate);
-</span></span><span style="display:flex;"><span>            printf(<span style="color:#e6db74">&#34;%c&#34;</span>, sample);
-</span></span><span style="display:flex;"><span>        }
-</span></span><span style="display:flex;"><span>    }
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>;
-</span></span><span style="display:flex;"><span>}
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;math.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;stdio.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span>
+</span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">int</span> <span class="n">frequencies</span><span class="p">[]</span><span class="o">=</span><span class="p">{</span><span class="mi">0</span><span class="p">,</span> <span class="mi">392</span><span class="p">,</span> <span class="mi">440</span><span class="p">,</span> <span class="mi">493</span><span class="p">,</span> <span class="mi">523</span><span class="p">,</span> <span class="mi">587</span><span class="p">,</span> <span class="mi">659</span><span class="p">,</span> <span class="mi">698</span><span class="p">,</span> <span class="mi">783</span><span class="p">},</span> <span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="cm">/* The Song.
+</span></span></span><span class="line"><span class="cl"><span class="cm">    * @ maps to zero frequency, it comes right before A in ASCII, this makes mapping these notes to the frequency index trivial.
+</span></span></span><span class="line"><span class="cl"><span class="cm">    */</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">char</span> <span class="n">song</span><span class="p">[]</span> <span class="o">=</span> <span class="s">&#34;AABADC@AABAED@AAHFDCB@HHGDED&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">double</span> <span class="n">sample_rate</span> <span class="o">=</span> <span class="mi">8000</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="n">amplitude</span> <span class="o">=</span> <span class="mi">128</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="n">duration</span>  <span class="o">=</span> <span class="mi">400</span><span class="p">;</span>   <span class="c1">// in ms
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl">    <span class="k">for</span> <span class="p">(</span><span class="n">j</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">j</span> <span class="o">&lt;</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">song</span><span class="p">)</span><span class="o">/</span><span class="k">sizeof</span><span class="p">(</span><span class="n">song</span><span class="p">[</span><span class="mi">0</span><span class="p">]);</span> <span class="o">++</span><span class="n">j</span><span class="p">)</span>      <span class="c1">// For each note in the song
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">for</span> <span class="p">(</span><span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">sample_rate</span> <span class="o">*</span> <span class="n">duration</span> <span class="o">/</span> <span class="mi">1000</span><span class="p">;</span> <span class="o">++</span><span class="n">i</span><span class="p">)</span> <span class="c1">// Print a sample
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="c1">// Fade in/out sinusoidally
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>            <span class="kt">double</span> <span class="n">amp</span> <span class="o">=</span> <span class="n">amplitude</span> <span class="o">*</span> <span class="n">sin</span><span class="p">(</span><span class="n">M_PI</span> <span class="o">*</span> <span class="p">(</span><span class="n">i</span> <span class="o">/</span> <span class="p">(</span><span class="n">sample_rate</span> <span class="o">*</span> <span class="n">duration</span> <span class="o">/</span> <span class="mf">1000.0</span><span class="p">)));</span>
+</span></span><span class="line"><span class="cl">            <span class="cm">/*
+</span></span></span><span class="line"><span class="cl"><span class="cm">            * i samples   =&gt;  (i / sample_rate) seconds
+</span></span></span><span class="line"><span class="cl"><span class="cm">            * 1 second    =&gt;  note_frequency wavelengths
+</span></span></span><span class="line"><span class="cl"><span class="cm">            * Thus, (i / sample_rate) seconds =&gt;
+</span></span></span><span class="line"><span class="cl"><span class="cm">            *       wavelengths = ((note_frequency * i) / sample_rate)
+</span></span></span><span class="line"><span class="cl"><span class="cm">            * And, sample = sin ( 2 * PI * wavelengths)
+</span></span></span><span class="line"><span class="cl"><span class="cm">            */</span>
+</span></span><span class="line"><span class="cl">            <span class="kt">int</span> <span class="n">frequency</span> <span class="o">=</span> <span class="n">frequencies</span><span class="p">[</span><span class="n">song</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">-</span> <span class="sc">&#39;@&#39;</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl">            <span class="kt">char</span> <span class="n">sample</span> <span class="o">=</span>  <span class="mi">127</span> <span class="o">+</span> <span class="n">amp</span> <span class="o">*</span> <span class="n">sin</span><span class="p">((</span><span class="mf">2.0</span> <span class="o">*</span> <span class="n">M_PI</span> <span class="o">*</span> <span class="n">i</span> <span class="o">*</span> <span class="n">frequency</span><span class="p">)</span> <span class="o">/</span> <span class="n">sample_rate</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">            <span class="n">printf</span><span class="p">(</span><span class="s">&#34;%c&#34;</span><span class="p">,</span> <span class="n">sample</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span></code></pre></div><p>Run this (on Linux):</p>
 <pre><code>gcc unobfuscated.c -w -lm &amp;&amp; ./a.out | aplay -f U8 -r 8000
 </code></pre>
@@ -147,70 +147,70 @@ to darken &lt; fuscus, dark.] -obfuscation n. obfuscatory adj</li>
 <p>First, let&rsquo;s substitute those space-wasting variables with <a href="https://en.wikipedia.org/wiki/Magic_number_(programming)">magic numbers</a>. Then, we can just remove the include for stdio, it&rsquo;s still valid code. The compiler will assume the implicit definition for printf with return type int. And during linking, the actual printf can just fit in here! However, we can&rsquo;t do this with math.h, as the sin() function returns a double, which will cause a linker error.
 In C, all global variables or functions without a given type are implicitly assumed to be int (or in case of functions, return type is int as remarked above).</p>
 <p>This let&rsquo;s us do</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span>    _[]<span style="color:#f92672">=</span>{<span style="color:#ae81ff">0</span>,<span style="color:#ae81ff">392</span>,<span style="color:#ae81ff">440</span>,<span style="color:#ae81ff">493</span>,<span style="color:#ae81ff">523</span>,<span style="color:#ae81ff">587</span>,<span style="color:#ae81ff">659</span>,<span style="color:#ae81ff">698</span>,<span style="color:#ae81ff">783</span>},i,j;
-</span></span><span style="display:flex;"><span>    main()
-</span></span><span style="display:flex;"><span>    ...
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl">    <span class="n">_</span><span class="p">[]</span><span class="o">=</span><span class="p">{</span><span class="mi">0</span><span class="p">,</span><span class="mi">392</span><span class="p">,</span><span class="mi">440</span><span class="p">,</span><span class="mi">493</span><span class="p">,</span><span class="mi">523</span><span class="p">,</span><span class="mi">587</span><span class="p">,</span><span class="mi">659</span><span class="p">,</span><span class="mi">698</span><span class="p">,</span><span class="mi">783</span><span class="p">},</span><span class="n">i</span><span class="p">,</span><span class="n">j</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">main</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="p">...</span>
 </span></span></code></pre></div><p>Another added benifit of glabal variables is that they are automatically initialized to 0. I also renamed the frequencies array to _. This greatly <em>improves</em> readability.</p>
 <p>Here&rsquo;s our inner loop:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#66d9ef">for</span> (i <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; i <span style="color:#f92672">&lt;</span> <span style="color:#ae81ff">3200</span>; <span style="color:#f92672">++</span>i)
-</span></span><span style="display:flex;"><span>{
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">char</span> sample <span style="color:#f92672">=</span>  <span style="color:#ae81ff">127</span> <span style="color:#f92672">+</span> amplitude <span style="color:#f92672">*</span> sin(<span style="color:#ae81ff">9.81e-4</span> <span style="color:#f92672">*</span> i) <span style="color:#f92672">*</span> sin((<span style="color:#ae81ff">7.85e-4</span> <span style="color:#f92672">*</span> i <span style="color:#f92672">*</span> _[song[j] <span style="color:#f92672">-</span> <span style="color:#e6db74">&#39;@&#39;</span>]);
-</span></span><span style="display:flex;"><span>    printf(<span style="color:#e6db74">&#34;%c&#34;</span>, sample);
-</span></span><span style="display:flex;"><span>}
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">for</span> <span class="p">(</span><span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="mi">3200</span><span class="p">;</span> <span class="o">++</span><span class="n">i</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">char</span> <span class="n">sample</span> <span class="o">=</span>  <span class="mi">127</span> <span class="o">+</span> <span class="n">amplitude</span> <span class="o">*</span> <span class="n">sin</span><span class="p">(</span><span class="mf">9.81e-4</span> <span class="o">*</span> <span class="n">i</span><span class="p">)</span> <span class="o">*</span> <span class="n">sin</span><span class="p">((</span><span class="mf">7.85e-4</span> <span class="o">*</span> <span class="n">i</span> <span class="o">*</span> <span class="n">_</span><span class="p">[</span><span class="n">song</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">-</span> <span class="sc">&#39;@&#39;</span><span class="p">]);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">printf</span><span class="p">(</span><span class="s">&#34;%c&#34;</span><span class="p">,</span> <span class="n">sample</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span></code></pre></div><p>We&rsquo;ll use another small C quirk.</p>
 <p><code>A[i]</code> is equivalent to <code>i[A]</code> where A can be any array-type or a pointer.
 The array subscript is just syntactic sugar for pointer arithmatic. <code>A[i]</code> is essentially converted to <code>*(A + i)</code>.
 Note that if you swap A and i in this form, it doesn&rsquo;t really make a difference. Instead of A here, we can put our song, which is a string.
 The string will decay to a pointer to the first element and we&rsquo;ll subsequently get the corresponding note. Also, we see that @ has an ASCII value of 64, a power of 2.
 Observe that the minuend is always between 64 and 64 + 8 (eight is the total number of frequencies we can play). Instead of subtracting by 64, we can simply mask off the four lower bits to get the index. So,</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#66d9ef">int</span> frequency <span style="color:#f92672">=</span> frequencies[song[j] <span style="color:#f92672">-</span> <span style="color:#e6db74">&#39;@&#39;</span>];
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="kt">int</span> <span class="n">frequency</span> <span class="o">=</span> <span class="n">frequencies</span><span class="p">[</span><span class="n">song</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">-</span> <span class="sc">&#39;@&#39;</span><span class="p">];</span>
 </span></span></code></pre></div><p>becomes</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span>_[j[<span style="color:#e6db74">&#34;AABADC@AABAED@AAHFDCB@HHGDED&#34;</span>]<span style="color:#f92672">&amp;</span><span style="color:#ae81ff">15</span>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="n">_</span><span class="p">[</span><span class="n">j</span><span class="p">[</span><span class="s">&#34;AABADC@AABAED@AAHFDCB@HHGDED&#34;</span><span class="p">]</span><span class="o">&amp;</span><span class="mi">15</span>
 </span></span></code></pre></div><p>For the next obfuscation step, let&rsquo;s look at the program flow</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span>main()
-</span></span><span style="display:flex;"><span>{
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> (j <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; j <span style="color:#f92672">&lt;</span> <span style="color:#ae81ff">28</span>; <span style="color:#f92672">++</span>j)
-</span></span><span style="display:flex;"><span>    {
-</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">for</span> (i <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; i <span style="color:#f92672">&lt;</span> <span style="color:#ae81ff">3200</span>; <span style="color:#f92672">++</span>i)
-</span></span><span style="display:flex;"><span>        {
-</span></span><span style="display:flex;"><span>            ...
-</span></span><span style="display:flex;"><span>        }
-</span></span><span style="display:flex;"><span>    }
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>;
-</span></span><span style="display:flex;"><span>}
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="n">main</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">for</span> <span class="p">(</span><span class="n">j</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">j</span> <span class="o">&lt;</span> <span class="mi">28</span><span class="p">;</span> <span class="o">++</span><span class="n">j</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">for</span> <span class="p">(</span><span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="mi">3200</span><span class="p">;</span> <span class="o">++</span><span class="n">i</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="p">...</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span></code></pre></div><p>We can instead just use one loop and whenever we hit the end condition for i, we reset i and increment j. Something like:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span>main()
-</span></span><span style="display:flex;"><span>{
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> (; j <span style="color:#f92672">&lt;</span> <span style="color:#ae81ff">28</span>; <span style="color:#f92672">++</span>i)
-</span></span><span style="display:flex;"><span>    {
-</span></span><span style="display:flex;"><span>        ...
-</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> (i <span style="color:#f92672">&gt;=</span> <span style="color:#ae81ff">3200</span>)
-</span></span><span style="display:flex;"><span>        {
-</span></span><span style="display:flex;"><span>            i <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
-</span></span><span style="display:flex;"><span>            <span style="color:#f92672">++</span>j;
-</span></span><span style="display:flex;"><span>        }
-</span></span><span style="display:flex;"><span>    }
-</span></span><span style="display:flex;"><span>}
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="n">main</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">for</span> <span class="p">(;</span> <span class="n">j</span> <span class="o">&lt;</span> <span class="mi">28</span><span class="p">;</span> <span class="o">++</span><span class="n">i</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="p">...</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="p">(</span><span class="n">i</span> <span class="o">&gt;=</span> <span class="mi">3200</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">            <span class="o">++</span><span class="n">j</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span></code></pre></div><p>To make our code more <em>readable</em>, let&rsquo;s just use recursion. On main.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;math.h&gt;</span><span style="color:#75715e">
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>_[]<span style="color:#f92672">=</span>{<span style="color:#ae81ff">0</span>,<span style="color:#ae81ff">392</span>,<span style="color:#ae81ff">440</span>,<span style="color:#ae81ff">493</span>,<span style="color:#ae81ff">523</span>,<span style="color:#ae81ff">587</span>,<span style="color:#ae81ff">659</span>,<span style="color:#ae81ff">698</span>,<span style="color:#ae81ff">783</span>},i,j;
-</span></span><span style="display:flex;"><span>main()
-</span></span><span style="display:flex;"><span>{
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">char</span> __ <span style="color:#f92672">=</span>  <span style="color:#ae81ff">127</span> <span style="color:#f92672">+</span> <span style="color:#ae81ff">128</span> <span style="color:#f92672">*</span> sin(<span style="color:#ae81ff">9.81e-4</span> <span style="color:#f92672">*</span> i) <span style="color:#f92672">*</span> sin((<span style="color:#ae81ff">7.85e-4</span> <span style="color:#f92672">*</span> i <span style="color:#f92672">*</span> _[j[<span style="color:#e6db74">&#34;AABADC@AABAED@AAHFDCB@HHGDED&#34;</span>]<span style="color:#f92672">&amp;</span><span style="color:#ae81ff">15</span>]));
-</span></span><span style="display:flex;"><span>    printf(<span style="color:#e6db74">&#34;%c&#34;</span>, __);
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> (i <span style="color:#f92672">&gt;=</span> <span style="color:#ae81ff">3200</span>)
-</span></span><span style="display:flex;"><span>    {
-</span></span><span style="display:flex;"><span>        i <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
-</span></span><span style="display:flex;"><span>        <span style="color:#f92672">++</span>j;
-</span></span><span style="display:flex;"><span>    }
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> (j <span style="color:#f92672">&lt;</span> <span style="color:#ae81ff">28</span>)
-</span></span><span style="display:flex;"><span>    {
-</span></span><span style="display:flex;"><span>        <span style="color:#f92672">++</span>i;
-</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">main</span>();
-</span></span><span style="display:flex;"><span>    }
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">else</span>
-</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>;
-</span></span><span style="display:flex;"><span>}
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;math.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span><span class="n">_</span><span class="p">[]</span><span class="o">=</span><span class="p">{</span><span class="mi">0</span><span class="p">,</span><span class="mi">392</span><span class="p">,</span><span class="mi">440</span><span class="p">,</span><span class="mi">493</span><span class="p">,</span><span class="mi">523</span><span class="p">,</span><span class="mi">587</span><span class="p">,</span><span class="mi">659</span><span class="p">,</span><span class="mi">698</span><span class="p">,</span><span class="mi">783</span><span class="p">},</span><span class="n">i</span><span class="p">,</span><span class="n">j</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="n">main</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">char</span> <span class="n">__</span> <span class="o">=</span>  <span class="mi">127</span> <span class="o">+</span> <span class="mi">128</span> <span class="o">*</span> <span class="n">sin</span><span class="p">(</span><span class="mf">9.81e-4</span> <span class="o">*</span> <span class="n">i</span><span class="p">)</span> <span class="o">*</span> <span class="n">sin</span><span class="p">((</span><span class="mf">7.85e-4</span> <span class="o">*</span> <span class="n">i</span> <span class="o">*</span> <span class="n">_</span><span class="p">[</span><span class="n">j</span><span class="p">[</span><span class="s">&#34;AABADC@AABAED@AAHFDCB@HHGDED&#34;</span><span class="p">]</span><span class="o">&amp;</span><span class="mi">15</span><span class="p">]));</span>
+</span></span><span class="line"><span class="cl">    <span class="n">printf</span><span class="p">(</span><span class="s">&#34;%c&#34;</span><span class="p">,</span> <span class="n">__</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="n">i</span> <span class="o">&gt;=</span> <span class="mi">3200</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="o">++</span><span class="n">j</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="n">j</span> <span class="o">&lt;</span> <span class="mi">28</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="o">++</span><span class="n">i</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="nf">main</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="k">else</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span></code></pre></div><p>Those if blocks are quite verbose. Let&rsquo;s replace them with something more fun.
 Real programmers use <a href="https://softwareengineering.stackexchange.com/a/201899">short circuit evaluation</a>,
 not the ternary conditional operators or measerly if blocks. Here&rsquo;s quick revision on short circuit evaluation:</p>
@@ -228,28 +228,28 @@ How else can you code more <em>readable</em> than doing many things in one line 
 <li><code>a ^= a</code> will zero a number. (In fact, this is a very common optimization, used by compilers and assembly programmers alike)</li>
 </ol>
 <p>Putting it all together:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;math.h&gt;</span><span style="color:#75715e">
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>_[]<span style="color:#f92672">=</span>{<span style="color:#ae81ff">0</span>,<span style="color:#ae81ff">392</span>,<span style="color:#ae81ff">440</span>,<span style="color:#ae81ff">493</span>,<span style="color:#ae81ff">523</span>,<span style="color:#ae81ff">587</span>,<span style="color:#ae81ff">659</span>,<span style="color:#ae81ff">698</span>,<span style="color:#ae81ff">783</span>},i,j;
-</span></span><span style="display:flex;"><span>main()
-</span></span><span style="display:flex;"><span>{
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">char</span> __ <span style="color:#f92672">=</span>  <span style="color:#ae81ff">127</span> <span style="color:#f92672">+</span> <span style="color:#ae81ff">128</span> <span style="color:#f92672">*</span> sin(<span style="color:#ae81ff">9.81e-4</span> <span style="color:#f92672">*</span> i)
-</span></span><span style="display:flex;"><span>            <span style="color:#f92672">*</span> sin((<span style="color:#ae81ff">7.85e-4</span> <span style="color:#f92672">*</span> i <span style="color:#f92672">*</span> _[j[<span style="color:#e6db74">&#34;AABADC@AABAED@AAHFDCB@HHGDED&#34;</span>]<span style="color:#f92672">&amp;</span><span style="color:#ae81ff">15</span>]));
-</span></span><span style="display:flex;"><span>    printf(<span style="color:#e6db74">&#34;%c&#34;</span>, __);
-</span></span><span style="display:flex;"><span>    i<span style="color:#f92672">++^</span><span style="color:#ae81ff">3200</span> <span style="color:#f92672">||</span> (i<span style="color:#f92672">^=</span>i,<span style="color:#f92672">++</span>j);
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> (j<span style="color:#f92672">^</span><span style="color:#ae81ff">28</span>) <span style="color:#f92672">&amp;&amp;</span> main();
-</span></span><span style="display:flex;"><span>}
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;math.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span><span class="n">_</span><span class="p">[]</span><span class="o">=</span><span class="p">{</span><span class="mi">0</span><span class="p">,</span><span class="mi">392</span><span class="p">,</span><span class="mi">440</span><span class="p">,</span><span class="mi">493</span><span class="p">,</span><span class="mi">523</span><span class="p">,</span><span class="mi">587</span><span class="p">,</span><span class="mi">659</span><span class="p">,</span><span class="mi">698</span><span class="p">,</span><span class="mi">783</span><span class="p">},</span><span class="n">i</span><span class="p">,</span><span class="n">j</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="n">main</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">char</span> <span class="n">__</span> <span class="o">=</span>  <span class="mi">127</span> <span class="o">+</span> <span class="mi">128</span> <span class="o">*</span> <span class="n">sin</span><span class="p">(</span><span class="mf">9.81e-4</span> <span class="o">*</span> <span class="n">i</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">            <span class="o">*</span> <span class="n">sin</span><span class="p">((</span><span class="mf">7.85e-4</span> <span class="o">*</span> <span class="n">i</span> <span class="o">*</span> <span class="n">_</span><span class="p">[</span><span class="n">j</span><span class="p">[</span><span class="s">&#34;AABADC@AABAED@AAHFDCB@HHGDED&#34;</span><span class="p">]</span><span class="o">&amp;</span><span class="mi">15</span><span class="p">]));</span>
+</span></span><span class="line"><span class="cl">    <span class="n">printf</span><span class="p">(</span><span class="s">&#34;%c&#34;</span><span class="p">,</span> <span class="n">__</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">i</span><span class="o">++^</span><span class="mi">3200</span> <span class="o">||</span> <span class="p">(</span><span class="n">i</span><span class="o">^=</span><span class="n">i</span><span class="p">,</span><span class="o">++</span><span class="n">j</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="p">(</span><span class="n">j</span><span class="o">^</span><span class="mi">28</span><span class="p">)</span> <span class="o">&amp;&amp;</span> <span class="n">main</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span></code></pre></div><p>Now this looks like some obfuscation! But we&rsquo;re not done yet.</p>
 <p>Instead of printf, we can use <a href="https://linux.die.net/man/2/write">write(2)</a>. If you were following on Windows, then I&rsquo;m sorry you won&rsquo;t be able to follow this step.</p>
 <p>The printf line becomes:</p>
 <pre><code>write(STDIN, &amp;__, 1);
 </code></pre>
 <p>Now we can strip all whitespace and make some minor tweaks to get this final version (run this the same way we ran the first unobfuscated version):</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;math.h&gt;</span><span style="color:#75715e">
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>_[]<span style="color:#f92672">=</span>{<span style="color:#ae81ff">0</span>,<span style="color:#ae81ff">392</span>,<span style="color:#ae81ff">440</span>,<span style="color:#ae81ff">493</span>,<span style="color:#ae81ff">523</span>,<span style="color:#ae81ff">587</span>,<span style="color:#ae81ff">659</span>,<span style="color:#ae81ff">698</span>,<span style="color:#ae81ff">783</span>},i,j;
-</span></span><span style="display:flex;"><span>main(){<span style="color:#66d9ef">char</span> __<span style="color:#f92672">=</span><span style="color:#ae81ff">127</span><span style="color:#f92672">+</span>(<span style="color:#ae81ff">1</span><span style="color:#f92672">&lt;&lt;</span><span style="color:#ae81ff">7</span>)<span style="color:#f92672">*</span>sin(<span style="color:#ae81ff">9.81e-4</span><span style="color:#f92672">*</span>j)<span style="color:#f92672">*</span>sin
-</span></span><span style="display:flex;"><span>((<span style="color:#ae81ff">7.85e-4</span><span style="color:#f92672">*</span>j<span style="color:#f92672">*</span>_[i[<span style="color:#e6db74">&#34;AABADC@AABAED@AAHFDCB@HHGD\
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">ED&#34;</span>]<span style="color:#f92672">&amp;</span><span style="color:#ae81ff">017</span>]));write(__LINE__<span style="color:#f92672">&gt;&gt;</span><span style="color:#ae81ff">0x2</span>,<span style="color:#f92672">&amp;</span>__,<span style="color:#f92672">~*</span>_<span style="color:#f92672">&amp;</span><span style="color:#ae81ff">1</span>);(
-</span></span><span style="display:flex;"><span>j<span style="color:#f92672">++^</span><span style="color:#ae81ff">3200</span>)<span style="color:#f92672">||</span>(j<span style="color:#f92672">^=</span>j,<span style="color:#f92672">++</span>i);<span style="color:#66d9ef">return</span>(i<span style="color:#f92672">^</span><span style="color:#ae81ff">28</span>)<span style="color:#f92672">&amp;&amp;</span>main();}
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;math.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span><span class="n">_</span><span class="p">[]</span><span class="o">=</span><span class="p">{</span><span class="mi">0</span><span class="p">,</span><span class="mi">392</span><span class="p">,</span><span class="mi">440</span><span class="p">,</span><span class="mi">493</span><span class="p">,</span><span class="mi">523</span><span class="p">,</span><span class="mi">587</span><span class="p">,</span><span class="mi">659</span><span class="p">,</span><span class="mi">698</span><span class="p">,</span><span class="mi">783</span><span class="p">},</span><span class="n">i</span><span class="p">,</span><span class="n">j</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="n">main</span><span class="p">(){</span><span class="kt">char</span> <span class="n">__</span><span class="o">=</span><span class="mi">127</span><span class="o">+</span><span class="p">(</span><span class="mi">1</span><span class="o">&lt;&lt;</span><span class="mi">7</span><span class="p">)</span><span class="o">*</span><span class="n">sin</span><span class="p">(</span><span class="mf">9.81e-4</span><span class="o">*</span><span class="n">j</span><span class="p">)</span><span class="o">*</span><span class="n">sin</span>
+</span></span><span class="line"><span class="cl"><span class="p">((</span><span class="mf">7.85e-4</span><span class="o">*</span><span class="n">j</span><span class="o">*</span><span class="n">_</span><span class="p">[</span><span class="n">i</span><span class="p">[</span><span class="s">&#34;AABADC@AABAED@AAHFDCB@HHGD\
+</span></span></span><span class="line"><span class="cl"><span class="s">ED&#34;</span><span class="p">]</span><span class="o">&amp;</span><span class="mo">017</span><span class="p">]));</span><span class="n">write</span><span class="p">(</span><span class="n">__LINE__</span><span class="o">&gt;&gt;</span><span class="mh">0x2</span><span class="p">,</span><span class="o">&amp;</span><span class="n">__</span><span class="p">,</span><span class="o">~*</span><span class="n">_</span><span class="o">&amp;</span><span class="mi">1</span><span class="p">);(</span>
+</span></span><span class="line"><span class="cl"><span class="n">j</span><span class="o">++^</span><span class="mi">3200</span><span class="p">)</span><span class="o">||</span><span class="p">(</span><span class="n">j</span><span class="o">^=</span><span class="n">j</span><span class="p">,</span><span class="o">++</span><span class="n">i</span><span class="p">);</span><span class="k">return</span><span class="p">(</span><span class="n">i</span><span class="o">^</span><span class="mi">28</span><span class="p">)</span><span class="o">&amp;&amp;</span><span class="n">main</span><span class="p">();}</span>
 </span></span></code></pre></div><p>The following are the tweaks (most are to justify the text, some increase the line-width, some decrease):</p>
 <ol>
 <li>Replaced 128 with <code>(1 &lt;&lt; 7)</code>. See <a href="https://en.wikipedia.org/wiki/Bitwise_operation#Bit_shifts">Bit shifts</a>.</li>

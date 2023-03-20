@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8"/>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta name="generator" content="Hugo 0.110.0">
+		<title>Building an auto-differentiator and re-inventing lambdas in Python - Amish Kumar Naidu</title>
+
+		<meta name="description" content="Let&rsquo;s start with a teaser!
+from expr import * native_lambda = lambda x: x * (x - 1) magic_lambda = X * (X - 1) print(native_lambda(7)) # 42 print(magic_lambda(7)) # 42 print(magic_lambda(7, evaluator=Differentiator())) # x * (x - 1) = x * x - x # Derivate = 2*x - 1 # 13 You may have seen this magic if you&rsquo;ve used a machine-learning framework like TensorFlow, which provide an auto-gradient feature for any tensor expressions you build.">
+
+
+		
+		<link rel="shortcut icon" href="/favicon.png">
+		
+		
+		
+		<link rel="stylesheet" href="/css/normalize.css"/>
+		<link rel="stylesheet" href="/css/ui.css"/>
+		<link rel="stylesheet" href="/css/syntax.css"/>
+		
+		
+		
+
+		<link  rel="stylesheet" href="https://fonts.googleapis.com/css?family=Fira+Mono|Lato|Raleway">
+
+		
+        
+          <meta name="google-site-verification" content="-NGNp__dGrBzLzPX58fes-_QfgVl3athbCA73hpr290" />
+        
+		<style>
+	a { color: #8661C1; }
+    button, input[type="submit"] {
+        background: #8661C1;
+        color: #fff;
+        border: 0px;
+    }
+	blockquote {
+		border-left-color: #8661C1;
+		border-right-color: #8661C1; }
+	.bar a:hover {
+		color: #8661C1;
+		text-decoration: none; }
+	.sep {
+		margin-top: 2rem;
+		margin-bottom: 1rem;
+		margin-left: auto;
+		margin-right: auto;
+		width: 100%;
+		border-top: 2px solid #8661C1; }
+</style>
+
+	</head>
+
+<body>
+<header class="container no-print">
+	<div class="u-header">
+		<nav class="bar">
+	<ul><li>
+			<a href="/">
+				<img class="icon-text" src="/img/prev.svg"/>
+			</a>
+		</li><li><a href="/blog/">Blog</a></li><li><a href="/projects/">Projects</a></li></ul>
+</nav>
+
+	</div>
+</header>
+<main class="container">
+
+<article>
+	<header><hgroup id="brand">
+	<h1>Building an auto-differentiator and re-inventing lambdas in Python</h1>
+	<h5>
+		
+		<time datetime="2023-03-18 00:00:00 &#43;0000 UTC">Mar 18, 2023</time>
+		<span class="no-print">
+			<span>
+	</h5>
+	
+</hgroup><hr class="sep" />
+
+</header>
+	<p>Let&rsquo;s start with a teaser!</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-py" data-lang="py"><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">expr</span> <span class="kn">import</span> <span class="o">*</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">native_lambda</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span> <span class="o">*</span> <span class="p">(</span><span class="n">x</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">magic_lambda</span> <span class="o">=</span> <span class="n">X</span> <span class="o">*</span> <span class="p">(</span><span class="n">X</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">native_lambda</span><span class="p">(</span><span class="mi">7</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 42</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">magic_lambda</span><span class="p">(</span><span class="mi">7</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 42</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">magic_lambda</span><span class="p">(</span><span class="mi">7</span><span class="p">,</span> <span class="n">evaluator</span><span class="o">=</span><span class="n">Differentiator</span><span class="p">()))</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># x * (x - 1) = x * x - x</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Derivate = 2*x - 1</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 13</span>
+</span></span></code></pre></div><p>You may have seen this magic if you&rsquo;ve used a machine-learning framework like TensorFlow, which provide an auto-gradient feature for any tensor expressions you build. We discuss a technique that can be used to build lazy operations in python. Laziness also help algebra libraries to avoid intermediate results in a big expression to avoid unnecessary allocations and peform other optimizations.</p>
+<p>In the simplest sense, we build an expression interpreter. We can break down the process of evaluating an expression to two steps:</p>
+<ul>
+<li>Parsing - convert input characters to an internal <em>representation</em></li>
+<li>Interpretation - <em>interpret</em> the above representation to produce a value</li>
+</ul>
+<h3 id="representation">Representation</h3>
+<p>Parsers (like in a compiler) convert characters to an internal representation, generally the Parse Tree or an <a href="https://en.wikipedia.org/wiki/Abstract_syntax_tree">Abstract Syntax Tree</a>.</p>
+<p>Consider an expression <code>x * (x - 1)</code>, made up of: the constant <code>1</code>, the variable <code>x</code> and some binary operations on them. We can represent this as an expression tree, which is much easier to use in algorithms, than a sequence of characters.</p>
+<p><img src="expr-tree.png" alt="expr-tree.png"></p>
+<p>The variable and constants become the leaves, and operations combine sub-trees. Let&rsquo;s define the expression tree:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-py" data-lang="py"><span class="line"><span class="cl"><span class="c1"># expr/nodes.py</span>
+</span></span><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">abc</span> <span class="kn">import</span> <span class="n">ABC</span><span class="p">,</span> <span class="n">abstractmethod</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">Node</span><span class="p">(</span><span class="n">ABC</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="s2">&#34;&#34;&#34;
+</span></span></span><span class="line"><span class="cl"><span class="s2">        Base class of the AST
+</span></span></span><span class="line"><span class="cl"><span class="s2">    &#34;&#34;&#34;</span>
+</span></span></code></pre></div><p><code>Node</code> serves as the <a href="https://docs.python.org/3/library/abc.html">Abstract Base Class</a> of the tree nodes. Looks rather empty now, but we&rsquo;ll soon extend the interface as well as add common behaviour.</p>
+<p>Let&rsquo;s add the concrete nodes:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-py" data-lang="py"><span class="line"><span class="cl"><span class="c1"># expr/nodes.py</span>
+</span></span><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">dataclasses</span> <span class="kn">import</span> <span class="n">dataclass</span>
+</span></span><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Callable</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nd">@dataclass</span>
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">Constant</span><span class="p">(</span><span class="n">Node</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="s2">&#34;&#34;&#34;
+</span></span></span><span class="line"><span class="cl"><span class="s2">        A constant.
+</span></span></span><span class="line"><span class="cl"><span class="s2">    &#34;&#34;&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">constant</span><span class="p">:</span> <span class="nb">float</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nd">@dataclass</span>
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">Variable</span><span class="p">(</span><span class="n">Node</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="s2">&#34;&#34;&#34;
+</span></span></span><span class="line"><span class="cl"><span class="s2">        A variable, identified by an index. This is an index into the argument list provided during evaluation
+</span></span></span><span class="line"><span class="cl"><span class="s2">    &#34;&#34;&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">index</span><span class="p">:</span> <span class="nb">int</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nd">@dataclass</span>
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">BinaryOperation</span><span class="p">(</span><span class="n">Node</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="s2">&#34;&#34;&#34;
+</span></span></span><span class="line"><span class="cl"><span class="s2">        A binary operation between two arbitrary nodes. The operator is a callable that takes two floats and returns one.
+</span></span></span><span class="line"><span class="cl"><span class="s2">    &#34;&#34;&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">operator</span><span class="p">:</span> <span class="n">Callable</span><span class="p">[[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">],</span> <span class="nb">float</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">    <span class="n">left</span><span class="p">:</span> <span class="n">Node</span>
+</span></span><span class="line"><span class="cl">    <span class="n">right</span><span class="p">:</span> <span class="n">Node</span>
+</span></span></code></pre></div><p>We make use of <a href="https://docs.python.org/3/library/dataclasses.html">dataclasses</a> to free us from some boilerplate. Note how <code>BinaryOperation</code> contains two arbitrary nodes, this allows to represent any expressions built using binary operations with an arbitrary depth.</p>
+<p>If we were building a compiler, we&rsquo;d have the job of building a full parser that reads characters creates the syntax tree, thankfully, we are not. We are working in the confines of Python, we can leverage it&rsquo;s features.</p>
+<p>Consider the python expression <code>x + 1</code> The interpreter invokes the <code>add</code> <a href="https://docs.python.org/3/reference/datamodel.html#object.__add__">dunder method</a> of the first operand, note that the language doesn&rsquo;t impose any constraint on what we can return. Instead of just returning a numerical value, we can return an object that encapsulates the operation and can be evaluated lazily. We will use operator overloading to create the expression tree.</p>
+<p>Let&rsquo;s add this to our base <code>Node</code> class. We&rsquo;ll start simple and support just addition, subtraction and multiplication. You are of course free to extend this later (eg. with power, or division operation)!</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-py" data-lang="py"><span class="line"><span class="cl"><span class="c1"># expr/nodes.py</span>
+</span></span><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">operator</span> <span class="kn">import</span> <span class="n">add</span><span class="p">,</span> <span class="n">sub</span><span class="p">,</span> <span class="n">mul</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">Node</span><span class="p">(</span><span class="n">ABC</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="s2">&#34;&#34;&#34;
+</span></span></span><span class="line"><span class="cl"><span class="s2">        Base class of the expression tree
+</span></span></span><span class="line"><span class="cl"><span class="s2">    &#34;&#34;&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">def</span> <span class="fm">__add__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">node</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s1">&#39;Node&#39;</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">BinaryOperation</span><span class="p">(</span><span class="n">operator</span><span class="o">=</span><span class="n">add</span><span class="p">,</span> <span class="n">left</span><span class="o">=</span><span class="bp">self</span><span class="p">,</span> <span class="n">right</span><span class="o">=</span><span class="n">_node_or_constant</span><span class="p">(</span><span class="n">node</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">def</span> <span class="fm">__sub__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">node</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s1">&#39;Node&#39;</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">BinaryOperation</span><span class="p">(</span><span class="n">operator</span><span class="o">=</span><span class="n">sub</span><span class="p">,</span> <span class="n">left</span><span class="o">=</span><span class="bp">self</span><span class="p">,</span> <span class="n">right</span><span class="o">=</span><span class="n">_node_or_constant</span><span class="p">(</span><span class="n">node</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">def</span> <span class="fm">__mul__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">node</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s1">&#39;Node&#39;</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">BinaryOperation</span><span class="p">(</span><span class="n">operator</span><span class="o">=</span><span class="n">mul</span><span class="p">,</span> <span class="n">left</span><span class="o">=</span><span class="bp">self</span><span class="p">,</span> <span class="n">right</span><span class="o">=</span><span class="n">_node_or_constant</span><span class="p">(</span><span class="n">node</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">_node_or_constant</span><span class="p">(</span><span class="n">val</span><span class="p">:</span> <span class="n">Node</span> <span class="o">|</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Node</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">    <span class="s2">&#34;&#34;&#34;
+</span></span></span><span class="line"><span class="cl"><span class="s2">        If the argument is a node, do nothing, otherwise build a `Constant` node out of the literal value
+</span></span></span><span class="line"><span class="cl"><span class="s2">    &#34;&#34;&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">val</span><span class="p">,</span> <span class="n">Node</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">val</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">Constant</span><span class="p">(</span><span class="n">constant</span><span class="o">=</span><span class="n">val</span><span class="p">)</span>
+</span></span></code></pre></div><p>Let&rsquo;s try it!</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-py" data-lang="py"><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">expr.nodes</span> <span class="kn">import</span> <span class="n">Variable</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">X</span> <span class="o">=</span> <span class="n">Variable</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">X</span> <span class="o">+</span> <span class="n">X</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">X</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">X</span> <span class="o">*</span> <span class="p">(</span><span class="n">X</span> <span class="o">-</span> <span class="mi">1</span><span class="p">))</span>
+</span></span></code></pre></div><p>We are halfway there!</p>
+<h3 id="interpretation">Interpretation</h3>
+<p>Now that have our AST, it&rsquo;s time to do something useful with it. If we were to evaluate the tree, we start with the leaf, then go up, calculating the value for each subtree, until we have the value of the whole tree.
+<img src="expr-interpret.png" alt="expr-interpret.png"></p>
+<p>This looks like a depth-first traversal. However, unlike regular depth first search, the value of the different nodes are calculated differently. The simplest way to support is to simply add a method like <code>value(self) -&gt; float</code> to our nodes and use Python&rsquo;s inheritance based polymorphism. What if you want to add a new type of traversal that calculates a different value? What if we want to add a tree printer? We would have to go back and extend the interface with an extra method, then add it to each node. If the different types of traversals are somewhat limited, this is a reasonable solution. However, it splits the logic into several places. So if were to implement a differentiator, we have to touch a bunch of different classes.
+Wouldn&rsquo;t it be better if we can group this logic based on the different type of traversal, rather than the type of node? This is the principle of high <a href="https://en.wikipedia.org/wiki/Cohesion_(computer_science)">cohesion</a> and low <a href="https://en.wikipedia.org/wiki/Coupling_(computer_programming)">coupling</a>.</p>
+<p><a href="https://en.wikipedia.org/wiki/Visitor_pattern">Visitor pattern</a> to the resuce! This allows us to build different visitors, and each visitor contains all logic for a given type of traversal, without spilling responsibilities. The visitor interface has a separate method to <em>visit</em> each node.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-py" data-lang="py"><span class="line"><span class="cl"><span class="c1"># expr/visitor.py</span>
+</span></span><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">expr.nodes</span> <span class="kn">import</span> <span class="n">Node</span><span class="p">,</span> <span class="n">Constant</span><span class="p">,</span> <span class="n">Variable</span><span class="p">,</span> <span class="n">BinaryOperation</span>
+</span></span><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">abc</span> <span class="kn">import</span> <span class="n">ABC</span><span class="p">,</span> <span class="n">abstractmethod</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">NodeVisitor</span><span class="p">(</span><span class="n">ABC</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="s2">&#34;&#34;&#34;
+</span></span></span><span class="line"><span class="cl"><span class="s2">        Visit a node tree and produce a value
+</span></span></span><span class="line"><span class="cl"><span class="s2">    &#34;&#34;&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="nd">@abstractmethod</span>
+</span></span><span class="line"><span class="cl">    <span class="k">def</span> <span class="nf">visit_constant</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">node</span><span class="p">:</span> <span class="n">Constant</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">        <span class="k">raise</span> <span class="ne">NotImplementedError</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="nd">@abstractmethod</span>
+</span></span><span class="line"><span class="cl">    <span class="k">def</span> <span class="nf">visit_variable</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">node</span><span class="p">:</span> <span class="n">Variable</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">        <span class="k">raise</span> <span class="ne">NotImplementedError</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="nd">@abstractmethod</span>
+</span></span><span class="line"><span class="cl">    <span class="k">def</span> <span class="nf">visit_binary_operation</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">node</span><span class="p">:</span> <span class="n">BinaryOperation</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">        <span class="k">raise</span> <span class="ne">NotImplementedError</span>
+</span></span></code></pre></div><p>The node interface is still used to dispatch on the type of node, however, it simply delegates to the right visit method in the visitor. We add an abstract method that accepts the visitor as an argument to our base Node, and the concrete Node will call the appropriate visit method.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-py" data-lang="py"><span class="line"><span class="cl"><span class="c1"># expr.node.py</span>
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">Node</span><span class="p">(</span><span class="n">ABC</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="s2">&#34;&#34;&#34;
+</span></span></span><span class="line"><span class="cl"><span class="s2">        Base class of the AST
+</span></span></span><span class="line"><span class="cl"><span class="s2">    &#34;&#34;&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1"># -- omitting methods that haven&#39;t changed -- #</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="nd">@abstractmethod</span>
+</span></span><span class="line"><span class="cl">    <span class="k">def</span> <span class="nf">calculate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="n">visitor</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">        <span class="k">raise</span> <span class="ne">NotImplementedError</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nd">@dataclass</span>
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">Constant</span><span class="p">(</span><span class="n">Node</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="c1"># -- omitting methods that haven&#39;t changed -- #</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">def</span> <span class="nf">calculate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="n">visitor</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">visitor</span><span class="o">.</span><span class="n">visit_constant</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">)</span>
+</span></span></code></pre></div><p>You can similarly implement <code>calculate</code> for <code>Variable</code> and <code>BinaryOperation</code> to delegate to <code>visitor.visit_variable</code> and <code>visitor.visit_binary_operation</code> respectively.</p>
+<p>Now that we have our interface in place, let&rsquo;s implement our first visitor, that simply calculates the value of the expression tree.
+It&rsquo;s a straightforward implementation:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-py" data-lang="py"><span class="line"><span class="cl"><span class="c1"># expr/value.py</span>
+</span></span><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">expr.visitor</span> <span class="kn">import</span> <span class="n">NodeVisitor</span>
+</span></span><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">expr.nodes</span> <span class="kn">import</span> <span class="n">Node</span><span class="p">,</span> <span class="n">BinaryOperation</span><span class="p">,</span> <span class="n">Constant</span><span class="p">,</span> <span class="n">Variable</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">ValueVisitor</span><span class="p">(</span><span class="n">NodeVisitor</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">def</span> <span class="nf">visit_constant</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">node</span><span class="p">:</span> <span class="n">Constant</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">node</span><span class="o">.</span><span class="n">constant</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">def</span> <span class="nf">visit_variable</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">node</span><span class="p">:</span> <span class="n">Variable</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">args</span><span class="p">[</span><span class="n">node</span><span class="o">.</span><span class="n">index</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">def</span> <span class="nf">visit_binary_operation</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">node</span><span class="p">:</span> <span class="n">BinaryOperation</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="n">left_value</span> <span class="o">=</span> <span class="n">node</span><span class="o">.</span><span class="n">left</span><span class="o">.</span><span class="n">calculate</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="n">visitor</span><span class="o">=</span><span class="bp">self</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="n">right_value</span> <span class="o">=</span> <span class="n">node</span><span class="o">.</span><span class="n">right</span><span class="o">.</span><span class="n">calculate</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="n">visitor</span><span class="o">=</span><span class="bp">self</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">node</span><span class="o">.</span><span class="n">operator</span><span class="p">(</span><span class="n">left_value</span><span class="p">,</span> <span class="n">right_value</span><span class="p">)</span>
+</span></span></code></pre></div><p>Let&rsquo;s give it a shot!</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-py" data-lang="py"><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">expr.nodes</span> <span class="kn">import</span> <span class="n">Variable</span>
+</span></span><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">expr.value</span> <span class="kn">import</span> <span class="n">ValueVisitor</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">X</span> <span class="o">=</span> <span class="n">Variable</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">native_lambda</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span> <span class="o">*</span> <span class="p">(</span><span class="n">x</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">magic_lambda</span> <span class="o">=</span> <span class="n">X</span> <span class="o">*</span> <span class="p">(</span><span class="n">X</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">native_lambda</span><span class="p">(</span><span class="mi">7</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 42</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">magic_lambda</span><span class="o">.</span><span class="n">calculate</span><span class="p">(</span><span class="mi">7</span><span class="p">,</span> <span class="n">visitor</span><span class="o">=</span><span class="n">ValueVisitor</span><span class="p">()))</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 42</span>
+</span></span></code></pre></div><p>It walks!</p>
+<p>However, it&rsquo;s a bit of a mouthful, let&rsquo;s add some sugar.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-py" data-lang="py"><span class="line"><span class="cl"><span class="c1"># expr.node.py</span>
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">Node</span><span class="p">(</span><span class="n">ABC</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="s2">&#34;&#34;&#34;
+</span></span></span><span class="line"><span class="cl"><span class="s2">        Base class of the AST
+</span></span></span><span class="line"><span class="cl"><span class="s2">    &#34;&#34;&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1"># -- omitting methods that haven&#39;t changed -- #</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="nd">@abstractmethod</span>
+</span></span><span class="line"><span class="cl">    <span class="k">def</span> <span class="nf">calculate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="n">visitor</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">        <span class="k">raise</span> <span class="ne">NotImplementedError</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">def</span> <span class="fm">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="n">evaluator</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">        <span class="kn">from</span> <span class="nn">expr.value</span> <span class="kn">import</span> <span class="n">ValueVisitor</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="n">evaluator</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">            <span class="n">evaluator</span> <span class="o">=</span> <span class="n">ValueVisitor</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">calculate</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="n">visitor</span><span class="o">=</span><span class="n">evaluator</span><span class="p">)</span>
+</span></span></code></pre></div><p>This let&rsquo;s us do</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-py" data-lang="py"><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">magic_lambda</span><span class="p">(</span><span class="mi">7</span><span class="p">))</span>
+</span></span></code></pre></div><h3 id="differentiation">Differentiation</h3>
+<p>Thanks to the visitor pattern, adding a second interpreter is really easy. We just add another class.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-py" data-lang="py"><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">expr.visitor</span> <span class="kn">import</span> <span class="n">NodeVisitor</span>
+</span></span><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">expr.value</span> <span class="kn">import</span> <span class="n">ValueVisitor</span>
+</span></span><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">expr.nodes</span> <span class="kn">import</span> <span class="n">BinaryOperation</span>
+</span></span><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">operator</span> <span class="kn">import</span> <span class="n">add</span><span class="p">,</span> <span class="n">sub</span><span class="p">,</span> <span class="n">mul</span><span class="p">,</span> <span class="n">truediv</span> <span class="k">as</span> <span class="n">div</span><span class="p">,</span> <span class="nb">pow</span>
+</span></span><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">ClassVar</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">Differentiator</span><span class="p">(</span><span class="n">NodeVisitor</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="n">value_visitor</span><span class="p">:</span> <span class="n">ClassVar</span><span class="p">[</span><span class="n">NodeVisitor</span><span class="p">]</span> <span class="o">=</span> <span class="n">ValueVisitor</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">def</span> <span class="nf">visit_constant</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">node</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="mi">0</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">def</span> <span class="nf">visit_variable</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">node</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="mi">1</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">def</span> <span class="nf">visit_binary_operation</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">node</span><span class="p">:</span> <span class="n">BinaryOperation</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="n">node</span><span class="o">.</span><span class="n">operator</span> <span class="o">==</span> <span class="n">add</span> <span class="ow">or</span> <span class="n">node</span><span class="o">.</span><span class="n">operator</span> <span class="o">==</span> <span class="n">sub</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">            <span class="n">left_value</span> <span class="o">=</span> <span class="n">node</span><span class="o">.</span><span class="n">left</span><span class="o">.</span><span class="n">calculate</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="n">visitor</span><span class="o">=</span><span class="bp">self</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">            <span class="n">right_value</span> <span class="o">=</span> <span class="n">node</span><span class="o">.</span><span class="n">right</span><span class="o">.</span><span class="n">calculate</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="n">visitor</span><span class="o">=</span><span class="bp">self</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">            <span class="k">return</span> <span class="n">node</span><span class="o">.</span><span class="n">operator</span><span class="p">(</span><span class="n">left_value</span><span class="p">,</span> <span class="n">right_value</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="k">elif</span> <span class="n">node</span><span class="o">.</span><span class="n">operator</span> <span class="o">==</span> <span class="n">mul</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">            <span class="n">left_value</span> <span class="o">=</span> <span class="n">node</span><span class="o">.</span><span class="n">left</span><span class="o">.</span><span class="n">calculate</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="n">visitor</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">value_visitor</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">            <span class="n">left_derivate</span> <span class="o">=</span> <span class="n">node</span><span class="o">.</span><span class="n">left</span><span class="o">.</span><span class="n">calculate</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="n">visitor</span><span class="o">=</span><span class="bp">self</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">            <span class="n">right_value</span> <span class="o">=</span> <span class="n">node</span><span class="o">.</span><span class="n">right</span><span class="o">.</span><span class="n">calculate</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="n">visitor</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">value_visitor</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">            <span class="n">right_derivate</span> <span class="o">=</span> <span class="n">node</span><span class="o">.</span><span class="n">right</span><span class="o">.</span><span class="n">calculate</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="n">visitor</span><span class="o">=</span><span class="bp">self</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">            <span class="k">return</span> <span class="n">left_value</span> <span class="o">*</span> <span class="n">right_derivate</span> <span class="o">+</span> <span class="n">left_derivate</span> <span class="o">*</span> <span class="n">right_value</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&#34;unexpected operator&#34;</span><span class="p">)</span>
+</span></span></code></pre></div><p>There you have it! This is a fairly flexible framework and can be extended to support more operations and functions. The differentiator visitor can use the chain rule and support even more functions (hint: a node can represent a function call and the <strong>call</strong> method can be overloaded). Try the teasor and experiment!</p>
+
+</article>
+<nav class="no-print post-nav">
+
+	<a class="prev-post" href="https://amish.naidu.dev/blog/serde-deserialize/">
+		<img class="icon-text" src="/img/prev.svg"/>Writing custom serde deserializers, the easy way</a>
+
+
+</nav>
+
+
+
+
+        
+			<hr class="sep" />
+        
+		</main>
+		<footer class="container no-print">
+			<div class="u-footer">
+				<p>
+					
+					
+					&copy; 2022 Amish K. Naidu
+					
+					
+				</p>
+				
+				<a href="#brand">
+					<img class="icon-text" src="/img/toup.svg" alt="To Up"/>
+					<span>Up</span>
+				</a>
+				
+			</div>
+		</footer>
+		
+	</body>
+</html>
+
