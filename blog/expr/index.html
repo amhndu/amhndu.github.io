@@ -102,9 +102,9 @@ from expr import * native_lambda = lambda x: x * (x - 1) magic_lambda = X * (X -
 </ul>
 <h3 id="representation">Representation</h3>
 <p>Parsers (like in a compiler) convert characters to an internal representation, generally the Parse Tree or an <a href="https://en.wikipedia.org/wiki/Abstract_syntax_tree">Abstract Syntax Tree</a>.</p>
-<p>Consider an expression <code>x * (x - 1)</code>, made up of: the constant <code>1</code>, the variable <code>x</code> and some binary operations on them. We can represent this as an expression tree, which is much easier to use in algorithms, than a sequence of characters.</p>
+<p>Consider an expression <code>x * (x - 1)</code> made up of: the constant <code>1</code>, the variable <code>x</code> and some binary operations on them. We can represent this as an expression tree, which is much easier to use in algorithms.</p>
 <p><img src="expr-tree.png" alt="expr-tree.png"></p>
-<p>The variable and constants become the leaves, and operations combine sub-trees. Let&rsquo;s define the expression tree:</p>
+<p>The variable and constants become the leaves, and operations allows us to compose the nodes. Let&rsquo;s define the expression tree:</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-py" data-lang="py"><span class="line"><span class="cl"><span class="c1"># expr/nodes.py</span>
 </span></span><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">abc</span> <span class="kn">import</span> <span class="n">ABC</span><span class="p">,</span> <span class="n">abstractmethod</span>
 </span></span><span class="line"><span class="cl">
@@ -112,7 +112,7 @@ from expr import * native_lambda = lambda x: x * (x - 1) magic_lambda = X * (X -
 </span></span><span class="line"><span class="cl">    <span class="s2">&#34;&#34;&#34;
 </span></span></span><span class="line"><span class="cl"><span class="s2">        Base class of the AST
 </span></span></span><span class="line"><span class="cl"><span class="s2">    &#34;&#34;&#34;</span>
-</span></span></code></pre></div><p><code>Node</code> serves as the <a href="https://docs.python.org/3/library/abc.html">Abstract Base Class</a> of the tree nodes. Looks rather empty now, but we&rsquo;ll soon extend the interface as well as add common behaviour.</p>
+</span></span></code></pre></div><p><code>Node</code> serves as the <a href="https://docs.python.org/3/library/abc.html">Abstract Base Class</a> of the tree nodes. Looks rather empty now, but we&rsquo;ll be extending it soon.</p>
 <p>Let&rsquo;s add the concrete nodes:</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-py" data-lang="py"><span class="line"><span class="cl"><span class="c1"># expr/nodes.py</span>
 </span></span><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">dataclasses</span> <span class="kn">import</span> <span class="n">dataclass</span>
@@ -143,8 +143,8 @@ from expr import * native_lambda = lambda x: x * (x - 1) magic_lambda = X * (X -
 </span></span><span class="line"><span class="cl">    <span class="n">left</span><span class="p">:</span> <span class="n">Node</span>
 </span></span><span class="line"><span class="cl">    <span class="n">right</span><span class="p">:</span> <span class="n">Node</span>
 </span></span></code></pre></div><p>We make use of <a href="https://docs.python.org/3/library/dataclasses.html">dataclasses</a> to free us from some boilerplate. Note how <code>BinaryOperation</code> contains two arbitrary nodes, this allows to represent any expressions built using binary operations with an arbitrary depth.</p>
-<p>If we were building a compiler, we&rsquo;d have the job of building a full parser that reads characters creates the syntax tree, thankfully, we are not. We are working in the confines of Python, we can leverage it&rsquo;s features.</p>
-<p>Consider the python expression <code>x + 1</code> The interpreter invokes the <code>add</code> <a href="https://docs.python.org/3/reference/datamodel.html#object.__add__">dunder method</a> of the first operand, note that the language doesn&rsquo;t impose any constraint on what we can return. Instead of just returning a numerical value, we can return an object that encapsulates the operation and can be evaluated lazily. We will use operator overloading to create the expression tree.</p>
+<p>If we were building a compiler, we&rsquo;d have the job of building a full parser that reads characters and creates the syntax tree, thankfully, we are not. We are working in the confines of Python, we can leverage it&rsquo;s features.</p>
+<p>Consider the python expression <code>x + 1</code> - the interpreter invokes the <code>add</code> <a href="https://docs.python.org/3/reference/datamodel.html#object.__add__">dunder method</a> of the first operand to evaluate it. Note that the language doesn&rsquo;t impose any constraint on what should be returned. Instead of just returning a numerical value, we can return an object that encapsulates the operation and can be evaluated lazily. We will use operator overloading to create the expression tree.</p>
 <p>Let&rsquo;s add this to our base <code>Node</code> class. We&rsquo;ll start simple and support just addition, subtraction and multiplication. You are of course free to extend this later (eg. with power, or division operation)!</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-py" data-lang="py"><span class="line"><span class="cl"><span class="c1"># expr/nodes.py</span>
 </span></span><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">operator</span> <span class="kn">import</span> <span class="n">add</span><span class="p">,</span> <span class="n">sub</span><span class="p">,</span> <span class="n">mul</span>
@@ -169,14 +169,18 @@ from expr import * native_lambda = lambda x: x * (x - 1) magic_lambda = X * (X -
 </span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">val</span><span class="p">,</span> <span class="n">Node</span><span class="p">):</span>
 </span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">val</span>
 </span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">Constant</span><span class="p">(</span><span class="n">constant</span><span class="o">=</span><span class="n">val</span><span class="p">)</span>
-</span></span></code></pre></div><p>Let&rsquo;s try it!</p>
+</span></span></code></pre></div><p>Let&rsquo;s test this.</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-py" data-lang="py"><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">expr.nodes</span> <span class="kn">import</span> <span class="n">Variable</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="n">X</span> <span class="o">=</span> <span class="n">Variable</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Variable(index=0)</span>
 </span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">X</span> <span class="o">+</span> <span class="n">X</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># BinaryOperation(operator=&lt;add&gt;, left=Variable(index=0), right=Variable(index=0))</span>
 </span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">X</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># BinaryOperation(operator=&lt;sub&gt;, left=Variable(index=0), right=Constant(constant=1))</span>
 </span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">X</span> <span class="o">*</span> <span class="p">(</span><span class="n">X</span> <span class="o">-</span> <span class="mi">1</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># BinaryOperation(operator=&lt;mul&gt;, left=Variable(index=0), right=BinaryOperation(operator=&lt;sub&gt;, left=Variable(index=0), right=Constant(constant=1)))</span>
 </span></span></code></pre></div><p>We are halfway there!</p>
 <h3 id="interpretation">Interpretation</h3>
 <p>Now that have our AST, it&rsquo;s time to do something useful with it. If we were to evaluate the tree, we start with the leaf, then go up, calculating the value for each subtree, until we have the value of the whole tree.
