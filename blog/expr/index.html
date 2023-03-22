@@ -6,8 +6,7 @@
 		<meta name="generator" content="Hugo 0.110.0">
 		<title>Building an auto-differentiator and re-inventing lambdas in Python - Amish Kumar Naidu</title>
 
-		<meta name="description" content="Let&rsquo;s start with a teaser!
-from expr import * native_lambda = lambda x: x * (x - 1) magic_lambda = X * (X - 1) print(native_lambda(7)) # 42 print(magic_lambda(7)) # 42 print(magic_lambda(7, evaluator=Differentiator())) # x * (x - 1) = x * x - x # Derivate = 2*x - 1 # 13 You may have seen this magic if you&rsquo;ve used a machine-learning framework like TensorFlow, which provide an auto-gradient feature for any tensor expressions you build.">
+		<meta name="description" content="We discuss a technique that can be used to build lazy operations in python and augment them with abilities like auto-differentiation! This has several applications, aside from being a curious way to re-invent lambdas. Laziness can help algebra libraries avoid intermediate results in a big expression and thus improve efficiency by avoiding unnecessary allocations. This is also widely used in machine-learning frameworks like TensorFlow or PyTorch, that let you build deep tensor expressions and magically take care of backpropagation.">
 
 
 		
@@ -80,7 +79,8 @@ from expr import * native_lambda = lambda x: x * (x - 1) magic_lambda = X * (X -
 </hgroup><hr class="sep" />
 
 </header>
-	<p>Let&rsquo;s start with a teaser!</p>
+	<p>We discuss a technique that can be used to build lazy operations in python and augment them with abilities like auto-differentiation! This has several applications, aside from being a curious way to re-invent lambdas. Laziness can help algebra libraries avoid intermediate results in a big expression and thus improve efficiency by avoiding unnecessary allocations. This is also widely used in machine-learning frameworks like TensorFlow or PyTorch, that let you build deep tensor expressions and magically take care of backpropagation. Numpy also does something similar where it lets you build an expression to index into a numpy array.</p>
+<p>Here&rsquo;s a teaser!</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-py" data-lang="py"><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">expr</span> <span class="kn">import</span> <span class="o">*</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="n">native_lambda</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span> <span class="o">*</span> <span class="p">(</span><span class="n">x</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
@@ -94,8 +94,7 @@ from expr import * native_lambda = lambda x: x * (x - 1) magic_lambda = X * (X -
 </span></span><span class="line"><span class="cl"><span class="c1"># x * (x - 1) = x * x - x</span>
 </span></span><span class="line"><span class="cl"><span class="c1"># Derivate = 2*x - 1</span>
 </span></span><span class="line"><span class="cl"><span class="c1"># 13</span>
-</span></span></code></pre></div><p>You may have seen this magic if you&rsquo;ve used a machine-learning framework like TensorFlow, which provide an auto-gradient feature for any tensor expressions you build. We discuss a technique that can be used to build lazy operations in python. Laziness also help algebra libraries to avoid intermediate results in a big expression to avoid unnecessary allocations and peform other optimizations.</p>
-<p>In the simplest sense, we build an expression interpreter. We can break down the process of evaluating an expression to two steps:</p>
+</span></span></code></pre></div><p>In the simplest sense, we build an expression interpreter. We can break down the process of evaluating an expression to two steps:</p>
 <ul>
 <li>Parsing - convert input characters to an internal <em>representation</em></li>
 <li>Interpretation - <em>interpret</em> the above representation to produce a value</li>

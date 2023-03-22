@@ -39,8 +39,7 @@ Super Mario Bros. Contra/Projects Adventure Island Ninja Gaiden Wrecking Crew Me
       <pubDate>Sat, 18 Mar 2023 00:00:00 +0000</pubDate>
       
       <guid>https://amish.naidu.dev/blog/expr/</guid>
-      <description>Let&amp;rsquo;s start with a teaser!
-from expr import * native_lambda = lambda x: x * (x - 1) magic_lambda = X * (X - 1) print(native_lambda(7)) # 42 print(magic_lambda(7)) # 42 print(magic_lambda(7, evaluator=Differentiator())) # x * (x - 1) = x * x - x # Derivate = 2*x - 1 # 13 You may have seen this magic if you&amp;rsquo;ve used a machine-learning framework like TensorFlow, which provide an auto-gradient feature for any tensor expressions you build.</description>
+      <description>We discuss a technique that can be used to build lazy operations in python and augment them with abilities like auto-differentiation! This has several applications, aside from being a curious way to re-invent lambdas. Laziness can help algebra libraries avoid intermediate results in a big expression and thus improve efficiency by avoiding unnecessary allocations. This is also widely used in machine-learning frameworks like TensorFlow or PyTorch, that let you build deep tensor expressions and magically take care of backpropagation.</description>
     </item>
     
     <item>
