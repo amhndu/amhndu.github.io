@@ -3,10 +3,11 @@
 	<head>
 		<meta charset="utf-8"/>
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-		<meta name="generator" content="Hugo 0.110.0">
+		<meta name="generator" content="Hugo 0.111.3">
 		<title>Building an auto-differentiator and re-inventing lambdas in Python - Amish Kumar Naidu</title>
 
-		<meta name="description" content="We discuss a technique that can be used to build lazy operations in python and augment them with abilities like auto-differentiation! This has several applications, aside from being a curious way to re-invent lambdas. Laziness can help algebra libraries avoid intermediate results in a big expression and thus improve efficiency by avoiding unnecessary allocations. This is also widely used in machine-learning frameworks like TensorFlow or PyTorch, that let you build deep tensor expressions and magically take care of backpropagation.">
+		<meta name="description" content="This post explores a set of techniques that can be used to build lazy operations in python and build an auto-differentiator using a flexible interpreter framework.
+This has several applications, aside from being a curious way to re-invent lambdas, laziness can help algebra libraries avoid intermediate results in a big expression and improve efficiency by avoiding unnecessary allocations. This is also widely used in machine-learning frameworks like TensorFlow or PyTorch, that let you build deep tensor expressions and magically take care of backpropagation.">
 
 
 		
@@ -79,7 +80,8 @@
 </hgroup><hr class="sep" />
 
 </header>
-	<p>We discuss a technique that can be used to build lazy operations in python and augment them with abilities like auto-differentiation! This has several applications, aside from being a curious way to re-invent lambdas. Laziness can help algebra libraries avoid intermediate results in a big expression and thus improve efficiency by avoiding unnecessary allocations. This is also widely used in machine-learning frameworks like TensorFlow or PyTorch, that let you build deep tensor expressions and magically take care of backpropagation. Numpy also does something similar where it lets you build an expression to index into a numpy array.</p>
+	<p>This post explores a set of techniques that can be used to build lazy operations in python and build an auto-differentiator using a flexible interpreter framework.</p>
+<p>This has several applications, aside from being a curious way to re-invent lambdas, laziness can help algebra libraries avoid intermediate results in a big expression and improve efficiency by avoiding unnecessary allocations. This is also widely used in machine-learning frameworks like TensorFlow or PyTorch, that let you build deep tensor expressions and magically take care of backpropagation. Numpy also does something similar where it lets you build an expression to index into a numpy array.</p>
 <p>Here&rsquo;s a teaser!</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-py" data-lang="py"><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">expr</span> <span class="kn">import</span> <span class="o">*</span>
 </span></span><span class="line"><span class="cl">
@@ -94,16 +96,17 @@
 </span></span><span class="line"><span class="cl"><span class="c1"># x * (x - 1) = x * x - x</span>
 </span></span><span class="line"><span class="cl"><span class="c1"># Derivate = 2*x - 1</span>
 </span></span><span class="line"><span class="cl"><span class="c1"># 13</span>
-</span></span></code></pre></div><p>In the simplest sense, we build an expression interpreter. We can break down the process of evaluating an expression to two steps:</p>
+</span></span></code></pre></div><p>In the simplest sense, the goal is to build an expression interpreter. The process of evaluating an expression can be broken down into two steps:</p>
 <ul>
 <li>Parsing - convert input characters to an internal <em>representation</em></li>
 <li>Interpretation - <em>interpret</em> the above representation to produce a value</li>
 </ul>
-<h3 id="representation">Representation</h3>
-<p>Parsers (like in a compiler) convert characters to an internal representation, generally the Parse Tree or an <a href="https://en.wikipedia.org/wiki/Abstract_syntax_tree">Abstract Syntax Tree</a>.</p>
-<p>Consider an expression <code>x * (x - 1)</code> made up of: the constant <code>1</code>, the variable <code>x</code> and some binary operations on them. We can represent this as an expression tree, which is much easier to use in algorithms.</p>
+<h2 id="representation">Representation</h2>
+<p>Consider an expression: <code>x * (x - 1)</code></p>
+<p>We can break this into two sub-expressions, the inner <code>x - 1</code> and an outer <code>x * (y)</code> where <code>(y)</code> is the result/representation of the aforementioned inner expression. The binary operation <code>x - 1</code> can be further broken down into <code>x</code> (a variable) and <code>1</code> (a constant), both are just simpler expressions themselves. Notice how each binary operation is just composed of other expressions. Given this recursive nature, trees prove to be an efficient and convenient data structure, allowing arbitrary flexibility.</p>
+<p>Such trees are called Parse Tree or an <a href="https://en.wikipedia.org/wiki/Abstract_syntax_tree">Abstract Syntax Tree</a> and are emitted by <a href="https://en.wikipedia.org/wiki/Parsing">parsers</a> given a textual representation. The above expression can be visualized as follows:</p>
 <p><img src="expr-tree.png" alt="expr-tree.png"></p>
-<p>The variable and constants become the leaves, and operations allows us to compose the nodes. Let&rsquo;s define the expression tree:</p>
+<p>The tree is composed of a bunch of different types of nodes, which we represent using a base type:</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-py" data-lang="py"><span class="line"><span class="cl"><span class="c1"># expr/nodes.py</span>
 </span></span><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">abc</span> <span class="kn">import</span> <span class="n">ABC</span><span class="p">,</span> <span class="n">abstractmethod</span>
 </span></span><span class="line"><span class="cl">
@@ -111,8 +114,8 @@
 </span></span><span class="line"><span class="cl">    <span class="s2">&#34;&#34;&#34;
 </span></span></span><span class="line"><span class="cl"><span class="s2">        Base class of the AST
 </span></span></span><span class="line"><span class="cl"><span class="s2">    &#34;&#34;&#34;</span>
-</span></span></code></pre></div><p><code>Node</code> serves as the <a href="https://docs.python.org/3/library/abc.html">Abstract Base Class</a> of the tree nodes. Looks rather empty now, but we&rsquo;ll be extending it soon.</p>
-<p>Let&rsquo;s add the concrete nodes:</p>
+</span></span></code></pre></div><p><code>Node</code> here serves as the <a href="https://docs.python.org/3/library/abc.html">Abstract Base Class</a> and encapsulates a <em>computation</em>. Looks rather empty now, but we&rsquo;ll be extending it soon.</p>
+<p>Let&rsquo;s add some concrete nodes for the different types of compuations we want to support:</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-py" data-lang="py"><span class="line"><span class="cl"><span class="c1"># expr/nodes.py</span>
 </span></span><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">dataclasses</span> <span class="kn">import</span> <span class="n">dataclass</span>
 </span></span><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Callable</span>
@@ -141,10 +144,14 @@
 </span></span><span class="line"><span class="cl">    <span class="n">operator</span><span class="p">:</span> <span class="n">Callable</span><span class="p">[[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">],</span> <span class="nb">float</span><span class="p">]</span>
 </span></span><span class="line"><span class="cl">    <span class="n">left</span><span class="p">:</span> <span class="n">Node</span>
 </span></span><span class="line"><span class="cl">    <span class="n">right</span><span class="p">:</span> <span class="n">Node</span>
-</span></span></code></pre></div><p>We make use of <a href="https://docs.python.org/3/library/dataclasses.html">dataclasses</a> to free us from some boilerplate. Note how <code>BinaryOperation</code> contains two arbitrary nodes, this allows to represent any expressions built using binary operations with an arbitrary depth.</p>
-<p>If we were building a compiler, we&rsquo;d have the job of building a full parser that reads characters and creates the syntax tree, thankfully, we are not. We are working in the confines of Python, we can leverage it&rsquo;s features.</p>
-<p>Consider the python expression <code>x + 1</code> - the interpreter invokes the <code>add</code> <a href="https://docs.python.org/3/reference/datamodel.html#object.__add__">dunder method</a> of the first operand to evaluate it. Note that the language doesn&rsquo;t impose any constraint on what should be returned. Instead of just returning a numerical value, we can return an object that encapsulates the operation and can be evaluated lazily. We will use operator overloading to create the expression tree.</p>
-<p>Let&rsquo;s add this to our base <code>Node</code> class. We&rsquo;ll start simple and support just addition, subtraction and multiplication. You are of course free to extend this later (eg. with power, or division operation)!</p>
+</span></span></code></pre></div><p>We make use of <a href="https://docs.python.org/3/library/dataclasses.html">dataclasses</a> to free us from some python boilerplate.</p>
+<p>We have the data structure, now how do we build it? If we were building a compiler, we&rsquo;d have the job of building a full parser that reads characters and creates the syntax tree using something like a <a href="https://web.mit.edu/6.005/www/fa15/classes/18-parser-generators/">parser generator</a> or writing an <a href="https://en.wikipedia.org/wiki/Recursive_descent_parser">RDP</a>. Thankfully, we can leverage the Python runtime and use operator overloading to do the magic.</p>
+<h4 id="operator-overloading">Operator overloading</h4>
+<p>When you use a binary operation in python, let&rsquo;s say</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-py" data-lang="py"><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="mi">42</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+</span></span></code></pre></div><p>Python knows how to compute <code>42 + 1</code> since these are integers. What if we are working with custom objects? Python let&rsquo;s you define how to compute <code>my_special_object + my_other_object</code> using <a href="https://en.wikipedia.org/wiki/Operator_overloading">operator overloading</a>. The interpreter invokes the <code>add</code> <a href="https://docs.python.org/3/reference/datamodel.html#object.__add__">dunder method</a> of the first operand.</p>
+<p>Overloading is usually used to work with <em>values</em>, however, we want to deal not with <em>values</em> but <em>expressions</em>. Our expressions are themselves <em>objects</em>, and there is no rule saying operator overloading can only return numbers or values! We will use operator overloading to build the expression using operations on <code>Node</code>s.</p>
+<p>We&rsquo;ll start simple and support just addition, subtraction and multiplication. You are of course free to extend this later (eg. with power, or division operation)!</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-py" data-lang="py"><span class="line"><span class="cl"><span class="c1"># expr/nodes.py</span>
 </span></span><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">operator</span> <span class="kn">import</span> <span class="n">add</span><span class="p">,</span> <span class="n">sub</span><span class="p">,</span> <span class="n">mul</span>
 </span></span><span class="line"><span class="cl">
@@ -180,13 +187,14 @@
 </span></span><span class="line"><span class="cl"><span class="c1"># BinaryOperation(operator=&lt;sub&gt;, left=Variable(index=0), right=Constant(constant=1))</span>
 </span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">X</span> <span class="o">*</span> <span class="p">(</span><span class="n">X</span> <span class="o">-</span> <span class="mi">1</span><span class="p">))</span>
 </span></span><span class="line"><span class="cl"><span class="c1"># BinaryOperation(operator=&lt;mul&gt;, left=Variable(index=0), right=BinaryOperation(operator=&lt;sub&gt;, left=Variable(index=0), right=Constant(constant=1)))</span>
-</span></span></code></pre></div><p>We are halfway there!</p>
-<h3 id="interpretation">Interpretation</h3>
-<p>Now that have our AST, it&rsquo;s time to do something useful with it. If we were to evaluate the tree, we start with the leaf, then go up, calculating the value for each subtree, until we have the value of the whole tree.
+</span></span></code></pre></div><h2 id="interpretation">Interpretation</h2>
+<p>Now that have our AST, it&rsquo;s time we do something useful with it. To evaluate the tree, we start with the leaf, then work our way up, calculating the value for each subtree, until we have the value of the whole tree.
 <img src="expr-interpret.png" alt="expr-interpret.png"></p>
-<p>This looks like a depth-first traversal. However, unlike regular depth first search, the value of the different nodes are calculated differently. The simplest way to support is to simply add a method like <code>value(self) -&gt; float</code> to our nodes and use Python&rsquo;s inheritance based polymorphism. What if you want to add a new type of traversal that calculates a different value? What if we want to add a tree printer? We would have to go back and extend the interface with an extra method, then add it to each node. If the different types of traversals are somewhat limited, this is a reasonable solution. However, it splits the logic into several places. So if were to implement a differentiator, we have to touch a bunch of different classes.
-Wouldn&rsquo;t it be better if we can group this logic based on the different type of traversal, rather than the type of node? This is the principle of high <a href="https://en.wikipedia.org/wiki/Cohesion_(computer_science)">cohesion</a> and low <a href="https://en.wikipedia.org/wiki/Coupling_(computer_programming)">coupling</a>.</p>
-<p><a href="https://en.wikipedia.org/wiki/Visitor_pattern">Visitor pattern</a> to the resuce! This allows us to build different visitors, and each visitor contains all logic for a given type of traversal, without spilling responsibilities. The visitor interface has a separate method to <em>visit</em> each node.</p>
+<p>This looks like a depth-first traversal. However, to implement this, we need to calcualte the value of a depending on what <em>type</em> of node it is. A natural solution is to simply add a method <code>value(self) -&gt; float</code> to our <code>Node</code> and have each node implement it differently, this is <a href="https://en.wikipedia.org/wiki/Dynamic_dispatch">dynamic dispatch</a> and could work well for us basic use-case.</p>
+<p>What if you want to add a new type of traversal that computes a different value? What if we want to add a tree printer? We would keep using basic polymorphism and and extend the <code>Node</code> interface with an extra method for each type of traversal. If the different types of traversals are somewhat limited, this is a reasonable solution. However, doing so splits the logic of a traversal into several places. So if were to implement a differentiator, we have to touch the base node interface, then each concrete nodes.</p>
+<p>If we go with the above appraoch, a single node would be a collection of different methods that have nothing to with each other and have low <em>coupling</em>. Wouldn&rsquo;t it be better if we can group this logic based on the different types of traversal, rather than the type of node? See also: the principle of <em>high <a href="https://en.wikipedia.org/wiki/Cohesion_(computer_science)">cohesion</a> and low <a href="https://en.wikipedia.org/wiki/Coupling_(computer_programming)">coupling</a></em>.</p>
+<p>What we want is a way to dispatch based on not just the type of node, but also the kind of traversal. This is called <a href="https://en.wikipedia.org/wiki/Multiple_dispatch">multiple dispatch</a> and some languages directly support it. Python and most non-functional languages don&rsquo;t.</p>
+<p><a href="https://en.wikipedia.org/wiki/Visitor_pattern">Visitor pattern</a> to the resuce! The idea is to build different visitors, and each visitor will contain all logic for a given type of traversal, without spilling <em>responsibilities</em>. The visitor interface has a separate method to visit each node.</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-py" data-lang="py"><span class="line"><span class="cl"><span class="c1"># expr/visitor.py</span>
 </span></span><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">expr.nodes</span> <span class="kn">import</span> <span class="n">Node</span><span class="p">,</span> <span class="n">Constant</span><span class="p">,</span> <span class="n">Variable</span><span class="p">,</span> <span class="n">BinaryOperation</span>
 </span></span><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">abc</span> <span class="kn">import</span> <span class="n">ABC</span><span class="p">,</span> <span class="n">abstractmethod</span>
@@ -207,7 +215,7 @@ Wouldn&rsquo;t it be better if we can group this logic based on the different ty
 </span></span><span class="line"><span class="cl">    <span class="nd">@abstractmethod</span>
 </span></span><span class="line"><span class="cl">    <span class="k">def</span> <span class="nf">visit_binary_operation</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">node</span><span class="p">:</span> <span class="n">BinaryOperation</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">):</span>
 </span></span><span class="line"><span class="cl">        <span class="k">raise</span> <span class="ne">NotImplementedError</span>
-</span></span></code></pre></div><p>The node interface is still used to dispatch on the type of node, however, it simply delegates to the right visit method in the visitor. We add an abstract method that accepts the visitor as an argument to our base Node, and the concrete Node will call the appropriate visit method.</p>
+</span></span></code></pre></div><p>To make this work, we add an abstract method to the <code>Node</code> base class which will be implemented by each node, and will appropriately delegate to the right visit method of the visitor. This abstract method that accepts the visitor as an argument.</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-py" data-lang="py"><span class="line"><span class="cl"><span class="c1"># expr.node.py</span>
 </span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">Node</span><span class="p">(</span><span class="n">ABC</span><span class="p">):</span>
 </span></span><span class="line"><span class="cl">    <span class="s2">&#34;&#34;&#34;
@@ -297,11 +305,13 @@ It&rsquo;s a straightforward implementation:</p>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">    <span class="k">def</span> <span class="nf">visit_binary_operation</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">node</span><span class="p">:</span> <span class="n">BinaryOperation</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
 </span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="n">node</span><span class="o">.</span><span class="n">operator</span> <span class="o">==</span> <span class="n">add</span> <span class="ow">or</span> <span class="n">node</span><span class="o">.</span><span class="n">operator</span> <span class="o">==</span> <span class="n">sub</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">            <span class="c1"># sum rule</span>
 </span></span><span class="line"><span class="cl">            <span class="n">left_value</span> <span class="o">=</span> <span class="n">node</span><span class="o">.</span><span class="n">left</span><span class="o">.</span><span class="n">calculate</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="n">visitor</span><span class="o">=</span><span class="bp">self</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">            <span class="n">right_value</span> <span class="o">=</span> <span class="n">node</span><span class="o">.</span><span class="n">right</span><span class="o">.</span><span class="n">calculate</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="n">visitor</span><span class="o">=</span><span class="bp">self</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">            <span class="k">return</span> <span class="n">node</span><span class="o">.</span><span class="n">operator</span><span class="p">(</span><span class="n">left_value</span><span class="p">,</span> <span class="n">right_value</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">        <span class="k">elif</span> <span class="n">node</span><span class="o">.</span><span class="n">operator</span> <span class="o">==</span> <span class="n">mul</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">            <span class="c1"># product rule and chain rule</span>
 </span></span><span class="line"><span class="cl">            <span class="n">left_value</span> <span class="o">=</span> <span class="n">node</span><span class="o">.</span><span class="n">left</span><span class="o">.</span><span class="n">calculate</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="n">visitor</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">value_visitor</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">            <span class="n">left_derivate</span> <span class="o">=</span> <span class="n">node</span><span class="o">.</span><span class="n">left</span><span class="o">.</span><span class="n">calculate</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="n">visitor</span><span class="o">=</span><span class="bp">self</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">            <span class="n">right_value</span> <span class="o">=</span> <span class="n">node</span><span class="o">.</span><span class="n">right</span><span class="o">.</span><span class="n">calculate</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="n">visitor</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">value_visitor</span><span class="p">)</span>

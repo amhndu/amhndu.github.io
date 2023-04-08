@@ -13,7 +13,8 @@
       <pubDate>Sat, 18 Mar 2023 00:00:00 +0000</pubDate>
       
       <guid>https://amish.naidu.dev/blog/expr/</guid>
-      <description>We discuss a technique that can be used to build lazy operations in python and augment them with abilities like auto-differentiation! This has several applications, aside from being a curious way to re-invent lambdas. Laziness can help algebra libraries avoid intermediate results in a big expression and thus improve efficiency by avoiding unnecessary allocations. This is also widely used in machine-learning frameworks like TensorFlow or PyTorch, that let you build deep tensor expressions and magically take care of backpropagation.</description>
+      <description>This post explores a set of techniques that can be used to build lazy operations in python and build an auto-differentiator using a flexible interpreter framework.
+This has several applications, aside from being a curious way to re-invent lambdas, laziness can help algebra libraries avoid intermediate results in a big expression and improve efficiency by avoiding unnecessary allocations. This is also widely used in machine-learning frameworks like TensorFlow or PyTorch, that let you build deep tensor expressions and magically take care of backpropagation.</description>
     </item>
     
     <item>
